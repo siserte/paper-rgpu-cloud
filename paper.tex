@@ -49,7 +49,7 @@ appropriately modified.
 \subsection{The rCUDA Framework}
 \label{sec:rcuda}
 
-\rcuda~\cite{tonithesis,toniparco} is a middleware that enables transparent access
+{rCUDA}~\cite{tonithesis,toniparco} is a middleware that enables transparent access
 to any NVIDIA GPU device present in a cluster from all compute
 nodes. The GPUs can be accessed and shared between nodes, and a single node can use all these graphic accelerators
 as if they were local.
@@ -61,15 +61,15 @@ acceleration services is executed, providing a transparent replacement for the
 native CUDA libraries. Furthermore, the server middleware is executed in the
 cluster nodes from which the actual GPUs provide the requested GPGPU service.
 To support a concurrent scenario where GPUs are shared between
-processes\slash nodes, \rcuda\ manages separate device contexts for
+processes\slash nodes, {rCUDA} manages separate device contexts for
 each client application.
 
-The \rcuda\ 5.0 client exposes the same interface as the regular NVIDIA
+The {rCUDA} 5.0 client exposes the same interface as the regular NVIDIA
 CUDA 6.5 release~\cite{cuda65}, including the runtime and driver
 APIs as well as other commonly used libraries such as cuBLAS, cuFFT, cuSparse or cuRand.
 Therefore, applications are not aware of the fact that they are being executed
 on top of a virtualization layer.
-With the aim to be updated with new GPU programming models, \rcuda also supports
+With the aim to be updated with new GPU programming models, {rCUDA} also supports
 directive-based models such as OmpSS~\cite{repara15} and OpenACC~\{cluster15}.
 
 The integration of remote GPGPU virtualization with global
