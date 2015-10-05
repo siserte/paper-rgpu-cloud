@@ -103,10 +103,84 @@ resource schedulers such as SLURM~\cite{sbacpad14} completes this powerful
 technology, making accelerator-enabled clusters more flexible and
 energy efficient.
 
-\subsection{Manuscript Setup}
 
+\section{GPGPU Service for OpenStack}
+\subsection{Managing remote GPUs with OpenStack}
+The main idea of this project is to reach a solution that drive us to an scenario pretty similar the one that could be seen in Figure~\ref{fig:external}, where a new shared service takes part in to the OpenStack Architecure.
+This new service is in charge of GPGPU computation, bringing more flexibility when it comes to GPUs.
+As it is shown in Figure~\ref{fig:internal}, we have altered the original Dashboard with a new parser, 
+which split the HTTP query in order to make use of both, the GPGPU API for everything related to GPUs, and the nova API for the rest of the computation. 
+Thanks to this modular approach, the Compute Module has not been modified, which led into an easily portability to other Cloud Computing environments.
 
-\subsection{Page Setup}
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{images/os1.jpg}
+  \caption{Openstack with our GPGPU Service}
+  \label{fig:external}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=.9\linewidth]{images/os2.png}
+  \caption{Internal Communication among modules}
+  \label{fig:internal}
+\end{figure}
+
+\subsection{Development}
+We have developed an independent module that can be seen as a new shared service in the OpenStack Architecture (see Figure~\ref{fig1}).
+
+Thus, we have provided OpenStack with a new parser, which splits the HTTP query in order to make use of both, the GPGPU API for everything related to GPUs, and the nova API for the rest of the computation. 
+Thanks to this modular approach, the Nova Project has not been modified and the tool could be easily ported to other Cloud Computing solutions.
+
+The new GPGPU Service has brought a new feature when it comes to GPUs, from now on, we can create ``GPU-pools''. A ``GPU-pool'' is a set of independent GPUs (logically disattached from the nodes) that can be assigned to one or more instances.
+
+Furthermore, we have extended the user interface (Horizon Project), in order to deal with the new features.
+First of all, the Instance Launch Panel has been provided with a new field, where the user can assign a existent GPU pool, create a new one or leave the instance without accelerators of this kind.
+As soon as the option ``New GPU Pool'' has been chosen, will appear the proper fields for the pool configuration.
+Finally, with the purpose of being aware of the devices status, a new panel has been added with all the information regarding the GPUs.
+
+\subsection{Working Modes}
+The developed module will allow the users to create any of the following scenarios (see Figure~\ref{fig2}). 
+The users are given two configuration options to decide whether a physical GPU will be completely allocated for an instance (first column) or the instance will address a partition of the GPU as if it were a device (second column).
+We refer to this as the ``mode'' and the possible values for this parameter are: ``exclusive'' or ``shared''. 
+Let us suppose to have 4 GPU devices in the cluster (no matter where they were hosted, neither if they were in the same server). 
+A well illustrated example of those scenarios can be seen in the first row of the  Figure~\ref{fig2}.
+So, while in ``exclusive'' mode the instance is monopolising all the GPUs, in the ``shared'' mode the GPUs have been partitioned. 
+As a result of halving the GPU memory of the accelerators, the instance will be able to work with up to 8 GPUs.
+
+Moreover, the users are also responsible for deciding whether a GPU (or a pool) will be assigned to other instances. 
+This behaviour is refereed as ``scope'' and determines that a group of instances is logically connected to a pool of GPUs.
+Working with ``public scope'' (second row of Figure~\ref{fig2}) means that the GPUs of a pool can be used simultaneously by all the instances linked to it.
+Again, the GPU pool can be made of ``exclusive'' GPUs or ``shared''.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=.5\textwidth]{images/workingmodes.jpg}
+  \caption{Examples of working modes}
+  \label{fig2}
+\end{figure}
+
+\subsection{User Interface}
+Several modifications have been planned in the OpenStack Dashboard in order to deal with the new features.
+First of all, the Instance Launch Panel has been provided with a new field, where the user can assign a existent GPU pool, create a new one or leave the instance without accelerators of this kind.
+As soon as the option ``New GPU Pool'' has been chosen, will appear the proper fields for the pool configuration (see Subfigure~\ref{fig:ui-launch}).
+Furthermore, a new panel with the existent GPUs has been added to the Interface (see Subfigure~\ref{fig:ui-rgpus}), where all the information of the GPUs is displayed.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=.9\linewidth]{images/UI-launch.pdf}
+  \caption{Launching Instances and assigning GPUs}
+  \label{fig:ui-launch}
+\end{figure}
+  
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=.85\linewidth]{images/UI-rgpus.pdf}
+  \caption{GPU Information Panel}
+  \label{fig:ui-rgpus}
+\end{figure}
+
+\subsection{Experimental Results}
 
 
 \section*{\uppercase{Acknowledgements}}
