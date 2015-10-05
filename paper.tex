@@ -24,23 +24,51 @@
 \affiliation{Department of Computer Science and Engineering\\Universitat Jaume I - Castell\'o de la Plana, Spain}
 \email{\{siserte, fclement, adcastel, mayo, quintana\}@uji.es}}
 
-\keywords{The paper must have at least one keyword. The text must be set to 9-point font size and without the use of bold or italic font style. For more than one keyword, please use a comma as a separator. Keywords must be titlecased.}
+\keywords{Cloud Computing, GPU Virtualization, Resource Management}
 
-\abstract{The abstract should summarize the contents of the paper and should contain at least 70 and at most 200 words. The text must be set to 9-point font size.}
+\abstract{The popularity of the GPGPU computation has led several cloud vendors to provide instances of virtual machines with GPUs. 
+So that, the guest hosts must be equipped with GPUs which could be barely utilized if no GPU-enabled VM  is running in the host.
+The solution presented here is based on GPU virtualization and shareability in order to reach an equilibrium between supply and demand of accelerators from the users. 
+Hence, we propose to access any GPU from any VM getting rid of the necessity of having physical GPUs in the guest host. 
+Finally, our project goes further and it takes into account that by making logical partitions of the GPU memory we could address each partition as if it was an independent GPU device.}
 
 \onecolumn \maketitle \normalsize \vfill
 
 \section{\uppercase{Introduction}}
 \label{sec:introduction}
 
-\noindent Your paper will be part of the conference proceedings
-therefore we ask that authors follow the guidelines explained in
-this example in order to achieve the highest quality possible
-\cite{Smith98}.
-
-Be advised that papers in a technically unsuitable form will be
-returned for retyping. After returned the manuscript must be
-appropriately modified.
+\noindent 
+Nowadays, to provide a virtual machine with GPUs means
+that the guest host must be equipped with at least 1 GPU, and
+once it has been assigned to an instance, no other VM can use
+it. Depending on the users’ necessities, two approaches to introduce GPGPU computation in the cluster can be determined:
+the conservative, to have a lot of hosts with GPUs to be
+ensured that you are likely to satisfy all the requests; or a
+more daring approach, where you will count with some GPU-
+enabled nodes hoping not to arrive a large burst of requests
+so the cluster would run out of GPU resources. Our solutions
+is based on GPU virtualization and sharing resources in order
+to reach a fair balance between supply and demand.
+Several attempts of achieving what we are pursing have been
+made, but none of them are so ambitious as our project. On
+the one hand the work done in [1] allows the VM managed
+by the hypervisor Xen to access the GPUs in the physical
+node. With the implied limitations of restricting the nodes not
+to use more GPUs than the hosted in the machine and not
+to share idle GPUs to other machines. The solution presented
+by the project gVirtus [2] does virtualize GPUs and make
+them accessible for any VM in the cluster. However, this kind
+of virtualization strongly depends on the hypervisor used, so
+does its performance. Another similar solution is presented in
+[3] by the name of gCloud. This one continues without being
+integrated in a Cloud Computing Manager, though its main
+drawback is that the code of the applications must be modified
+in order to be run in their virtual-GPU environment. On the
+other hand, the work exposed in [4] is more mature, however,
+it is only focussed on compute intensive HPC applications.
+The main idea of our proposal goes further and apart from
+bringing solutions for all kind of HPC applications, it is aimed
+to boost the cluster flexibility in the use of GPUs.
 
 \section{\uppercase{Background}}
 \label{sec:background}
