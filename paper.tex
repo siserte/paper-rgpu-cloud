@@ -38,37 +38,7 @@ Finally, our project goes further and it takes into account that by making logic
 \label{sec:introduction}
 
 \noindent 
-Nowadays, to provide a virtual machine with GPUs means
-that the guest host must be equipped with at least 1 GPU, and
-once it has been assigned to an instance, no other VM can use
-it. Depending on the users’ necessities, two approaches to introduce GPGPU computation in the cluster can be determined:
-the conservative, to have a lot of hosts with GPUs to be
-ensured that you are likely to satisfy all the requests; or a
-more daring approach, where you will count with some GPU-
-enabled nodes hoping not to arrive a large burst of requests
-so the cluster would run out of GPU resources. Our solutions
-is based on GPU virtualization and sharing resources in order
-to reach a fair balance between supply and demand.
-Several attempts of achieving what we are pursing have been
-made, but none of them are so ambitious as our project. On
-the one hand the work done in [1] allows the VM managed
-by the hypervisor Xen to access the GPUs in the physical
-node. With the implied limitations of restricting the nodes not
-to use more GPUs than the hosted in the machine and not
-to share idle GPUs to other machines. The solution presented
-by the project gVirtus [2] does virtualize GPUs and make
-them accessible for any VM in the cluster. However, this kind
-of virtualization strongly depends on the hypervisor used, so
-does its performance. Another similar solution is presented in
-[3] by the name of gCloud. This one continues without being
-integrated in a Cloud Computing Manager, though its main
-drawback is that the code of the applications must be modified
-in order to be run in their virtual-GPU environment. On the
-other hand, the work exposed in [4] is more mature, however,
-it is only focussed on compute intensive HPC applications.
-The main idea of our proposal goes further and apart from
-bringing solutions for all kind of HPC applications, it is aimed
-to boost the cluster flexibility in the use of GPUs.
+
 
 \section{\uppercase{Background}}
 \label{sec:background}
@@ -125,6 +95,38 @@ are common resources used in this research field.
 
 \section{Motivation}
 \label{sec:motivation}
+Nowadays, to provide a virtual machine with GPUs means
+that the guest host must be equipped with at least a GPU, and
+once it has been assigned to an instance, no other VM can use
+it. Depending on the users’ necessities, two approaches to introduce GPGPU computation in the cluster can be determined:
+the conservative, to have a lot of hosts with GPUs to be
+ensured that you are likely to satisfy all the requests; or a
+more daring approach, where you will count with some GPU-
+enabled nodes hoping not to arrive a large burst of requests
+so the cluster would run out of GPU resources. 
+
+Our solutions
+is based on GPU virtualization and sharing resources in order
+to reach a fair balance between supply and demand.
+Several attempts of achieving what we are pursing have been
+made, but none of them are so ambitious as our project. On
+the one hand the work done in~\cite{younge2013enabling} allows the VM managed
+by the hypervisor Xen to access the GPUs in the physical
+node. With the implied limitations of restricting the nodes not
+to use more GPUs than the hosted in the machine and not
+to share idle GPUs to other machines. The solution presented
+by the project gVirtus~\cite{giunta2010gpgpu} does virtualize GPUs and make
+them accessible for any VM in the cluster. However, this kind
+of virtualization strongly depends on the hypervisor used, so
+does its performance. Another similar solution is presented in~\cite{diab2013dynamic} by the name of gCloud. This one continues without being
+integrated in a Cloud Computing Manager, though its main
+drawback is that the code of the applications must be modified
+in order to be run in their virtual-GPU environment. On the
+other hand, the work exposed in~\cite{jungpgpu} is more mature, however,
+it is only focussed on compute intensive HPC applications.
+The main idea of our proposal goes further and apart from
+bringing solutions for all kind of HPC applications, it is aimed
+to boost the cluster flexibility in the use of GPUs.
 
 \begin{itemize}
 \item Actual estado de las tecnolog\'ias de cloud
@@ -144,11 +146,13 @@ are common resources used in this research field.
 
 \section{GPGPU Service for OpenStack}
 \subsection{Managing remote GPUs with OpenStack}
-The main idea of this project is to reach a solution that drive us to an scenario pretty similar the one that could be seen in Figure~\ref{fig:external}, where a new shared service takes part into the OpenStack Architecure.
+Our contribution reaches a solution that drive us to a scenario pretty similar the one that could be seen in Figure~\ref{fig:external}, where a new shared service takes part into the OpenStack Architecure.
 This new service is in charge of GPGPU computation, bringing more flexibility when it comes to GPUs.
-As it is shown in Figure~\ref{fig:internal}, we have altered the original Dashboard with a new parser, 
+As it is shown in Figure~\ref{fig:internal}, we have altered the OpenStack original Dashboard with a new parser, 
 which split the HTTP query in order to make use of both, the GPGPU API for everything related to GPUs, and the nova API for the rest of the computation. 
-Thanks to this modular approach, the Compute Module has not been modified, which led into an easily portability to other Cloud Computing environments.
+The new GPGPU Service has brought a new feature which brings more flexibility when managing GPUs, from now on, we can create ``GPU-pools''. 
+A ``GPU-pool'' is a set of independent GPUs (logically disattached from the nodes) that can be assigned to one or more instances.
+
 
 \begin{figure}[!t]
   \centering
@@ -164,18 +168,7 @@ Thanks to this modular approach, the Compute Module has not been modified, which
   \label{fig:internal}
 \end{figure}
 
-\subsection{Development}
-We have developed an independent module that can be seen as a new shared service in the OpenStack Architecture (see Figure~\ref{fig1}).
-
-Thus, we have provided OpenStack with a new parser, which splits the HTTP query in order to make use of both, the GPGPU API for everything related to GPUs, and the nova API for the rest of the computation. 
-Thanks to this modular approach, the Nova Project has not been modified and the tool could be easily ported to other Cloud Computing solutions.
-
-The new GPGPU Service has brought a new feature when it comes to GPUs, from now on, we can create ``GPU-pools''. A ``GPU-pool'' is a set of independent GPUs (logically disattached from the nodes) that can be assigned to one or more instances.
-
-Furthermore, we have extended the user interface (Horizon Project), in order to deal with the new features.
-First of all, the Instance Launch Panel has been provided with a new field, where the user can assign a existent GPU pool, create a new one or leave the instance without accelerators of this kind.
-As soon as the option ``New GPU Pool'' has been chosen, will appear the proper fields for the pool configuration.
-Finally, with the purpose of being aware of the devices status, a new panel has been added with all the information regarding the GPUs.
+Thanks to the modular approach of the GPGPU Service, the Nova Project has not been modified and the tool could be easily ported to other Cloud Computing solutions.
 
 \subsection{Working Modes}
 The developed module will allow the users to create any of the following scenarios (see Figure~\ref{fig2}). 
@@ -200,29 +193,67 @@ Again, the GPU pool can be made of ``exclusive'' GPUs or ``shared''.
 
 \subsection{User Interface}
 Several modifications have been planned in the OpenStack Dashboard in order to deal with the new features.
-First of all, the Instance Launch Panel has been provided with a new field, where the user can assign a existent GPU pool, create a new one or leave the instance without accelerators of this kind.
-As soon as the option ``New GPU Pool'' has been chosen, will appear the proper fields for the pool configuration (see Subfigure~\ref{fig:ui-launch}).
-Furthermore, a new panel with the existent GPUs has been added to the Interface (see Subfigure~\ref{fig:ui-rgpus}), where all the information of the GPUs is displayed.
+First of all, the Instance Launch Panel should be provided with a new field, where the user could assign a existent GPU pool, create a new one or leave the instance without accelerators of this kind.
+As soon as the option ``New GPU Pool'' had chosen, would appear the proper fields for the pool configuration (see Figure~\ref{fig:ui-launch}).
+Furthermore, a new panel with the existent GPUs would display all the information related to GPUs (see Figure~\ref{fig:ui-rgpus}).
 
 \begin{figure}[!t]
   \centering
-  \includegraphics[width=.9\linewidth]{images/UI-launch.jpg}
+  \includegraphics[width=\linewidth]{images/UI-launch.jpg}
   \caption{Launching Instances and assigning GPUs}
   \label{fig:ui-launch}
 \end{figure}
   
 \begin{figure}[!t]
   \centering
-  \includegraphics[width=.85\linewidth]{images/UI-rgpus.jpg}
+  \includegraphics[width=\linewidth]{images/UI-rgpus.jpg}
   \caption{GPU Information Panel}
   \label{fig:ui-rgpus}
 \end{figure}
 
 \subsection{Experimental Results}
+The test were executed on a 5-node cluster where a machine
+equipped with a Intel Xeon E7420 quadcore processor at
+2.13 GHz, and 16 Gbytes of DDR2 RAM memory at 667
+MHz, was guest host for the VMs. While the other 4 nodes
+were auxiliary servers with a Tesla C1090 GPU each one. 
+In the software stack the testbed system operates a
+Centos 6.6; the cloud platform is deployed by OpenStack; and
+the GPUs use CUDA 6.5. The GPU virtualization support is
+based on rCUDA v5.0b.
+We have designed 6 different set-ups which can be divided
+in 2 groups: “Exclusive GPUs” and “Shared GPUs”. The
+“Exclusive” mode will provide, at most, 4 accelerators. Whilst
+the number of available GPU in “Shared” mode will depend
+on the partition size. In this particular case, we have halved
+the memory, so we can use up to 8 GPUs. For each group, we
+have deployed virtual clusters of 1, 2 and 3 nodes where will
+run the processes of the application. The instances are based
+on the flavor “m1.medium” which determines VM of 2 cores
+and 4096 MB of memory.
+MCUDA-MEME~\cite{Liu2010} has been the application executed with
+different configurations in order to test the set-ups. MCUDA-
+MEME is GPGPU MPI application, so the number of GPUs
+will determine the number of executable processes.
+The Figure~\ref{fig3} shows and compares the execution time of
+the application with different configurations over different set-
+ups. We can determine that with 1 node, the performance is
+lower, with 2 and 3 is quite similar, though. Hence, the greatest
+difference can be appreciated between modes, where the
+highest performance is achieved by sharing the accelerators.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.5\textwidth]{images/chart.jpg}
+  \caption{Execution time of MCUDA-MEME}
+  \label{fig3}
+\end{figure}
 
 \section{Discussion}
 \label{sec:discussion}
-Volver a hacer un resumen
+-Volver a hacer un resumen
+-posibles futuras aplicaciones (lab)
+-pruebas con otros proveedores o con otras plataformas (azure)
 
 \section*{\uppercase{Acknowledgements}}
 The researchers from the Universidad Jaume~I were supported by Universitat Jaume I research project (P11B2013-21), project
