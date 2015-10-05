@@ -26,11 +26,26 @@
 
 \keywords{Cloud Computing, GPU Virtualization, Resource Management}
 
-\abstract{The popularity of the GPGPU computation has led several cloud vendors to provide instances of virtual machines with GPUs. 
-So that, the guest hosts must be equipped with GPUs which could be barely utilized if no GPU-enabled VM  is running in the host.
-The solution presented here is based on GPU virtualization and shareability in order to reach an equilibrium between supply and demand of accelerators from the users. 
-Hence, we propose to access any GPU from any VM getting rid of the necessity of having physical GPUs in the guest host. 
-Finally, our project goes further and it takes into account that by making logical partitions of the GPU memory we could address each partition as if it was an independent GPU device.}
+\abstract{The use of accelerators in order to reduce the execution time of some 
+application has become more popular during last years. These devices increment 
+the computational power of a computer thanks to its parallel architecture. %The popularity of the GPGPU computation 
+This trend has led several cloud vendors such as Amazon Web Services or some 
+middlewares such as OpenStack to add to their current facilities, or to allow, 
+instances of virtual machines equipped with NVIDIA GPUs. 
+Accomplishing this requirements needs that the guest hosts must be equipped with 
+GPUs which could be barely utilized if a non GPU-enabled Virtual Machine is running in the host.
+The solution presented in this work is based on GPU virtualization and shareability 
+in order to reach an equilibrium between supply and demand of accelerators from the users. 
+Hence, we propose to decouple, from the nodes, real GPUs by using the virtualization technology. 
+So, these GPUs can be accessed from any VM getting rid of the necessity of having physical 
+GPUs in the guest host. 
+Moreover, our project studies the viability of these join by using a public cloud 
+service configuration and develops a module for OpenStack middleware in order to 
+add the needed support for the virtualized devices.  
+%goes further and it takes into account that by making logical 
+%partitions of the GPU memory we could address each partition as if it was an 
+%independent GPU device.
+}
 
 \onecolumn \maketitle \normalsize \vfill
 
@@ -114,7 +129,7 @@ These services, replace IT infrastructure for most companies, and provide agilit
 perfectly with their softwares requirements.
 
 From the point of view of HPC, AWS offers high performance facilities including 
-instances equiped with GPUs and high performance network interconnection which 
+instances equipped with GPUs and high performance network interconnection which 
 are common resources used in this research field.
 
 \subsection{OpenStack}
@@ -144,7 +159,7 @@ are common resources used in this research field.
 
 \section{GPGPU Service for OpenStack}
 \subsection{Managing remote GPUs with OpenStack}
-The main idea of this project is to reach a solution that drive us to an scenario pretty similar the one that could be seen in Figure~\ref{fig:external}, where a new shared service takes part in to the OpenStack Architecure.
+The main idea of this project is to reach a solution that drive us to an scenario pretty similar the one that could be seen in Figure~\ref{fig:external}, where a new shared service takes part in to the OpenStack Architecture.
 This new service is in charge of GPGPU computation, bringing more flexibility when it comes to GPUs.
 As it is shown in Figure~\ref{fig:internal}, we have altered the original Dashboard with a new parser, 
 which split the HTTP query in order to make use of both, the GPGPU API for everything related to GPUs, and the nova API for the rest of the computation. 
@@ -183,7 +198,7 @@ The users are given two configuration options to decide whether a physical GPU w
 We refer to this as the ``mode'' and the possible values for this parameter are: ``exclusive'' or ``shared''. 
 Let us suppose to have 4 GPU devices in the cluster (no matter where they were hosted, neither if they were in the same server). 
 A well illustrated example of those scenarios can be seen in the first row of the  Figure~\ref{fig2}.
-So, while in ``exclusive'' mode the instance is monopolising all the GPUs, in the ``shared'' mode the GPUs have been partitioned. 
+So, while in ``exclusive'' mode the instance is monopolizing all the GPUs, in the ``shared'' mode the GPUs have been partitioned. 
 As a result of halving the GPU memory of the accelerators, the instance will be able to work with up to 8 GPUs.
 
 Moreover, the users are also responsible for deciding whether a GPU (or a pool) will be assigned to other instances. 
@@ -223,6 +238,14 @@ Furthermore, a new panel with the existent GPUs has been added to the Interface 
 \section{Discussion}
 \label{sec:discussion}
 Volver a hacer un resumen
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+
+\section{Future work}
+\label{sec:future}
+
 
 \section*{\uppercase{Acknowledgements}}
 The researchers from the Universidad Jaume~I were supported by Universitat Jaume I research project (P11B2013-21), project
