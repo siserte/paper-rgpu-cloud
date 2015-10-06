@@ -41,7 +41,7 @@ With this software configuration, these GPUs can be accessed from any VM getting
 of the necessity of having physical GPUs in the guest host. 
 Moreover, our project studies the viability of these join by using a public cloud 
 service configuration and develops a module for OpenStack middleware in order to 
-add the needed support for the virtualized devices and the logic to manage them.. 
+add the needed support for the virtualized devices and the logic to manage them. 
 The results show a feasible configuration which adds flexibility to the current and well-known 
 cloud solutions. 
 }
@@ -109,10 +109,26 @@ are common resources used in this research field.
 
 \section{Motivation}
 \label{sec:motivation}
-Nowadays, to provide a virtual machine with GPUs means
-that the guest host must be equipped with at least a GPU, and
+
+Cloud computing, storage and other facilities are becoming 
+more popular during the last years thanks to the easy set up 
+process and the low required IT invest. The features provided 
+by the cloud vendors are useful for companies and individuals 
+which have access to the last technology without spending a 
+huge amount of money. Moreover, the systems offered by the cloud 
+companies matches with the ones required thanks to its flexibility.
+
+The power of current cloud vendors is based on the use 
+of Virtual Machines (VM) which resides inside the host machine and 
+emulates a physical node with its own 
+cpus, storage, network interconnection, OS and GPU. 
+However, to provide a VM with GPUs means
+that the guest host must be equipped with at least one GPU, and
 once it has been assigned to an instance, no other VM can use
-it. Depending on the users’ necessities, two approaches to introduce GPGPU computation in the cluster can be determined:
+it. 
+
+
+Depending on the users’ necessities, two approaches to introduce GPGPU computation in the cluster can be determined:
 the conservative, to have a lot of hosts with GPUs to be
 ensured that you are likely to satisfy all the requests; or a
 more daring approach, where you will count with some GPU-
