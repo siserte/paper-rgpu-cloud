@@ -168,25 +168,38 @@ Thanks to the shareability introduced by {rCUDA}, all VM in the cloud
 environment should be able to use and share all the GPUs installed in 
 the physical nodes removing the current limitation. But, in order to achieve this goal, 
 the cloud facilities need to be provided with the {rCUDA} software and 
-in the case of OpenStack, a module for configuring virtualized GPUs 
+in the case of OpenStack, a module for manageing virtualized GPUs 
  has to be implemented.  
-
-
-
-\begin{itemize}
-\item Actual estado de las tecnolog\'ias de cloud
-\item Limitaciones que nos llevan a realizar este trabajo
-\item Beneficios de la unión de ambas tecnolog\'ias
-\end{itemize}
 
 
 
 \section{Working with AWS}
 \label{sec:aws}
+In this section, first of all, the current user-level features 
+provided by the Amazon Web Services are explained and analyzed 
+from the point of view of the GPU usage. 
+Finally, the scenarios and experiments where virtualized GPUs are utilized are 
+described and first results are showed.
 
 \subsection{Current Features}
+This subsection explains the most common features checked during 
+the virtual machine creation step.
 
 \subsubsection{Instances}
+
+An instance is a pre-configured virtual machine focused on an 
+specific target. Inside the large list of instances offered by AWS, 
+we can find: general pourpose (T2, M4 and M3); computer science optimized 
+(C4 and C3); memory optimized (R3); storage optimized (I2 and D2) and 
+GPU capable instances. Each kind of instance has its own pourpose and its 
+own price. Moreover, each instance has different number of CPUs and network 
+interconnection which can be: low, medium, high or 10Gb.
+
+For this study, the instances presented in the Table~\ref{table:awsInstances} 
+have been selected. The C3 family instances, which are not equipped with 
+GPUs are going to be used as client whereas the instances of the G2 family are 
+acting as servers.   
+
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
 \caption{AWS Instances}
@@ -200,7 +213,12 @@ g2.2xlarge & 8 & 15 GiB & High & 1 & \$ 0.65\\ \hline
 g2.8xlarge & 32 & 60 GiB & 10 Gb & 4 & \$ 2.6 \\ \hline
 \end{tabular}\end{center}\end{table}
 
-\subsubsection{Network}
+\subsubsection{Network behaviour}
+As it is shown in the Table~\ref{table:awsInstances}, each instance has different 
+interconnection and taking into account that the use of the network 
+is critical when GPU virtualization is applied, a simple test to verify the 
+real network bandwidth is needed.
+
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
 \caption{IPERF results between instances}
@@ -214,8 +232,16 @@ g2.8xlarge & g2.2xlarge & High & 1 Gb/s\\ \hline
 g2.8xlarge & g2.8xlarge & 10Gb & 7.5  Gb/s\\ \hline
 \end{tabular}\end{center}\end{table}
 
+The IPERF tool has been executed between the instances showed in 
+the Table~\ref{table:iperf} in order to know the real bandwidth.
+Therefore, we can assure that the nomenclature ''High'' used in the 
+network column correspond to a 1Gb interconnection and the 10Gb has 
+a real bandwidth of 7.5Gb/s.
+
+
 \subsubsection{GPUs}
 
+\subsection{Testbed Scenarios}
 \begin{figure*}[ht]
 \centering
 \subfigure[5 remote GPUs over 1GbE]{%
@@ -232,7 +258,6 @@ g2.8xlarge & g2.8xlarge & 10Gb & 7.5  Gb/s\\ \hline
 \label{fig:aws}
 \end{figure*}
 
-\subsection{Testbed Scenarios}
 \subsection{Experiments}
 \subsection{Results}
 Flexibility and economical expenses
