@@ -246,9 +246,21 @@ components, so it is possible that AWS could use a virtualization
 framework to offer GPU services to all the instances.
 Therefore, we need to verify if the GPUs showed in the instances are 
 non-virtualized GPUs so, we have executed the NVIDIA SDK test called 
-bandwidthtest. As it is shown in the Table~\ref{}, as the bandwidth achieved 
+bandwidthtest. As it is shown in the Table~\ref{table:bwt}, as the bandwidth achieved 
 in this test is higher than the network bandwith, it reveals that it is a 
 real GPU. 
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{NVIDIA SDK bandwidthtest execution transfering 32MB using pageable memory }
+\label{table:bwt}
+\tabcolsep=0.05cm
+\begin{center}\begin{tabular}{cccc}
+Name &  Data Movement & Network & BandWidth (MB/s)\\ \hline \hline
+g2.2xlarge & Host to Device & Hight& 3,004.5\\ \hline
+g2.2xlarge & Device to Host & Hight& 2,809.2\\ \hline
+g2.8xlarge & Host to Device & 10 Gb& 2,814.7\\ \hline
+g2.8xlarge & Device to Host & 10 Gb& 3,182.3\\ \hline
+\end{tabular}\end{center}\end{table}
 
 \subsection{Testbed Scenarios}
 \begin{figure*}[ht]
