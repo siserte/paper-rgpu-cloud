@@ -240,6 +240,15 @@ a real bandwidth of 7.5Gb/s.
 
 
 \subsubsection{GPUs}
+As it has been said before, an instance is based in a VM 
+which is running on a real node with its own virtualized 
+components, so it is possible that AWS could use a virtualization 
+framework to offer GPU services to all the instances.
+Therefore, we need to verify if the GPUs showed in the instances are 
+non-virtualized GPUs so, we have executed the NVIDIA SDK test called 
+bandwidthtest. As it is shown in the Table~\ref{}, as the bandwidth achieved 
+in this test is higher than the network bandwith, it reveals that it is a 
+real GPU. 
 
 \subsection{Testbed Scenarios}
 \begin{figure*}[ht]
