@@ -179,6 +179,14 @@ in the case of OpenStack, a module for configuring virtualized GPUs
 \item Beneficios de la unión de ambas tecnolog\'ias
 \end{itemize}
 
+
+
+\section{Working with AWS}
+\label{sec:aws}
+
+\subsection{Current Features}
+
+\subsubsection{Instances}
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
 \caption{AWS Instances}
@@ -192,21 +200,21 @@ g2.2xlarge & 8 & 15 GiB & High & 1 & \$ 0.65\\ \hline
 g2.8xlarge & 32 & 60 GiB & 10 Gb & 4 & \$ 2.6 \\ \hline
 \end{tabular}\end{center}\end{table}
 
+\subsubsection{Network}
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
 \caption{IPERF results between instances}
 \label{table:iperf}
-\tabcolsep=0.4cm
-\begin{center}\begin{tabular}{ccc}
-Server & Client & BandWidth Gb/s\\ \hline \hline
-g2.8xlarge & c3.2xlarge & 1 \\ \hline
-g2.8xlarge & c3.8xlarge & 7.5 \\ \hline
-g2.8xlarge & g2.2xlarge & 1 \\ \hline
-g2.8xlarge & g2.8xlarge & 7.5 \\ \hline
+\tabcolsep=0.24cm
+\begin{center}\begin{tabular}{cccc}
+Server & Client & Network & BandWidth\\ \hline \hline
+g2.8xlarge & c3.2xlarge & High & 1  Gb/s\\ \hline
+g2.8xlarge & c3.8xlarge & 10Gb & 7.5  Gb/s\\ \hline
+g2.8xlarge & g2.2xlarge & High & 1 Gb/s\\ \hline
+g2.8xlarge & g2.8xlarge & 10Gb & 7.5  Gb/s\\ \hline
 \end{tabular}\end{center}\end{table}
 
-\section{Working with Remote GPUs in AWS}
-\label{sec:rgpuaws}
+\subsubsection{GPUs}
 
 \begin{figure*}[ht]
 \centering
@@ -224,11 +232,10 @@ g2.8xlarge & g2.8xlarge & 7.5 \\ \hline
 \label{fig:aws}
 \end{figure*}
 
-\begin{itemize}
-\item Escenarios creados
-\item Experimentos
-\item An\'alisis basados en flexibilidad y coste econ\'omico
-\end{itemize}
+\subsection{Testbed Scenarios}
+\subsection{Experiments}
+\subsection{Results}
+Flexibility and economical expenses
 
 \section{GPGPU Shared Service in OpenStack}
 In this section is explained all the work related to OpenStack that has been done, from the development of an external module to handle remote GPUs to the physical setup and its testing.
