@@ -52,28 +52,7 @@ cloud solutions.
 \label{sec:introduction}
 
 \noindent 
-Our solutions
-is based on GPU virtualization and sharing resources in order
-to reach a fair balance between supply and demand.
-Several attempts of achieving what we are pursing have been
-made, but none of them are so ambitious as our project. On
-the one hand the work done in~\cite{younge2013enabling} allows the VM managed
-by the hypervisor Xen to access the GPUs in the physical
-node. With the implied limitations of restricting the nodes not
-to use more GPUs than the hosted in the machine and not
-to share idle GPUs to other machines. The solution presented
-by the project gVirtus~\cite{giunta2010gpgpu} does virtualize GPUs and make
-them accessible for any VM in the cluster. However, this kind
-of virtualization strongly depends on the hypervisor used, so
-does its performance. Another similar solution is presented in~\cite{diab2013dynamic} by the name of gCloud. This one continues without being
-integrated in a Cloud Computing Manager, though its main
-drawback is that the code of the applications must be modified
-in order to be run in their virtual-GPU environment. On the
-other hand, the work exposed in~\cite{jungpgpu} is more mature, however,
-it is only focussed on compute intensive HPC applications.
-The main idea of our proposal goes further and apart from
-bringing solutions for all kind of HPC applications, it is aimed
-to boost the cluster flexibility in the use of GPUs.
+
 
 
 \section{\uppercase{Background}}
@@ -128,6 +107,31 @@ are common resources used in this research field.
 \begin{itemize}
 \item Descripcion basica del openstack (Sisco?)
 \end{itemize}
+
+\section{State of Art}
+\label{sec:state}
+Our solutions
+is based on GPU virtualization and sharing resources in order
+to reach a fair balance between supply and demand.
+Several attempts of achieving what we are pursing have been
+made, but none of them are so ambitious as our project. On
+the one hand the work done in~\cite{younge2013enabling} allows the VM managed
+by the hypervisor Xen to access the GPUs in the physical
+node. With the implied limitations of restricting the nodes not
+to use more GPUs than the hosted in the machine and not
+to share idle GPUs to other machines. The solution presented
+by the project gVirtus~\cite{giunta2010gpgpu} does virtualize GPUs and make
+them accessible for any VM in the cluster. However, this kind
+of virtualization strongly depends on the hypervisor used, so
+does its performance. Another similar solution is presented in~\cite{diab2013dynamic} by the name of gCloud. This one continues without being
+integrated in a Cloud Computing Manager, though its main
+drawback is that the code of the applications must be modified
+in order to be run in their virtual-GPU environment. On the
+other hand, the work exposed in~\cite{jungpgpu} is more mature, however,
+it is only focussed on compute intensive HPC applications.
+The main idea of our proposal goes further and apart from
+bringing solutions for all kind of HPC applications, it is aimed
+to boost the cluster flexibility in the use of GPUs.
 
 \section{Motivation}
 \label{sec:motivation}
@@ -283,20 +287,28 @@ g2.8xlarge & Device to Host & 10 Gb& 3,182 MB/s\\ \hline
 \label{fig:aws}
 \end{figure*}
 
-\subsection{Experiments}
-\subsection{Results}
+\subsection{Experimental results}
+In order to assess that GPU virtualization with AWS instances was working as expected, two applications were executed to analyze the results and their scalability.
 
-\begin{figure}[!t]
-  \centering
-  \includegraphics[width=\linewidth]{images/aws-mont2.png}
-  \caption{Montecarlo execution time}
-  \label{fig:internal}
-\end{figure}
+The first of them was {\it Montecarlo Multigpu} from NVIDIA SDK, launched with the default configuration ``scaling=weak'' which adjust the size of the problem depending on the number of accelerators.
+The Figure~\ref{fig:mont-opt} depicts the options per second calculated by the application running on the scenarios of~\ref{fig:aws} and on the instances with local GPUs. 
+We have removed the results of the Scenario~\ref{subfig:aws2} for clarity ought to they are exactly the same that the obtained from Scenario~\ref{subfig:aws3} up to 8 GPUs. 
+In other words, we could state that the results until the 8th GPU would correspond to the Scenario~\ref{subfig:aws2} and thereafter to the Scenario~\ref{subfig:aws3}.
+Hence, in this particular case, rCUDA (using remote GPUs) is performing better than CUDA (with its local GPUs) due to rCUDA loads the libraries when its daemon starts.
+However, even with rCUDA we can see differences in the results between booth scenarios. We determined that the Scenario~\ref{subfig:aws1} could increase the throughput because
+unlike the other setups the GPUs are not sharing the PCI bus with other devices, as it happens in the 4-GPU instances.
+
+% \begin{figure}[!t]
+%   \centering
+%   \includegraphics[width=\linewidth]{images/aws-mont2.png}
+%   \caption{Montecarlo execution time}
+%   \label{fig:mont-exe}
+% \end{figure}
 \begin{figure}[!t]
   \centering
   \includegraphics[width=\linewidth]{images/aws-mont1.png}
   \caption{Montecarlo options per second}
-  \label{fig:internal}
+  \label{fig:mont-opt}
 \end{figure}
 
 Flexibility and economical expenses
@@ -378,7 +390,8 @@ were auxiliary servers with a Tesla C1090 GPU each one.
 In the software stack the testbed system operates a
 Centos 6.6; the cloud platform is deployed by OpenStack; and
 the GPUs use CUDA 6.5. The GPU virtualization support is
-based on rCUDA v5.0b.
+based on rCUDA v5.0.
+
 We have designed 6 different set-ups which can be divided
 in 2 groups: “Exclusive GPUs” and “Shared GPUs”. The
 “Exclusive” mode will provide, at most, 4 accelerators. Whilst
@@ -389,6 +402,7 @@ have deployed virtual clusters of 1, 2 and 3 nodes where will
 run the processes of the application. The instances are based
 on the flavor “m1.medium” which determines VM of 2 cores
 and 4096 MB of memory.
+
 MCUDA-MEME~\cite{Liu2010} has been the application executed with
 different configurations in order to test the set-ups. MCUDA-
 MEME is GPGPU MPI application, so the number of GPUs
