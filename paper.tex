@@ -251,7 +251,7 @@ in this test is higher than the network bandwith, it reveals that it is a
 real GPU. 
 
 \subsection{Testbed Scenarios}
-\begin{figure*}[ht]
+\begin{figure*}[!t]
 \centering
 \subfigure[5 remote GPUs over 1GbE]{%
 \includegraphics[width=0.31\linewidth]{images/aws3.png}
@@ -263,12 +263,26 @@ real GPU.
 \subfigure[13 remote GPUs over 1GbE]{%
 \includegraphics[width=0.31\linewidth]{images/aws1.png}
 \label{subfig:aws3}}
-\caption{Different scenario configurations where an AWS instance acting as a client is using several remote GPUs}
+\caption{Different configurations where an AWS instance acting as a client is using several remote GPUs}
 \label{fig:aws}
 \end{figure*}
 
 \subsection{Experiments}
 \subsection{Results}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{images/aws-mont2.png}
+  \caption{Montecarlo execution time}
+  \label{fig:internal}
+\end{figure}
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{images/aws-mont1.png}
+  \caption{Montecarlo options per second}
+  \label{fig:internal}
+\end{figure}
+
 Flexibility and economical expenses
 
 \section{GPGPU Shared Service in OpenStack}
@@ -392,7 +406,8 @@ highest performance is achieved by sharing the accelerators.
 
 
 \section*{\uppercase{Acknowledgements}}
-The authors want to thank the IT members of the department Vicente Roca and Gustavo Edo for the given help.
+The authors would like to thank the IT members of the department Vicente Roca and Gustavo Edo for their help.
+
 The researchers were supported by Universitat Jaume I research project (P11B2013-21), project
 TIN2011-23283 and~FEDER.
 
