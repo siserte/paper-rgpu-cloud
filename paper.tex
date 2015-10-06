@@ -28,7 +28,7 @@
 
 \abstract{The use of accelerators in order to reduce the execution time of some 
 application has become more popular during last years. These devices increment 
-the computational power of a computer thanks to its parallel architecture. %The popularity of the GPGPU computation 
+the computational power of a node thanks to its parallel architecture. %The popularity of the GPGPU computation 
 This trend has led several cloud vendors such as Amazon Web Services or some 
 middlewares such as OpenStack to add to their current facilities, or to allow, 
 instances of virtual machines equipped with NVIDIA GPUs. 
@@ -36,12 +36,14 @@ Accomplishing this requirements needs that the guest hosts must be equipped with
 GPUs which could be barely utilized if a non GPU-enabled Virtual Machine is running in the host.
 The solution presented in this work is based on GPU virtualization and shareability 
 in order to reach an equilibrium between supply and demand of accelerators from the users. 
-Hence, we propose to decouple, from the nodes, real GPUs by using the virtualization technology. 
-So, these GPUs can be accessed from any VM getting rid of the necessity of having physical 
-GPUs in the guest host. 
+Hence, we propose to decouple from the nodes, real GPUs by using the virtualization technology called rCUDA. 
+With this software configuration, these GPUs can be accessed from any VM getting rid 
+of the necessity of having physical GPUs in the guest host. 
 Moreover, our project studies the viability of these join by using a public cloud 
 service configuration and develops a module for OpenStack middleware in order to 
-add the needed support for the virtualized devices.  
+add the needed support for the virtualized devices. 
+The results show a feasible configuration which adds flexibility to the current, well-known 
+cloud solutions. 
 %goes further and it takes into account that by making logical 
 %partitions of the GPU memory we could address each partition as if it was an 
 %independent GPU device.
