@@ -408,7 +408,7 @@ A ``GPU-pool'' is a set of independent GPUs (logically disattached from the node
 
 \begin{figure}[htb]
   \centering
-  \subfigure[Original in version XXXXXXXXXXXXXXXXXXXXXX]{
+  \subfigure[Original in version XXXXXXXXXXXX]{
     \includegraphics[width=\linewidth]{images/os-orig.png}
     \label{subfig:os-orig}
    }
@@ -520,10 +520,15 @@ highest performance is achieved by sharing the accelerators.
 \section{\uppercase{Conclusions}}
 \label{sec:conclusions}
 
-
 \section{\uppercase{Future work}}
 \label{sec:future}
+The first task that we should have keep in mind after this study is to upgrade the interconnection network to one more focused on HPC.
+So that, porting the setup and the tests to an infrastructure with an Infiniband network would shed light on the viability of this kind of solutions for HPC.
 
+Looking for real situations where the performance is not so important as the flexibility to provide more accelerators. 
+Because of that, to take the first steps through how to deploy programming computer labs easily, could be really interesting. 
+
+Finally, to bring in more policies to decide the strategy of creating and assigning remote GPUs in the physical device, would be a task to increase the flexibility given by the GPGPU module for Openstack.
 
 \section*{\uppercase{Acknowledgements}}
 The authors would like to thank the IT members of the department Vicente Roca and Gustavo Edo for their help.
