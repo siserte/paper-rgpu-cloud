@@ -318,13 +318,13 @@ in the node that is acting as a client.
 
 Moreover, with the aim to know the expected network bandwidth using 
 a remote GPU, we have executed again the NVIDIA {\tt bandwidthtest} sample.
-The results observed in the Table~\ref{} shows how the bandwidth achieved is limited 
+The results observed in the Table~\ref{table:bwtrcuda} shows how the bandwidth achieved is limited 
 by the network.
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
 \caption{NVIDIA SDK {\tt bandwidthtest} execution transfering 32MB using pageable memory using {rCUDA}.}
-\label{table:bwt}
+\label{table:bwtrcuda}
 \tabcolsep=0.09cm
 \begin{center}\begin{tabular}{cccc}
 Scenario &  Data Movement & Network & BandWidth \\ \hline \hline
@@ -377,7 +377,7 @@ pays off the drawback of a slower network.
 \subfigure[second]{%
 \includegraphics[width=\linewidth]{images/lammps2000.png}
 \label{subfig:lammps2}}
-\caption{Execution time of LAMMPS}
+\caption{Execution time of LAMMPS.}
 \label{fig:lammps}
 \end{figure}
 
@@ -392,7 +392,7 @@ Version de open stack con la que se trabaja y tipo de instalacion ya que está t
 \begin{figure}[htb]
   \centering
   \includegraphics[width=\linewidth]{images/os-orig.png}
-  \caption{Openstack Architecture}
+  \caption{Openstack Architecture.}
   \label{fig:os-orig}
 \end{figure}
 
@@ -407,14 +407,14 @@ A ``GPU-pool'' is a set of independent GPUs (logically disattached from the node
 \begin{figure}[htb]
   \centering
   \includegraphics[width=\linewidth]{images/os1.jpg}
-  \caption{Openstack with our GPGPU Service}
+  \caption{Openstack with our GPGPU Service.}
   \label{fig:external}
 \end{figure}
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=\linewidth]{images/os2.png}
-  \caption{Internal Communication among modules}
+  \caption{Internal Communication among modules.}
   \label{fig:internal}
 \end{figure}
 
@@ -437,7 +437,7 @@ Again, the GPU pool can be made of ``exclusive'' GPUs or ``shared''.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=.5\textwidth]{images/workingmodes.jpg}
-  \caption{Examples of working modes}
+  \caption{Examples of working modes.}
   \label{fig2}
 \end{figure}
 
@@ -450,14 +450,14 @@ Furthermore, a new panel with the existent GPUs would display all the informatio
 \begin{figure}[htb]
   \centering
   \includegraphics[width=\linewidth]{images/UI-launch.pdf}
-  \caption{Launching Instances and assigning GPUs}
+  \caption{Launching Instances and assigning GPUs.}
   \label{fig:ui-launch}
 \end{figure}
   
 \begin{figure}[htb]
   \centering
   \includegraphics[width=\linewidth]{images/UI-rgpus.pdf}
-  \caption{GPU Information Panel}
+  \caption{GPU Information Panel.}
   \label{fig:ui-rgpus}
 \end{figure}
 
@@ -497,7 +497,7 @@ highest performance is achieved by sharing the accelerators.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.5\textwidth]{images/chart.jpg}
-  \caption{Execution time of MCUDA-MEME}
+  \caption{Execution time of MCUDA-MEME.}
   \label{fig3}
 \end{figure}
 
@@ -517,7 +517,6 @@ highest performance is achieved by sharing the accelerators.
 
 \section*{\uppercase{Acknowledgements}}
 The authors would like to thank the IT members of the department Vicente Roca and Gustavo Edo for their help.
-
 The researchers were supported by Universitat Jaume I research project (P11B2013-21), project
 TIN2011-23283 and~FEDER.
 
