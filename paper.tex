@@ -107,13 +107,20 @@ are common resources used in this research field.
 \subsection{OpenStack}
 \label{sec:openstack}
 
-OpenStack is a cloud operating system that provides Infrastructure as a Service (IaaS). 
+OpenStack \cite{OpenStack} is a cloud operating system that provides Infrastructure as a Service (IaaS). 
 It is able to control large pools of compute, storage, and networking resources throughout a 
 datacenter. All this resources are managed through a dashboard or an API that gives administrators 
 control while empowering their users to provision resources through a web interface
 or a command-line. 
 It supports most available hypervisors and handles provisioning 
 and life-cycle management of VMs. 
+The OpenStack architecture offers a flexibility to create a custom cloud, with no proprietary hardware
+or software requirements and the ability to integrate with legacy systems and third party technologies. 
+
+From the HPC perspective, OpenStack offers high performance computing (HPC) configurations using
+multiple supported hypervisors and different hardware architectures. However, despite to be able to
+specify some extra parameters for special resources like GPUs, choosing a host based on the existence
+of a GPU is currently unsupported in OpenStack \cite{OpenStackGPU}. 
 
 \section{\uppercase{State of Art}}
 \label{sec:state}
