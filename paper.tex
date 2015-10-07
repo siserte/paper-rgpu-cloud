@@ -170,7 +170,7 @@ so the cluster would run out of GPU resources.
 
 The use of a virtualization technology such as {rCUDA} adds 
 the desired flexibility because this software detaches the GPUs 
-from the nodes where they are installed allowing all nodes in a cluster 
+from the nodes where they are installed allowing all nodes in a cluster
 not only use them as if they were local but also to share them 
 achieving a higher utilization rate and reducing the idle status time.
 
@@ -364,18 +364,18 @@ The other application, LAMMPS\footnote{\url{http://lammps.sandia.gov}}, is a cla
 From the implementation perspective, this multi-process application employs at least one GPU to host its processes, but can benefit from the use of multiple GPUs.
 The Figure shows that running this application using remote GPUs does not offer any advantage in front of original CUDA. 
 Furthermore, for the execution on remote GPUs, can be seen a little difference between both networks, the ``High'' network performs worse than ``10 Gb'' network.
-Thus, if we compare the results of a LAMMPS execution with a larger problem (see Figure), while CUDA performs better, the interesting point is the execution time on remote GPUs. 
+Thus, if we compare the results of a LAMMPS execution with a larger problem (see Figure), although CUDA continues performing better, the interesting point is the execution time on remote GPUs. 
 They are almost the same even with different networks what means that the transfers are making the interconnection network the bottleneck, and enlarging the problem size
-pays off the drawback of a slow network.
+pays off the drawback of a slower network.
 
 \begin{figure}[htb]
 \centering
 \subfigure[first]{%
-\includegraphics[width=0.455\linewidth]{images/lammps100.png}
+\includegraphics[width=\linewidth]{images/lammps100.png}
 \label{subfig:lammps1}}
 \quad
 \subfigure[second]{%
-\includegraphics[width=0.455\linewidth]{images/lammps2000.png}
+\includegraphics[width=\linewidth]{images/lammps2000.png}
 \label{subfig:lammps2}}
 \caption{Execution time of LAMMPS}
 \label{fig:lammps}
@@ -386,6 +386,16 @@ Flexibility and economical expenses
 
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
 In this section all the work related to OpenStack that has been done is explained, from the development of an external module to handle remote GPUs to the physical setup and its testing.
+
+Version de open stack con la que se trabaja y tipo de instalacion ya que está toda en un nodo...
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/os-orig.png}
+  \caption{Openstack Architecture}
+  \label{fig:os-orig}
+\end{figure}
+
 \subsection{Managing remote GPUs with OpenStack}
 The main idea of this solution is to reach the scenario that could be seen in Figure~\ref{fig:external}, where a new shared service takes part in to the OpenStack Architecture.
 This new service is in charge of GPGPU computation, bringing more flexibility when it comes to GPUs.
