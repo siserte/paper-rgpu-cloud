@@ -329,7 +329,7 @@ unlike the other setups the GPUs are not sharing the PCI bus with other devices,
 \begin{figure}[htb]
   \centering
   \includegraphics[width=\linewidth]{images/aws-mont1.png}
-  \caption{Montecarlo options per second}
+  \caption{Montecarlo execution results}
   \label{fig:mont-opt}
 \end{figure}
 
@@ -343,12 +343,12 @@ pays off the drawback of a slower network.
 
 \begin{figure}[htb]
 \centering
-\subfigure[first]{%
-\includegraphics[width=\linewidth]{images/lammps100.png}
+\subfigure[Run size = 100.]{%
+\includegraphics[width=\linewidth]{images/lammps1.pdf}
 \label{subfig:lammps1}}
 \quad
-\subfigure[second]{%
-\includegraphics[width=\linewidth]{images/lammps2000.png}
+\subfigure[Run size = 2000.]{%
+\includegraphics[width=\linewidth]{images/lammps2.pdf}
 \label{subfig:lammps2}}
 \caption{Execution time of LAMMPS}
 \label{fig:lammps}
@@ -362,20 +362,20 @@ In this section all the work related to OpenStack that has been done is explaine
 
 Version de open stack con la que se trabaja y tipo de instalacion ya que está toda en un nodo...
 
+\subsection{Managing remote GPUs with OpenStack}
+The main idea is to move from the original Openstack architecture (see Figure~\ref{fig:os-orig}) to a solution where a new shared service takes part into the architecture and is responsible for all related to GPU accelerators (see Figure~\ref{fig:external}).
+This new service would bring more flexibility when managing GPUs and new working modes for GPGPU computation in the Cloud.
+As it is shown in Figure~\ref{fig:internal}, we have altered the OpenStack original Dashboard with a new parser, 
+which split the HTTP query in order to make use of both, the GPGPU API for everything related to GPUs, and the nova API for the rest of the computation. 
+The new GPGPU Service has brought a new feature which brings more flexibility when managing GPUs, from now on, we can create ``GPU-pools''. 
+A ``GPU-pool'' is a set of independent GPUs (logically disattached from the nodes) that can be assigned to one or more instances.
+
 \begin{figure}[htb]
   \centering
   \includegraphics[width=\linewidth]{images/os-orig.png}
   \caption{Openstack Architecture}
   \label{fig:os-orig}
 \end{figure}
-
-\subsection{Managing remote GPUs with OpenStack}
-The main idea of this solution is to reach the scenario that could be seen in Figure~\ref{fig:external}, where a new shared service takes part in to the OpenStack Architecture.
-This new service is in charge of GPGPU computation, bringing more flexibility when it comes to GPUs.
-As it is shown in Figure~\ref{fig:internal}, we have altered the OpenStack original Dashboard with a new parser, 
-which split the HTTP query in order to make use of both, the GPGPU API for everything related to GPUs, and the nova API for the rest of the computation. 
-The new GPGPU Service has brought a new feature which brings more flexibility when managing GPUs, from now on, we can create ``GPU-pools''. 
-A ``GPU-pool'' is a set of independent GPUs (logically disattached from the nodes) that can be assigned to one or more instances.
 
 \begin{figure}[htb]
   \centering
