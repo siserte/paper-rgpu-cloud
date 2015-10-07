@@ -392,7 +392,20 @@ pays off the drawback of a slower network.
 \end{figure}
 
 \subsection{Discussion}
-Flexibility and economical expenses
+Putting all together,  it is cristal clear that the AWS GPU-instances are not aimed to HPC because neither the network nor the accelerators are powerful enough to reach an appropriate performance
+while running intensive parallel applications. 
+Hence, AWS's target is more oriented to offer the service than to provide performance.
+Also with the aim of plainly offering the service of GPGPU, AWS lacks in flexibility. 
+AWS forces the user to choose between a poor instance with a GPU and a powerful instance with 4 GPUs.
+
+Coming back to the Table~\ref{table:awsInstances} can be seen how not only the resources of the ``g2.8xlarge'' has been quadrupled, but also the cost per hour.
+So, in the case of having other necessities (talking in terms of the instances type), with remotes GPUs we could attach an accelerator to any kind of instance.
+Furthermore, reducing the budget in VM could be possible by customizing the resources of the available instances.
+If needed, we could work on an instance of 2 GPUs for only \$ 1.3 by launching 2 ``g2.2xlarge'' and using remote GPUs. Avoiding to pay the double for features that we are not willing to use in ``g2.8xlarge''.
+
+The last conclusion we drew was related to GPU-shareability. 
+As we deduced, AWS has GPU-capable physical machines reserved which could be idle until a GPU-instance request were made.
+To have such an expensive accelerators in a standby state is counter-productive. So, it would make more sense if we had less devices, accessible from any machine, though.
 
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
 In this section all the work related to OpenStack that has been done is explained, from the development of an external module to handle remote GPUs to the physical setup and its testing.
