@@ -107,20 +107,21 @@ are common resources used in this research field.
 \subsection{OpenStack}
 \label{sec:openstack}
 
-OpenStack \cite{OpenStack} is a cloud operating system that provides Infrastructure as a Service (IaaS). 
+OpenStack~\cite{OpenStack} is a cloud operating system that provides Infrastructure as a Service (IaaS). 
 It is able to control large pools of compute, storage, and networking resources throughout a 
-datacenter. All this resources are managed through a dashboard or an API that gives administrators 
+datacenter. All these resources are managed through a dashboard or an API that gives administrators 
 control while empowering their users to provision resources through a web interface
 or a command-line. 
 It supports most available hypervisors and handles provisioning 
-and life-cycle management of VMs. 
+and life-cycle management of VMs.
+ 
 The OpenStack architecture offers a flexibility to create a custom cloud, with no proprietary hardware
 or software requirements and the ability to integrate with legacy systems and third party technologies. 
 
 From the HPC perspective, OpenStack offers high performance computing (HPC) configurations using
 multiple supported hypervisors and different hardware architectures. However, despite to be able to
 specify some extra parameters for special resources like GPUs, choosing a host based on the existence
-of a GPU is currently unsupported in OpenStack \cite{OpenStackGPU}. 
+of a GPU is currently unsupported in OpenStack~\cite{OpenStackGPU}. 
 
 \section{\uppercase{State of Art}}
 \label{sec:state}
@@ -278,8 +279,8 @@ real GPU.
 \tabcolsep=0.09cm
 \begin{center}\begin{tabular}{cccc}
 Name &  Data Movement & Network & BandWidth \\ \hline \hline
-g2.2xlarge & Host to Device & Hight& 3,004 MB/s \\ \hline
-g2.2xlarge & Device to Host & Hight& 2,809 MB/s\\ \hline
+g2.2xlarge & Host to Device & High& 3,004 MB/s \\ \hline
+g2.2xlarge & Device to Host & High& 2,809 MB/s\\ \hline
 g2.8xlarge & Host to Device & 10 Gb& 2,814 MB/s\\ \hline
 g2.8xlarge & Device to Host & 10 Gb& 3,182 MB/s\\ \hline
 \end{tabular}\end{center}\end{table}
@@ -337,8 +338,8 @@ by the network.
 \tabcolsep=0.09cm
 \begin{center}\begin{tabular}{cccc}
 Scenario &  Data Movement & Network & BandWidth \\ \hline \hline
-A & Host to Device & Hight& 127 MB/s \\ \hline
-A & Device to Host & Hight& 126 MB/s\\ \hline
+A & Host to Device & High& 127 MB/s \\ \hline
+A & Device to Host & High& 126 MB/s\\ \hline
 B & Host to Device & 10 Gb& 858 MB/s\\ \hline
 B & Device to Host & 10 Gb& 843 MB/s\\ \hline
 \end{tabular}\end{center}\end{table}
