@@ -281,18 +281,19 @@ In this section, the different client-server configurations
 are explained. All the scenarios are based in the maximum number of instance 
 that a user can freely select without submiting a formal request.
 
-The first scenarion (Figure~\ref{subfig:aws1}) shows the most common 
+\begin{itemize}
+\item Scenario A (Figure~\ref{subfig:aws1}) shows the most common 
 and used hardware configuration in real clusters, where each node is 
 populated with one GPU. Here, a simple node is able to use up to 5 GPUs 
 using the ``High'' interconnection. 
 
-The second configuration (Figure~\ref{subfig:aws2}) is composed by 2 server nodes equipped 
+\item Scenario B (Figure~\ref{subfig:aws2}) is composed by 2 server nodes equipped 
 with 4 GPUs each one and a client that does not have any GPU. This scenario is using 
 a 10Gb network and the cliend is able to execute application using up to 8 GPUs.
 
-The last scenario (Figure~\ref{subfig:aws3}), joins both previous ones and a single client, 
+\item Scenario C (Figure~\ref{subfig:aws3}), joins both previous ones and a single client, 
 using a 1Gb network interconnection has 13 GPUs that can be used as if they were locally installed.
-
+\end{itemize}
 
 \begin{figure*}[ht]
 \centering
