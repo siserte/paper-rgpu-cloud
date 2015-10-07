@@ -13,6 +13,7 @@
 \usepackage{SCITEPRESS}     % Please add other packages that you may need BEFORE the SCITEPRESS.sty package.
 
 \usepackage{url}% http://ctan.org/pkg/url
+\usepackage{flushend}
 
 \subfigtopskip=0pt
 \subfigcapskip=0pt
@@ -356,7 +357,7 @@ unlike the other setups the GPUs are not sharing the PCI bus with other devices,
 % \end{figure}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\linewidth]{images/aws-mont1.png}
+  \includegraphics[width=\linewidth]{images/mont.pdf}
   \caption{NVIDIA SDK {\tt MonteCarloMultiGPU} execution using local and remote GPUs.}
   \label{fig:mont-opt}
 \end{figure}
@@ -498,8 +499,8 @@ highest performance is achieved by sharing the accelerators.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.5\textwidth]{images/chart.jpg}
-  \caption{Execution time of MCUDA-MEME.}
+  \includegraphics[width=\linewidth]{images/mcudameme-os.pdf}
+  \caption{Scalability results of executing MCUDAMEME with a different number of MPI processes}
   \label{fig3}
 \end{figure}
 
@@ -519,6 +520,7 @@ highest performance is achieved by sharing the accelerators.
 
 \section*{\uppercase{Acknowledgements}}
 The authors would like to thank the IT members of the department Vicente Roca and Gustavo Edo for their help.
+
 The researchers were supported by Universitat Jaume I research project (P11B2013-21), project
 TIN2011-23283 and~FEDER.
 
