@@ -262,17 +262,30 @@ the 10~Gb interconnection which reaches up to 7.5~Gb/s.
 As it has been said before, an instance is based on a VM which is running on a real node with its own virtualized components, so it is possible that AWS could use a virtualization framework to offer GPU services to all the instances.
 Although, the {\tt nvidia-smi} command informs us that the GPUs installed are NVIDIA GRID K520, we need to verify that they are non-virtualized devices so, we have executed the NVIDIA SDK test called {\tt bandwidthtest}. 
 As it is shown in the Table~\ref{table:bwt}, as the bandwidth achieved in this test is higher than the network bandwith, it reveals that it is an ad-hoc GPU. 
+% \begin{table}[htb]
+% \renewcommand{\arraystretch}{1.3}
+% \caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory using local GPU.}
+% \label{table:bwt}
+% \tabcolsep=0.09cm
+% \begin{center}\begin{tabular}{cccc}
+% Name &  Data Movement & Network & Bandwidth \\ \hline \hline
+% g2.2xlarge & Host to Device & High& 3,004 MB/s \\ \hline
+% g2.2xlarge & Device to Host & High& 2,809 MB/s\\ \hline
+% g2.8xlarge & Host to Device & 10 Gb& 2,814 MB/s\\ \hline
+% g2.8xlarge & Device to Host & 10 Gb& 3,182 MB/s\\ \hline
+% \end{tabular}\end{center}\end{table}
+
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
 \caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory using local GPU.}
 \label{table:bwt}
 \tabcolsep=0.09cm
-\begin{center}\begin{tabular}{cccc}
-Name &  Data Movement & Network & Bandwidth \\ \hline \hline
-g2.2xlarge & Host to Device & High& 3,004 MB/s \\ \hline
-g2.2xlarge & Device to Host & High& 2,809 MB/s\\ \hline
-g2.8xlarge & Host to Device & 10 Gb& 2,814 MB/s\\ \hline
-g2.8xlarge & Device to Host & 10 Gb& 3,182 MB/s\\ \hline
+\begin{center}\begin{tabular}{ccc}
+Name &  Data Movement & Bandwidth \\ \hline \hline
+g2.2xlarge & Host to Device & 3,004 MB/s \\ \hline
+g2.2xlarge & Device to Host & 2,809 MB/s\\ \hline
+g2.8xlarge & Host to Device & 2,814 MB/s\\ \hline
+g2.8xlarge & Device to Host & 3,182 MB/s\\ \hline
 \end{tabular}\end{center}\end{table}
 
 \subsection{Testbed Scenarios}
@@ -405,16 +418,16 @@ In this section all the work related to OpenStack that has been done is explaine
 \subsection{Managing remote GPUs with OpenStack}
 The main idea is to move from the original OpenStack architecture (see Subfigure~\ref{subfig:os-orig})
  to a solution where a new shared service takes part into the architecture and it 
-is responsible for all related to GPU accelerators (see Subfigure~\ref{subfig:os-mod}).
+is responsible for all about GPU accelerators (see Subfigure~\ref{subfig:os-mod}).
 This new service would bring more flexibility when managing GPUs and new working modes for GPGPU computation in the Cloud.
 As it is shown in Figure~\ref{fig:internal}, we have altered the OpenStack original Dashboard with a new parser, 
-which split the HTTP query in order to make use of both, the GPGPU API for everything related to GPUs, and the nova API for the rest of the computation. 
-The new GPGPU Service has brought a new feature which brings more flexibility when managing GPUs, from now on, we can create ``GPU-pools''. 
+which splits the HTTP query in order to make use of both, the GPGPU API for GPU-related operations, and the nova API for the rest of the computation. 
+The new GPGPU Service has brought a new feature which brings more flexibility, apart from the regular idea of having GPUs in a VM, from now on, we can create ``GPU-pools''. 
 A ``GPU-pool'' is a set of independent GPUs (logically disattached from the nodes) that can be assigned to one or more instances.
 
 \begin{figure}[htb]
   \centering
-  \subfigure[Original in version XXXXXXXXXXXX]{
+  \subfigure[Version Icehouse]{
     \includegraphics[width=\linewidth]{images/os-orig.png}
     \label{subfig:os-orig}
    }
@@ -438,7 +451,7 @@ Thanks to the modular approach of the GPGPU Service, the Nova Project has not be
 
 \subsection{Working Modes}
 The developed module will allow the users to create any of the following scenarios (see Figure~\ref{fig2}). 
-The users are given two configuration options to decide whether a physical GPU will be completely allocated for an instance (first column) or the instance will address a partition of the GPU as if it were a device (second column).
+The users are given two configuration options to decide whether a physical GPU will be completely reserved for an instance (first column) or the instance will address a partition of the GPU as if it were a real device (second column).
 We refer to this as the ``mode'' and the possible values for this parameter are: ``exclusive'' or ``shared''. 
 Let us suppose to have 4 GPU devices in the cluster (no matter where they were hosted, neither if they were in the same server). 
 A well illustrated example of those scenarios can be seen in the first row of the  Figure~\ref{fig2}.
@@ -461,7 +474,7 @@ Again, the GPU pool can be composed by ``exclusive'' or ``shared'' GPUs.
 Several modifications have been planned in the OpenStack Dashboard in order to deal with the new features.
 First of all, the Instance Launch Panel should be provided with a new field, 
 where the user could assign an existent GPU pool, create a new one or leave the instance without accelerators of this kind.
-As soon as the option ``New GPU Pool'' is chosen, the proper fields for the pool configuration appears(see Figure~\ref{fig:ui-launch}).
+As soon as the option ``New GPU Pool'' is chosen, the proper fields for the pool configuration would appear (see Figure~\ref{fig:ui-launch}).
 Furthermore, a new panel with the existent GPUs displays all the information related to GPUs (see Figure~\ref{fig:ui-rgpus}).
 
 \begin{figure}[htb]
@@ -527,11 +540,14 @@ Although, the time is lower sharing the GPUs the setup cannot take advantage of 
 \end{figure}
 
 \subsection{Discussion}
-\label{sec:discussion}
-%-Volver a hacer un resumen
+Again, the networking issue is restricting the performance of our executions, but it has been discussed during virtually all the paper.
+However, it is not a new topic and in~\cite{tonithesis} is explained that investing in the network infrastructure could make the difference.
+
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusions}
+We have presented an upgrade for Openstack which easily permits to create GPU-instances and manage the physical GPUs to make more profit of them.
+
 
 \section{\uppercase{Future work}}
 \label{sec:future}
