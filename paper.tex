@@ -213,7 +213,7 @@ own price. Moreover, each instance has different number of CPUs and network
 interconnection which can be: low, medium, high or 10Gb.
 
 For this study, carried out in June 2015, we worked in the AWS availability zone US EAST (N. VIRGINIA). 
-So, at this moment the instances used had the features presented in the Table~\ref{table:awsInstances}. 
+So, at that moment the instances used had the features presented in the Table~\ref{table:awsInstances}. 
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
@@ -282,6 +282,8 @@ In this section, the different client-server configurations
 are explained. All the scenarios are based in the maximum number of instances 
 that a user can freely select without submitting a formal request. 
 In particular, can be launched 5 of ``g2.2xlarge'' and 2 of ``g2.8xlarge''.
+
+All the instances deployed operate the RHEL 7.1 64 bit system and the version 6.5 of CUDA. 
 
 \begin{itemize}
 \item Scenario A (Figure~\ref{subfig:aws1}) shows the most common 
@@ -401,8 +403,6 @@ To have such an expensive accelerators in a standby state is counter-productive.
 
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
 In this section all the work related to OpenStack that has been done is explained, from the development of an external module to handle remote GPUs to the physical setup and its testing.
-
-
 
 \subsection{Managing remote GPUs with OpenStack}
 The main idea is to move from the original Openstack architecture (see Subfigure~\ref{subfig:os-orig}) to a solution where a new shared service takes part into the architecture and is responsible for all related to GPU accelerators (see Subfigure~\ref{subfig:os-mod}).
@@ -540,6 +540,9 @@ The same thought, would guide us to try other Cloud vendors which more support f
 
 Looking for real situations where the performance is not so important as the flexibility to provide more accelerators, 
 would drive us to take the first steps through tools for easily deploying programming computer labs with the necessity for GPUs.
+
+Other interesting approach would be to make the system energy-aware. 
+Provided that a GPU could throw power information, a similar study based on the energy consumption could be done.
 
 Finally, to bring in more strategies to decide where a remote GPUs is created and assigned to a physical device, would be an interesting task to carry out. 
 With more scheduling policies the flexibility given by the GPGPU module for Openstack would increase.
