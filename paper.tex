@@ -206,16 +206,14 @@ the virtual machine creation step.
 
 An instance is a pre-configured virtual machine focused on an 
 specific target. Inside the large list of instances offered by AWS, 
-we can find: general pourpose (T2, M4 and M3); computer science optimized 
+we can find: general purpose (T2, M4 and M3); computer science optimized 
 (C4 and C3); memory optimized (R3); storage optimized (I2 and D2) and 
-GPU capable instances (G2). Each kind of instance has its own pourpose and its 
+GPU capable instances (G2). Each kind of instance has its own purpose and its 
 own price. Moreover, each instance has different number of CPUs and network 
 interconnection which can be: low, medium, high or 10Gb.
 
-For this study, the instances presented in the Table~\ref{table:awsInstances} 
-have been selected. The C3 family instances, which are not equipped with 
-GPUs are going to be used as client whereas the instances of the G2 family are 
-acting as servers.   
+For this study, carried out in June 2015, we worked in the AWS availability zone US EAST (N. VIRGINIA). 
+So, at this moment the instances used had the features presented in the Table~\ref{table:awsInstances}. 
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
@@ -229,6 +227,8 @@ c3.8xlarge & 32 & 60 GiB & 10 Gb & 0 & \$ 1.68 \\ \hline
 g2.2xlarge & 8 & 15 GiB & High & 1 & \$ 0.65\\ \hline
 g2.8xlarge & 32 & 60 GiB & 10 Gb & 4 & \$ 2.6 \\ \hline
 \end{tabular}\end{center}\end{table}
+
+The selection of these concrete types have the aim of using C3 family instances, which are not equipped with GPUs, as client whereas the instances of the G2 family are acting as servers.   
 
 \subsubsection{Network behaviour}
 As it is shown in the Table~\ref{table:awsInstances}, each instance has different 
@@ -261,15 +261,9 @@ the 10~Gb interconnection which reaches up to 7.5~Gb/s.
 
 
 \subsubsection{GPUs}
-As it has been said before, an instance is based in a VM 
-which is running on a real node with its own virtualized 
-components, so it is possible that AWS could use a virtualization 
-framework to offer GPU services to all the instances.
-Therefore, we need to verify if the GPUs showed in the instances are 
-non-virtualized GPUs so, we have executed the NVIDIA SDK test called 
-{\tt bandwidthtest}. As it is shown in the Table~\ref{table:bwt}, as the bandwidth achieved 
-in this test is higher than the network bandwith, it reveals that it is a 
-real GPU. 
+As it has been said before, an instance is based in a VM which is running on a real node with its own virtualized components, so it is possible that AWS could use a virtualization framework to offer GPU services to all the instances.
+Although, the {\tt nvidia-smi} command informs us that the GPUs installed are NVIDIA GRID K520, we need to verify that they are non-virtualized devices so, we have executed the NVIDIA SDK test called {\tt bandwidthtest}. 
+As it is shown in the Table~\ref{table:bwt}, as the bandwidth achieved in this test is higher than the network bandwith, it reveals that it is a real GPU. 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
 \caption{NVIDIA SDK {\tt bandwidthtest} execution transfering 32MB using pageable memory using local GPU.}
