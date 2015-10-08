@@ -408,7 +408,7 @@ To have such an expensive accelerators in a standby state is counter-productive.
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
 In this section all the work related to OpenStack that has been done is explained, from the development of an external module to handle remote GPUs to the physical setup and its testing.
 
-Version de open stack con la que se trabaja y tipo de instalacion ya que está toda en un nodo...
+
 
 \subsection{Managing remote GPUs with OpenStack}
 The main idea is to move from the original Openstack architecture (see Subfigure~\ref{subfig:os-orig}) to a solution where a new shared service takes part into the architecture and is responsible for all related to GPU accelerators (see Subfigure~\ref{subfig:os-mod}).
@@ -490,9 +490,17 @@ equipped with a Intel Xeon E7420 quadcore processor at
 MHz, was guest host for the VMs. While the other 4 nodes
 were auxiliary servers with a Tesla C1060 GPU each one. 
 In the software stack the testbed system operates a
-Centos 6.6; the cloud platform is deployed by OpenStack; and
-the GPUs use CUDA 6.5. The GPU virtualization support is
-based on rCUDA v5.0.
+Centos 6.6; and the GPUs use CUDA 6.5. The GPU virtualization support is
+based on rCUDA v5.0. In order to deploy an infrastructure as a service cloud,
+we installed OpenStack Icehouse version and QEMU/KVM 0.12.1 as the hypervisor in one
+of these 5-node cluster. A fully-featured OpenStack deployment usually requires
+at least three nodes: one controller node that manages the compute nodes 
+where the VMs are hosted, one network node that manages the logic
+virtual network for the VMs, and one or more compute nodes that 
+run the hypervisor and virtual machines. However, our OpenStack deployment
+was deployed in one-node architecture making better use of our resources.
+Thus, the main OpenStack services such as identity, image, compute, dashboard, and 
+network services were installed in the first machine without GPU described above.
 
 We have designed 6 different set-ups which can be divided
 in 2 groups: “Exclusive GPUs” and “Shared GPUs”. The
