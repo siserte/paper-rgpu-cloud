@@ -210,7 +210,7 @@ An instance is a pre-configured virtual machine focused on an
 specific target. Inside the large list of instances offered by AWS, 
 we can find: general pourpose (T2, M4 and M3); computer science optimized 
 (C4 and C3); memory optimized (R3); storage optimized (I2 and D2) and 
-GPU capable instances. Each kind of instance has its own pourpose and its 
+GPU capable instances (G2). Each kind of instance has its own pourpose and its 
 own price. Moreover, each instance has different number of CPUs and network 
 interconnection which can be: low, medium, high or 10Gb.
 
@@ -350,7 +350,7 @@ B & Device to Host & 10 Gb& 843 MB/s\\ \hline
 \subsection{Experimental results}
 In order to assess that GPU virtualization with AWS instances was working as expected, two applications were executed to analyze the results and their scalability.
 
-The first of them was {\tt MonteCarloMultigpu} from NVIDIA SDK, launched with the default configuration ``scaling=weak'' which adjust the size of the problem depending on the number of accelerators.
+The first of them was {\tt MonteCarloMultiGPU} from NVIDIA SDK, launched with the default configuration ``scaling=weak'' which adjust the size of the problem depending on the number of accelerators.
 The Figure~\ref{fig:mont-opt} depicts the options per second calculated by the application running on the scenarios of Figure~\ref{fig:aws} and on the instances with local GPUs. 
 We have removed the results of the Scenario~\ref{subfig:aws2} for clarity ought to they are exactly the same that the obtained from Scenario~\ref{subfig:aws3} up to 8 GPUs. 
 In other words, we could state that the results until the 8th GPU would correspond to the Scenario~\ref{subfig:aws2} and thereafter to the Scenario~\ref{subfig:aws3}.
@@ -372,9 +372,9 @@ unlike the other setups the GPUs are not sharing the PCI bus with other devices,
 
 The other application, LAMMPS\footnote{\url{http://lammps.sandia.gov}}, is a classical molecular dynamics simulator that can be applied at the atomic, meso, or continuum scale. 
 From the implementation perspective, this multi-process application employs at least one GPU to host its processes, but can benefit from the use of multiple GPUs.
-The Figure shows that running this application using remote GPUs does not offer any advantage in front of original CUDA. 
+The Subfigure~\ref{subfig:lammps1} shows that running this application using remote GPUs does not offer any advantage in front of original CUDA. 
 Furthermore, for the execution on remote GPUs, can be seen a little difference between both networks, the ``High'' network performs worse than ``10 Gb'' network.
-Thus, if we compare the results of a LAMMPS execution with a larger problem (see Figure), although CUDA continues performing better, the interesting point is the execution time on remote GPUs. 
+Thus, if we compare the results of a LAMMPS execution with a larger problem (see Subfigure~\ref{subfig:lammps2}), although CUDA continues performing better, the interesting point is the execution time on remote GPUs. 
 They are almost the same even with different networks what means that the transfers are making the interconnection network the bottleneck, and enlarging the problem size
 pays off the drawback of a slower network.
 
@@ -392,7 +392,21 @@ pays off the drawback of a slower network.
 \end{figure}
 
 \subsection{Discussion}
-Flexibility and economical expenses
+Putting all together,  it is cristal clear that the AWS GPU-instances are not aimed to HPC because neither the network nor the accelerators are powerful enough to reach an appropriate performance
+while running intensive parallel applications. 
+Hence, AWS's target is more oriented to offer the service than to provide performance.
+Also with the aim of plainly offering the service of GPGPU, AWS lacks in flexibility. 
+AWS forces the user to choose between a basic instance with a GPU and a powerful instance with 4 GPUs.
+
+Coming back to the Table~\ref{table:awsInstances} can be seen how not only the resources of the ``g2.8xlarge'' has been quadrupled, but also the cost per hour.
+So, in the case of having other necessities (talking in terms of the instances type), with remotes GPUs we could attach an accelerator to any kind of instance.
+Furthermore, reducing the budget in VM could be possible by customizing the resources of the available instances.
+If needed, we could work on an instance of 2 GPUs for only \$ 1.3 by launching 2 ``g2.2xlarge'' and using remote GPUs. 
+Avoiding to pay the double for features that we are not willing to use in ``g2.8xlarge''.
+
+The last conclusion we drew was related to GPU-shareability. 
+As we deduced, AWS has GPU-capable physical machines reserved which could be idle until a GPU-instance request were made.
+To have such an expensive accelerators in a standby state is counter-productive. So, it would make more sense if we had less devices, accessible from any machine, though.
 
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
 In this section all the work related to OpenStack that has been done is explained, from the development of an external module to handle remote GPUs to the physical setup and its testing.
@@ -473,7 +487,7 @@ Furthermore, a new panel with the existent GPUs would display all the informatio
 \end{figure}
 
 \subsection{Experimental Results}
-The test were executed on a 5-node cluster where a machine
+The tests were executed on a 5-node cluster where a machine
 equipped with a Intel Xeon E7420 quadcore processor at
 2.13 GHz, and 16 Gbytes of DDR2 RAM memory at 667
 MHz, was guest host for the VMs. While the other 4 nodes
@@ -504,14 +518,17 @@ and 4096 MB of memory.
 
 MCUDA-MEME~\cite{Liu2010} has been the application executed with
 different configurations in order to test the set-ups. MCUDA-
-MEME is GPGPU MPI application, so the number of GPUs
-will determine the number of executable processes.
+MEME is an MPI application which is accelerated by GPUs
+Besides, each of its processes must have a GPU to not abort 
+So, the number of GPUs will determine the number of processes that we can launch.
+
 The Figure~\ref{fig3} shows and compares the execution time of
-the application with different configurations over different set-
-ups. We can determine that with 1 node, the performance is
-lower, with 2 and 3 is quite similar, though. Hence, the greatest
-difference can be appreciated between modes, where the
-highest performance is achieved by sharing the accelerators.
+the application with different configurations over different setups. 
+We have used up to 3 nodes to spread the processes and launched up to 8 processes (only 4 in exclusive mode), one for each remote GPU.
+Firstly, we can state that the performance is higher with more than one node, because the traffic network is distributed among the nodes.
+Secondly, the lowest execution time is obtained by both modes (exclusive and shared) when running their maximum number of processes with more than 1 node.
+It could mean that it is not worthy to continue giving resources to the application to scale, because the performance growth rate is barely increasing.
+Although, the time is lower sharing the GPUs the setup cannot take advantage of doubling the devices.
 
 \begin{figure}[htb]
   \centering
@@ -523,8 +540,6 @@ highest performance is achieved by sharing the accelerators.
 \section{\uppercase{Discussion}}
 \label{sec:discussion}
 -Volver a hacer un resumen
--posibles futuras aplicaciones (lab)
--pruebas con otros proveedores o con otras plataformas (azure)
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusions}
@@ -533,12 +548,13 @@ highest performance is achieved by sharing the accelerators.
 \label{sec:future}
 The first task that we should have keep in mind after this study is to upgrade the interconnection network to one more focused on HPC.
 So that, porting the setup and the tests to an infrastructure with an Infiniband network would shed light on the viability of this kind of solutions for HPC.
+The same thought, would guide us to try other Cloud vendors which more support for HPC.
 
 Looking for real situations where the performance is not so important as the flexibility to provide more accelerators, 
-would drive us to take the first steps through tools for easily deploying programming computer labs with the necessity for GPU.
+would drive us to take the first steps through tools for easily deploying programming computer labs with the necessity for GPUs.
 
-Finally, to bring in more strategies to decide where a remote GPUs was created and assigned to a physical device, would be an interesting task to carry out. 
-With more scheduling policies the flexibility given by the GPGPU module for Openstack should increase.
+Finally, to bring in more strategies to decide where a remote GPUs is created and assigned to a physical device, would be an interesting task to carry out. 
+With more scheduling policies the flexibility given by the GPGPU module for Openstack would increase.
 
 \section*{\uppercase{Acknowledgements}}
 The authors would like to thank the IT members of the department Vicente Roca and Gustavo Edo for their help.
