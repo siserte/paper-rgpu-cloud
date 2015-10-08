@@ -153,19 +153,26 @@ to boost the cluster flexibility in the use of GPUs.
 Cloud computing, storage and other facilities are becoming 
 more popular during the last years thanks to the easy set up 
 process and the low required IT invest. The features provided 
-by the cloud vendors are useful for companies and individuals 
+by the cloud services are useful for companies and individuals 
 which have access to the last technology without spending a 
 huge amount of money. Moreover, the systems offered by the cloud 
 companies matches with the ones required thanks to its flexibility.
 
-The power of current cloud vendors is based on the use 
+Two different kinds of cloud approaches are available:
+on the one hand, public facilities such as Amazon Web Services or 
+Microsoft Azure allows users to chose a by default system configuration 
+or to compose its own system features. On the other hand, institutions/companies 
+are able to deploy their own cloud infrastructure by using software products 
+like OpenStack.  
+
+In both cases, the power of current cloud facilities is based on the use 
 of Virtual Machines (VM) which  
 emulates a physical node with its own 
 CPUs, storage, network interconnection, OS and GPU. 
 However, to provide a VM with GPUs means
 that the guest host must be equipped with at least one GPU, and
 once it has been assigned to an instance, no other VM can use
-it. Therefore, the number of VM that are allowed to use a GPU is 
+it. Therefore, the number of VM that are allowed to use GPUs is 
 limited by the number of the installed devices. This lack of 
 flexibility is also noticed in the cluster configurations, where 
 depending on the users’ necessities, 
@@ -181,15 +188,21 @@ the desired flexibility because this software detaches the GPUs
 from the nodes where they are installed allowing all nodes in a cluster
 not only use them as if they were local but also to share them 
 achieving a higher utilization rate and reducing the idle status time.
-
 Thanks to the shareability introduced by {rCUDA}, all VM in the cloud 
 environment should be able to use and share all the GPUs installed in 
-the physical nodes removing the current limitation. But, in order to achieve this goal, 
-the cloud facilities need to be provided with the {rCUDA} software and 
-in the case of OpenStack, a module for managing virtualized GPUs 
- has to be implemented.  
+the physical nodes removing the current limitations. 
 
-****** FALTA UNIR AMBAS PARTES DEL TRABAJO ******
+The main goals of this work are to study current cloud solutions from 
+the point of view of HPC field and GPU usage, and to analyze and improve 
+them by adding flexibility with GPU virtualization.
+
+Our work have been focused on Amazon Web Service as example of public 
+solution and on OpenStack software acting as a private cloud environment. 
+In order to achieve it, these cloud facilities need to be provided with the {rCUDA} software and 
+in the case of OpenStack, a module for managing virtualized GPUs 
+ requires to be implemented.  
+
+
 
 \section{\uppercase{Working with AWS}}
 \label{sec:aws}
