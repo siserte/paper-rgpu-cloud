@@ -208,7 +208,7 @@ An instance is a pre-configured virtual machine focused on an
 specific target. Inside the large list of instances offered by AWS, 
 we can find: general pourpose (T2, M4 and M3); computer science optimized 
 (C4 and C3); memory optimized (R3); storage optimized (I2 and D2) and 
-GPU capable instances. Each kind of instance has its own pourpose and its 
+GPU capable instances (G2). Each kind of instance has its own pourpose and its 
 own price. Moreover, each instance has different number of CPUs and network 
 interconnection which can be: low, medium, high or 10Gb.
 
@@ -252,12 +252,12 @@ g2.8xlarge & g2.8xlarge & 10Gb & 7.5  Gb/s\\ \hline
 The IPERF tool has been executed between the instances showed in 
 the Table~\ref{table:iperf} in order to know the real bandwidth.
 Therefore, we can assure that the nomenclature ``High'' used in the 
-network column correspond to a 1Gb interconnection and the 10Gb has 
-a real bandwidth of 7.5Gb/s.
+network column correspond to a 1~Gb interconnection and the 10~Gb has 
+a real bandwidth of 7.5~Gb/s.
 Moreover, it looks like the instances equipped with a ``High'' interconnection 
-are software-limited up to 1 Gb/s due to the theoretical and real bandwith 
+are software-limited up to 1~Gb/s due to the theoretical and real bandwith 
 match perfectly. The gap between real and theorical can be observed with 
-the 10Gb interconnection which reaches up to 7.5 Gb/s.
+the 10~Gb interconnection which reaches up to 7.5~Gb/s.
 
 
 \subsubsection{GPUs}
@@ -526,9 +526,9 @@ Although, the time is lower sharing the GPUs the setup cannot take advantage of 
   \label{fig3}
 \end{figure}
 
-\section{\uppercase{Discussion}}
-\label{sec:discussion}
--Volver a hacer un resumen
+%\section{\uppercase{Discussion}}
+%\label{sec:discussion}
+%-Volver a hacer un resumen
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusions}
