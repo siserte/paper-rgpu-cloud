@@ -185,7 +185,7 @@ Thanks to the shareability introduced by {rCUDA}, all VM in the cloud
 environment should be able to use and share all the GPUs installed in 
 the physical nodes removing the current limitation. But, in order to achieve this goal, 
 the cloud facilities need to be provided with the {rCUDA} software and 
-in the case of OpenStack, a module for manageing virtualized GPUs 
+in the case of OpenStack, a module for managing virtualized GPUs 
  has to be implemented.  
 
 
@@ -206,9 +206,9 @@ the virtual machine creation step.
 
 An instance is a pre-configured virtual machine focused on an 
 specific target. Inside the large list of instances offered by AWS, 
-we can find: general pourpose (T2, M4 and M3); computer science optimized 
+we can find: general purpose (T2, M4 and M3); computer science optimized 
 (C4 and C3); memory optimized (R3); storage optimized (I2 and D2) and 
-GPU capable instances (G2). Each kind of instance has its own pourpose and its 
+GPU capable instances (G2). Each kind of instance has its own purpose and its 
 own price. Moreover, each instance has different number of CPUs and network 
 interconnection which can be: low, medium, high or 10Gb.
 
@@ -255,8 +255,8 @@ Therefore, we can assure that the nomenclature ``High'' used in the
 network column correspond to a 1~Gb interconnection and the 10~Gb has 
 a real bandwidth of 7.5~Gb/s.
 Moreover, it looks like the instances equipped with a ``High'' interconnection 
-are software-limited up to 1~Gb/s due to the theoretical and real bandwith 
-match perfectly. The gap between real and theorical can be observed with 
+are software-limited up to 1~Gb/s due to the theoretical and real bandwidth 
+match perfectly. The gap between real and theoretical can be observed with 
 the 10~Gb interconnection which reaches up to 7.5~Gb/s.
 
 
@@ -268,15 +268,15 @@ framework to offer GPU services to all the instances.
 Therefore, we need to verify if the GPUs showed in the instances are 
 non-virtualized GPUs so, we have executed the NVIDIA SDK test called 
 {\tt bandwidthtest}. As it is shown in the Table~\ref{table:bwt}, as the bandwidth achieved 
-in this test is higher than the network bandwith, it reveals that it is a 
+in this test is higher than the network bandwidth, it reveals that it is a 
 real GPU. 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
-\caption{NVIDIA SDK {\tt bandwidthtest} execution transfering 32MB using pageable memory using local GPU.}
+\caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory using local GPU.}
 \label{table:bwt}
 \tabcolsep=0.09cm
 \begin{center}\begin{tabular}{cccc}
-Name &  Data Movement & Network & BandWidth \\ \hline \hline
+Name &  Data Movement & Network & Bandwidth \\ \hline \hline
 g2.2xlarge & Host to Device & High& 3,004 MB/s \\ \hline
 g2.2xlarge & Device to Host & High& 2,809 MB/s\\ \hline
 g2.8xlarge & Host to Device & 10 Gb& 2,814 MB/s\\ \hline
@@ -297,7 +297,7 @@ using the ``High'' interconnection.
 
 \item Scenario B (Figure~\ref{subfig:aws2}) is composed by 2 server nodes equipped 
 with 4 GPUs each one and a client that does not have any GPU. This scenario is using 
-a 10Gb network and the cliend is able to execute application using up to 8 GPUs.
+a 10Gb network and the client is able to execute application using up to 8 GPUs.
 
 \item Scenario C (Figure~\ref{subfig:aws3}) joins both scenarios A and B. So a 
 single client, using a 1Gb network interconnection, has 13 GPUs that can be used as if they were locally installed.
@@ -332,11 +332,11 @@ by the network.
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
-\caption{NVIDIA SDK {\tt bandwidthtest} execution transfering 32MB using pageable memory using {rCUDA}.}
+\caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory using {rCUDA}.}
 \label{table:bwtrcuda}
 \tabcolsep=0.09cm
 \begin{center}\begin{tabular}{cccc}
-Scenario &  Data Movement & Network & BandWidth \\ \hline \hline
+Scenario &  Data Movement & Network & Bandwidth \\ \hline \hline
 A & Host to Device & High& 127 MB/s \\ \hline
 A & Device to Host & High& 126 MB/s\\ \hline
 B & Host to Device & 10 Gb& 858 MB/s\\ \hline
@@ -389,7 +389,7 @@ pays off the drawback of a slower network.
 \end{figure}
 
 \subsection{Discussion}
-Putting all together,  it is cristal clear that the AWS GPU-instances are not aimed to HPC because neither the network nor the accelerators are powerful enough to reach an appropriate performance
+Putting all together,  it is crystal clear that the AWS GPU-instances are not aimed to HPC because neither the network nor the accelerators are powerful enough to reach an appropriate performance
 while running intensive parallel applications. 
 Hence, AWS's target is more oriented to offer the service than to provide performance.
 Also with the aim of plainly offering the service of GPGPU, AWS lacks in flexibility. 
@@ -411,7 +411,7 @@ In this section all the work related to OpenStack that has been done is explaine
 
 
 \subsection{Managing remote GPUs with OpenStack}
-The main idea is to move from the original Openstack architecture (see Subfigure~\ref{subfig:os-orig}) to a solution where a new shared service takes part into the architecture and is responsible for all related to GPU accelerators (see Subfigure~\ref{subfig:os-mod}).
+The main idea is to move from the original OpenStack architecture (see Subfigure~\ref{subfig:os-orig}) to a solution where a new shared service takes part into the architecture and is responsible for all related to GPU accelerators (see Subfigure~\ref{subfig:os-mod}).
 This new service would bring more flexibility when managing GPUs and new working modes for GPGPU computation in the Cloud.
 As it is shown in Figure~\ref{fig:internal}, we have altered the OpenStack original Dashboard with a new parser, 
 which split the HTTP query in order to make use of both, the GPGPU API for everything related to GPUs, and the nova API for the rest of the computation. 
@@ -429,7 +429,7 @@ A ``GPU-pool'' is a set of independent GPUs (logically disattached from the node
     \includegraphics[width=\linewidth]{images/os1.jpg}
     \label{subfig:os-mod}
    }
-  \caption{Openstack Architecture}
+  \caption{OpenStack Architecture}
   \label{fig:os}
 \end{figure}
 
@@ -548,7 +548,7 @@ Looking for real situations where the performance is not so important as the fle
 would drive us to take the first steps through tools for easily deploying programming computer labs with the necessity for GPUs.
 
 Finally, to bring in more strategies to decide where a remote GPUs is created and assigned to a physical device, would be an interesting task to carry out. 
-With more scheduling policies the flexibility given by the GPGPU module for Openstack would increase.
+With more scheduling policies the flexibility given by the GPGPU module for OpenStack would increase.
 
 \section*{\uppercase{Acknowledgements}}
 The authors would like to thank the IT members of the department Vicente Roca and Gustavo Edo for their help.
