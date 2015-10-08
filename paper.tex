@@ -27,11 +27,11 @@
 \affiliation{Department of Computer Science and Engineering\\Universitat Jaume I - Castell\'o de la Plana, Spain}
 \email{\{siserte, fclement, adcastel, mayo, quintana\}@uji.es}}
 
-\keywords{Cloud Computing, GPU Virtualization, Resource Management}
+\keywords{Cloud Computing, GPU Virtualization, AWS, Resource Management}
 
 \abstract{The use of accelerators in order to reduce the execution time of some 
 application has become more popular during last years. These devices increment 
-the computational power of a node thanks to its parallel architecture. %The popularity of the GPGPU computation 
+the computational power of a node thanks to its parallel architecture.
 This trend has led several cloud vendors such as Amazon Web Services or some 
 middlewares such as OpenStack to add to their current facilities, or to allow, 
 instances of virtual machines equipped with NVIDIA GPUs. 
@@ -56,12 +56,10 @@ cloud solutions.
 
 %\noindent 
 
-
 \section{\uppercase{Background}}
 \label{sec:background}
 \subsection{The rCUDA Framework}
 \label{sec:rcuda}
-
 {rCUDA}~\cite{tonithesis,toniparco} is a middleware that enables transparent access
 to any NVIDIA GPU device present in a cluster from all compute
 nodes. The GPUs can be accessed and shared between nodes, and a single node can use all these graphic accelerators
@@ -287,8 +285,9 @@ g2.8xlarge & Device to Host & 10 Gb& 3,182 MB/s\\ \hline
 
 \subsection{Testbed Scenarios}
 In this section, the different client-server configurations 
-are explained. All the scenarios are based in the maximum number of instance 
-that a user can freely select without submiting a formal request.
+are explained. All the scenarios are based in the maximum number of instances 
+that a user can freely select without submitting a formal request. 
+In particular, can be launched 5 of ``g2.2xlarge'' and 2 of ``g2.8xlarge''.
 
 \begin{itemize}
 \item Scenario A (Figure~\ref{subfig:aws1}) shows the most common 
@@ -344,13 +343,11 @@ B & Host to Device & 10 Gb& 858 MB/s\\ \hline
 B & Device to Host & 10 Gb& 843 MB/s\\ \hline
 \end{tabular}\end{center}\end{table}
 
-
-
-
 \subsection{Experimental results}
 In order to assess that GPU virtualization with AWS instances was working as expected, two applications were executed to analyze the results and their scalability.
 
-The first of them was {\tt MonteCarloMultiGPU} from NVIDIA SDK, launched with the default configuration ``scaling=weak'' which adjust the size of the problem depending on the number of accelerators.
+The first of them was {\tt MonteCarloMultiGPU} from NVIDIA SDK, an application purely computational. 
+It was launched with the default configuration ``scaling=weak'' which adjust the size of the problem depending on the number of accelerators.
 The Figure~\ref{fig:mont-opt} depicts the options per second calculated by the application running on the scenarios of Figure~\ref{fig:aws} and on the instances with local GPUs. 
 We have removed the results of the Scenario~\ref{subfig:aws2} for clarity ought to they are exactly the same that the obtained from Scenario~\ref{subfig:aws3} up to 8 GPUs. 
 In other words, we could state that the results until the 8th GPU would correspond to the Scenario~\ref{subfig:aws2} and thereafter to the Scenario~\ref{subfig:aws3}.
@@ -491,7 +488,7 @@ The tests were executed on a 5-node cluster where a machine
 equipped with a Intel Xeon E7420 quadcore processor at
 2.13 GHz, and 16 Gbytes of DDR2 RAM memory at 667
 MHz, was guest host for the VMs. While the other 4 nodes
-were auxiliary servers with a Tesla C1090 GPU each one. 
+were auxiliary servers with a Tesla C1060 GPU each one. 
 In the software stack the testbed system operates a
 Centos 6.6; the cloud platform is deployed by OpenStack; and
 the GPUs use CUDA 6.5. The GPU virtualization support is
