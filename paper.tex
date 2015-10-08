@@ -350,7 +350,7 @@ B & Device to Host & 10 Gb& 843 MB/s\\ \hline
 \subsection{Experimental results}
 In order to assess that GPU virtualization with AWS instances was working as expected, two applications were executed to analyze the results and their scalability.
 
-The first of them was {\tt MonteCarloMultigpu} from NVIDIA SDK, launched with the default configuration ``scaling=weak'' which adjust the size of the problem depending on the number of accelerators.
+The first of them was {\tt MonteCarloMultiGPU} from NVIDIA SDK, launched with the default configuration ``scaling=weak'' which adjust the size of the problem depending on the number of accelerators.
 The Figure~\ref{fig:mont-opt} depicts the options per second calculated by the application running on the scenarios of Figure~\ref{fig:aws} and on the instances with local GPUs. 
 We have removed the results of the Scenario~\ref{subfig:aws2} for clarity ought to they are exactly the same that the obtained from Scenario~\ref{subfig:aws3} up to 8 GPUs. 
 In other words, we could state that the results until the 8th GPU would correspond to the Scenario~\ref{subfig:aws2} and thereafter to the Scenario~\ref{subfig:aws3}.
