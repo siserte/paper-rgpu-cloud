@@ -123,8 +123,7 @@ of a GPU is currently unsupported in OpenStack~\cite{OpenStackGPU}.
 
 \section{\uppercase{State of Art}}
 \label{sec:state}
-Our solutions
-is based on GPU virtualization and sharing resources in order
+Our solutions is based on GPU virtualization and sharing resources in order
 to reach a fair balance between supply and demand.
 Several attempts of achieving what we are pursing have been
 made, but none of them are so ambitious as our project. On
@@ -132,16 +131,19 @@ the one hand the work done in~\cite{younge2013enabling} allows the VM managed
 by the hypervisor Xen to access the GPUs in the physical
 node. With the implied limitations of restricting the nodes not
 to use more GPUs than the hosted in the machine and not
-to share idle GPUs to other machines. The solution presented
-by the project gVirtus~\cite{giunta2010gpgpu} does virtualize GPUs and make
+to share idle GPUs to other machines, several solutions have been presented.
+The solution presented by the project gVirtus~\cite{giunta2010gpgpu} does virtualize GPUs and make
 them accessible for any VM in the cluster. However, this kind
 of virtualization strongly depends on the hypervisor used, so
-does its performance. Another similar solution is presented in~\cite{diab2013dynamic} by the name of gCloud. This one continues without being
-integrated in a Cloud Computing Manager, though its main
+does its performance. Another similar solution is presented in~\cite{diab2013dynamic} by the name of gCloud. 
+This one continues without being integrated in a Cloud Computing Manager, though its main
 drawback is that the code of the applications must be modified
-in order to be run in their virtual-GPU environment. On the
-other hand, the work exposed in~\cite{jungpgpu} is more mature, however,
-it is only focussed on compute intensive HPC applications.
+in order to be run in their virtual-GPU environment. A runtime component to provide abstraction
+and sharing of GPUs is presented in~\cite{becchi2012virtual}, which allows scheduling policies 
+to isolate and share GPUs in a cluster for a set of applications. Our proposal uses a different 
+approach employing virtual machines and a cloud computing environment to allow to share GPUs in a flexible way.
+On the other hand, the work exposed in~\cite{jungpgpu} is more mature, however,
+it is only focussed on compute intensive HPC applications. 
 The main idea of our proposal goes further and apart from
 bringing solutions for all kind of HPC applications, it is aimed
 to boost the cluster flexibility in the use of GPUs.
@@ -212,10 +214,8 @@ GPU capable instances (G2). Each kind of instance has its own purpose and its
 own price. Moreover, each instance has different number of CPUs and network 
 interconnection which can be: low, medium, high or 10Gb.
 
-For this study, the instances presented in the Table~\ref{table:awsInstances} 
-have been selected. The C3 family instances, which are not equipped with 
-GPUs are going to be used as client whereas the instances of the G2 family are 
-acting as servers.   
+For this study, carried out in June 2015, we worked in the AWS availability zone US EAST (N. VIRGINIA). 
+So, at this moment the instances used had the features presented in the Table~\ref{table:awsInstances}. 
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
@@ -229,6 +229,8 @@ c3.8xlarge & 32 & 60 GiB & 10 Gb & 0 & \$ 1.68 \\ \hline
 g2.2xlarge & 8 & 15 GiB & High & 1 & \$ 0.65\\ \hline
 g2.8xlarge & 32 & 60 GiB & 10 Gb & 4 & \$ 2.6 \\ \hline
 \end{tabular}\end{center}\end{table}
+
+The selection of these concrete types have the aim of using C3 family instances, which are not equipped with GPUs, as client whereas the instances of the G2 family are acting as servers.   
 
 \subsubsection{Network behaviour}
 As it is shown in the Table~\ref{table:awsInstances}, each instance has different 
@@ -249,7 +251,7 @@ g2.8xlarge & g2.2xlarge & High & 1 Gb/s\\ \hline
 g2.8xlarge & g2.8xlarge & 10Gb & 7.5  Gb/s\\ \hline
 \end{tabular}\end{center}\end{table}
 
-The IPERF tool has been executed between the instances showed in 
+The IPERF\footnote{\url{http://iperf.fr/}} tool has been executed between the instances showed in 
 the Table~\ref{table:iperf} in order to know the real bandwidth.
 Therefore, we can assure that the nomenclature ``High'' used in the 
 network column correspond to a 1~Gb interconnection and the 10~Gb has 
@@ -261,15 +263,9 @@ the 10~Gb interconnection which reaches up to 7.5~Gb/s.
 
 
 \subsubsection{GPUs}
-As it has been said before, an instance is based in a VM 
-which is running on a real node with its own virtualized 
-components, so it is possible that AWS could use a virtualization 
-framework to offer GPU services to all the instances.
-Therefore, we need to verify if the GPUs showed in the instances are 
-non-virtualized GPUs so, we have executed the NVIDIA SDK test called 
-{\tt bandwidthtest}. As it is shown in the Table~\ref{table:bwt}, as the bandwidth achieved 
-in this test is higher than the network bandwidth, it reveals that it is a 
-real GPU. 
+As it has been said before, an instance is based in a VM which is running on a real node with its own virtualized components, so it is possible that AWS could use a virtualization framework to offer GPU services to all the instances.
+Although, the {\tt nvidia-smi} command informs us that the GPUs installed are NVIDIA GRID K520, we need to verify that they are non-virtualized devices so, we have executed the NVIDIA SDK test called {\tt bandwidthtest}. 
+As it is shown in the Table~\ref{table:bwt}, as the bandwidth achieved in this test is higher than the network bandwith, it reveals that it is a real GPU. 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
 \caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory using local GPU.}
