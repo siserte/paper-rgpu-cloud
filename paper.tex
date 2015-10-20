@@ -205,7 +205,7 @@ in the case of OpenStack, a module for managing virtualized GPUs
 
 
 \section{\uppercase{Working with AWS}}
-\label{sec:aws}
+\label{sec:workingaws}
 In this section, first of all, the current user-level features 
 provided by the Amazon Web Services are explained and analyzed 
 from the point of view of the GPU usage. 
@@ -563,12 +563,14 @@ The most remarkable achievement is the wide range of possible configuration and 
 user requirements. 
 
 The requests of GPU-capable hosts in a completely transparent way for the user can be fulfilled with an small investment in infrastructure and in maintenance.
-Moreover, energy can be saved, not only thanks to the remote access and the ability to emulate several GPUs from a real one, but also by grouping the accelerators in a single machine (when possible) or turning down nodes when their GPUs are not necessary. 
+Energy can be saved, not only thanks to the remote access and the ability to emulate several GPUs from a real one, but also  by grouping the accelerators in a single machine (when possible) or turning down nodes when their GPUs are not necessary. 
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusions}
-We have presented an upgrade for Openstack which easily permits to create GPU-instances and manage the physical GPUs to make more profit of them.
+We have seen a thoroughly study of the possibilities offered by AWS in everything to do with GPUs. Its limitations drove us to deploy our own private cloud to have more flexibility when working with these accelerators.
+So that, we have presented an upgrade for Openstack which easily permits to create GPU-instances and manage the physical GPUs to make more profit of them.
 
+Leaving aside the performance of the executions which we knew in advance that would be poor due to the interconnection network features, we have created new operation modes. They have brought interesting new ways of using GPUs in situations where the simple fact of having accessing a GPU is more important than having a powerful GPU to boost the performance.
 
 \section{\uppercase{Future work}}
 \label{sec:future}
@@ -586,7 +588,7 @@ Finally, to bring in more strategies to decide where a remote GPUs is created an
 With more scheduling policies the flexibility given by the GPGPU module for OpenStack would increase.
 
 \section*{\uppercase{Acknowledgements}}
-The authors would like to thank the IT members of the department Vicente Roca and Gustavo Edo for their help.
+The authors would like to thank the IT members of the department Gustavo Edo and Vicente Roca for their help.
 
 The researchers were supported by Universitat Jaume I research project (P11B2013-21), project
 TIN2011-23283 and~FEDER.
