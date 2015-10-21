@@ -49,6 +49,36 @@ cloud solutions.
 
 \section{\uppercase{Introduction}}
 \label{sec:introduction}
+The use of coprocessor and accelerators has been continuously
+growing in the past several years and 90 supercomputers
+were equipped with accelerators of some sort in the most
+recent TOP500 list~\cite{nov14top500}, dated June 2015.
+These devices achieve better performance than traditional processors for
+codes which match their architecture.
+
+These devices were general adopted with the release of the CUDA programming model for
+NVIDIA GPUs~\cite{cuda65}. This libraries include both high- and low-level application programming interfaces (APIs)
+to allow the use of NVIDIA devices as general-purpose
+accelerators.
+Following CUDA, OpenCL~\cite{opencl} appeared as an attempt
+to offer a cross-vendor solution.
+
+The current approach for creating clusters with GPUs has been to
+install one or more of these devices in each compute node.
+However, these configurations present a low
+utilization rate of the computational resources
+ because of mismatches between the application's type of parallelism
+and the accelerators' architecture.
+
+In order to address this problem, remote virtualization was proposed
+and several solutions have been presented (e.g. {rCUDA}~\cite{tonithesis,toniparco},
+DS-CUDA~\cite{dscuda}, gVirtus~\cite{gvirtus}, vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}).
+
+Among the virtualization frameworks, the most
+prominent is {rCUDA}, which
+enables cluster configurations with fewer GPUs than nodes.  With this
+approach, GPU-equipped nodes act as GPGPU (general-purpose GPU), enabling a CUDA-sharing solution that potentially achieves
+a higher overall GPU load in the system.
 
 \section{\uppercase{Background}}
 \label{sec:background}
