@@ -80,6 +80,21 @@ enables cluster configurations with fewer GPUs than nodes.  With this
 approach, GPU-equipped nodes act as GPGPU (general-purpose GPU), enabling a CUDA-sharing solution that potentially achieves
 a higher overall GPU load in the system.
 
+Nowadays, many cloud vendors have started offering virtual machines (VM) with GPUs in order to provide
+GPGPU computation service to users who need it. An examples of that are:
+Amazon Web Services (AWS), Penguin Computing, Softlayer and Microsoft Azure.
+In the pubic scope, one of the most popular cloud vendors is AWS that has a wide range of preconfigured instances ready to be launched.
+Otherwise, owning the propper infrastructure, a private cloud can be deployed using a specific middleware such as
+Openstack or Opennebula.
+
+However, in cloud environments sharing GPU resources among multiple VMs
+is not straightforward as would be in a physical servers which is translated into a low utilization rate.
+On the one hand, instances in public clouds are not customizable enough. 
+On the other, in private cloud, although the instances can be customized in many aspects, when referring to GPUs
+the number of options is reduced.
+Moreover, neither vendors nor tools are offering GPGPU as a service and that is what we are pursing:
+to offer flexibility and boost the utilization of GPU resources either in private or public clouds.
+
 \section{\uppercase{Background}}
 \label{sec:background}
 \subsection{The rCUDA Framework}
