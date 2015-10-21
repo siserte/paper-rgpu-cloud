@@ -49,53 +49,36 @@ cloud solutions.
 
 \section{\uppercase{Introduction}}
 \label{sec:introduction}
-The growth in the use of coprocessor and accelerators has been continuous
-in the past several years. In the most recent TOP500
-ranking~\cite{nov14top500},  dated June 2015, 90 supercomputers
-were equipped with accelerators of some sort.  These devices offer
-performance improvements over traditional processors for
-computational kernels which match their architecture; moreover, 
-they are more energy efficient achieving an important MFlop/Watt ratio.
+The use of coprocessor and accelerators has been continuously
+growing in the past several years and 90 supercomputers
+were equipped with accelerators of some sort in the most 
+recent TOP500 list~\cite{nov14top500}, dated June 2015.  
+These devices achieve better performance than traditional processors for
+codes which match their architecture.
 
-The generalized adoption of coprocessors to accelerate general-purpose 
-codes started with the release of the CUDA programming model for
+These devices were general adopted with the release of the CUDA programming model for
 NVIDIA GPUs~\cite{cuda65}. This libraries include both high- and low-level application programming interfaces (APIs)
 to allow the use of NVIDIA devices as general-purpose
 accelerators.  
-%Prior to that, researchers matched 
-%GPU architectures to computational kernels, but these had to
-%use graphics-oriented APIs such as OpenGL~\cite{opengl} or
-%Cg~\cite{cg} to do so. 
 Following CUDA, OpenCL~\cite{opencl} appeared as an attempt
-to offer a cross-vendor solution. The third-generation programming
-model for accelerators, based on compiler directives, started with
-OpenACC~\cite{openaccweb}. This standard defines a collection of 
-directives to facilitate platform-independent accelerator
-usage. This generation is also completed with other task-oriented, directive-based programming model such as OmpSs~\cite{ompssweb} 
-which can target directly CPUs or accelerators and recently, OpenMP~\cite{openmp4} incorporated some
-accelerator-oriented directives in its version 4.
-%, although 
-%no available compiler supports them to date.
+to offer a cross-vendor solution. 
 
 The current approach for creating clusters with GPUs has been to
-populate every compute node with one or more of these devices. 
+install one or more of these devices in each compute node. 
 However, these configurations present a low
-utilization rate of the computational resources available in the
-hardware accelerators, not only because of mismatches between the application's type of parallelism
-and the coprocessor architecture, but also because of applications can be hardly parallelized more than 
-80\% of the total code. 
-In order to address this problem, remote virtualization was proposed.
+utilization rate of the computational resources  
+ because of mismatches between the application's type of parallelism
+and the accelerators' architecture. 
+
+In order to address this problem, remote virtualization was proposed 
+and several solutions have been presented (e.g. {rCUDA}~\cite{tonithesis,toniparco},
+DS-CUDA~\cite{dscuda}, gVirtus~\cite{gvirtus}, vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}).
+
 Among the virtualization frameworks, the most
-prominent is \rcuda~\cite{tonithesis,toniparco}, which
+prominent is {rCUDA}, which
 enables cluster configurations with fewer GPUs than nodes.  With this
-approach, GPU-equipped nodes act as GPGPU (general-purpose GPU) servers for the rest of the
-compute nodes of the cluster, enabling a CUDA-sharing solution that potentially achieves 
- a higher overall GPU load in the system. Compared with 
-other CUDA and OpenCL virtualization frameworks (e.g.
-DS-CUDA~\cite{dscuda}, vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}),
- \rcuda\ is a mature production-ready framework
- that offers support for the latest CUDA revisions and provides wide
-coverage of current GPGPU APIs.
+approach, GPU-equipped nodes act as GPGPU (general-purpose GPU), enabling a CUDA-sharing solution that potentially achieves 
+ a higher overall GPU load in the system.
 
 
 %\noindent 
