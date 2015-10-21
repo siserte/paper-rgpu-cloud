@@ -83,7 +83,7 @@ a higher overall GPU load in the system.
 Nowadays, many cloud vendors have started offering virtual machines (VM) with GPUs in order to provide
 GPGPU computation service to users who need it. An examples of that are:
 Amazon Web Services (AWS), Penguin Computing, Softlayer and Microsoft Azure.
-In the pubic scope, one of the most popular cloud vendors is AWS that has a wide range of preconfigured instances ready to be launched.
+In the public scope, one of the most popular cloud vendors is AWS that has a wide range of preconfigured instances ready to be launched.
 Otherwise, owning the propper infrastructure, a private cloud can be deployed using a specific middleware such as
 Openstack or Opennebula.
 
@@ -94,6 +94,19 @@ On the other, in private cloud, although the instances can be customized in many
 the number of options is reduced.
 Moreover, neither vendors nor tools are offering GPGPU as a service and that is what we are pursing:
 to offer flexibility and boost the utilization of GPU resources either in private or public clouds.
+
+The main goals of this work are to study current cloud solutions from 
+the point of view of HPC field and GPU usage, and to analyze and improve 
+them by adding flexibility with GPU virtualization.
+
+The rest of the paper is structured as follows: 
+in Section~\ref{sec:background} the technologies used are explained;
+Section~\ref{sec:state} summarizes previous work in this field; 
+Section~\ref{sec:motivation} states the motivation to carry out this work;
+all the effort made using AWS is explained in Section~\ref{sec:workingaws};
+while the effort made in Openstack is described in Section~\ref{sec:openstack};
+finally Section~\ref{sec:conclusions} gives an overview of the advances made and~\ref{sec:future} propose the next steps
+should be take in this research.
 
 \section{\uppercase{Background}}
 \label{sec:background}
@@ -235,15 +248,11 @@ Thanks to the shareability introduced by {rCUDA}, all VM in the cloud
 environment should be able to use and share all the GPUs installed in 
 the physical nodes removing the current limitations. 
 
-The main goals of this work are to study current cloud solutions from 
-the point of view of HPC field and GPU usage, and to analyze and improve 
-them by adding flexibility with GPU virtualization.
-
 Our work have been focused on Amazon Web Service as example of public 
 solution and on OpenStack software acting as a private cloud environment. 
 In order to achieve it, these cloud facilities need to be provided with the {rCUDA} software and 
 in the case of OpenStack, a module for managing virtualized GPUs 
- requires to be implemented.  
+requires to be implemented.  
 
 
 
