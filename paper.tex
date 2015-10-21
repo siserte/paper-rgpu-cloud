@@ -107,7 +107,7 @@ in Section~\ref{sec:background} the technologies used are explained;
 Section~\ref{sec:state} summarizes previous work in this field; 
 Section~\ref{sec:motivation} states the motivation to carry out this work;
 all the effort made using AWS is explained in Section~\ref{sec:workingaws};
-while the effort made in Openstack is described in Section~\ref{sec:openstack};
+while the effort made in Openstack is described in Section~\ref{sec:gpgpuOS};
 finally Section~\ref{sec:conclusions} gives an overview of the advances made and~\ref{sec:future} propose the next steps
 should be take in this research.
 
@@ -484,6 +484,7 @@ As we deduced, AWS has GPU-capable physical machines reserved which could be idl
 To have such an expensive accelerators in a standby state is counter-productive. So, it would make more sense if we had less devices, accessible from any machine, though.
 
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
+\label{sec:gpgpuOS}
 In this section all the work related to OpenStack that has been done is explained, from the development of an external module to handle remote GPUs to the physical setup and its testing.
 
 \subsection{Managing remote GPUs with OpenStack}
