@@ -49,12 +49,23 @@ cloud solutions.
 
 \section{\uppercase{Introduction}}
 \label{sec:introduction}
-The use of coprocessor and accelerators has been continuously
-growing in the past several years and 90 supercomputers
-were equipped with accelerators of some sort in the most
-recent TOP500 list~\cite{nov14top500}, dated June 2015.
-These devices achieve better performance than traditional processors for
-codes which match their architecture.
+Nowadays, many cloud vendors have started offering virtual machines (VM) with GPUs in order to provide
+GPGPU computation service to users who need it. An examples of that are:
+Amazon Web Services (AWS)\footnote{\url{https://aws.amazon.com}}, 
+Penguin Computing\footnote{\url{http://www.penguincomputing.com}}, 
+Softlayer\footnote{\url{http://www.softlayer.com}} and 
+Microsoft Azure\footnote{\url{https://azure.microsoft.com}}.
+In the public scope, one of the most popular cloud vendors is AWS that has a wide range of preconfigured instances ready to be launched.
+Otherwise, owning the propper infrastructure, a private cloud can be deployed using a specific middleware such as
+Openstack\footnote{\url{https://www.openstack.org}} or Opennebula\footnote{\url{http://opennebula.org}}.
+
+However, in cloud environments sharing GPU resources among multiple VMs
+is not straightforward as would be in a physical servers which is translated into a low utilization rate.
+On the one hand, instances in public clouds are not customizable enough. 
+On the other, in private cloud, although the instances can be customized in many aspects, when referring to GPUs
+the number of options is reduced.
+Moreover, neither vendors nor tools are offering GPGPU as a service and that is what we are pursing:
+to offer flexibility and boost the utilization of GPU resources either in private or public clouds.
 
 These devices were general adopted with the release of the CUDA programming model for
 NVIDIA GPUs~\cite{cuda65}. This libraries include both high- and low-level application programming interfaces (APIs)
@@ -79,24 +90,6 @@ prominent is {rCUDA}, which
 enables cluster configurations with fewer GPUs than nodes.  With this
 approach, GPU-equipped nodes act as GPGPU (general-purpose GPU), enabling a CUDA-sharing solution that potentially achieves
 a higher overall GPU load in the system.
-
-Nowadays, many cloud vendors have started offering virtual machines (VM) with GPUs in order to provide
-GPGPU computation service to users who need it. An examples of that are:
-Amazon Web Services (AWS)\footnote{\url{https://aws.amazon.com}}, 
-Penguin Computing\footnote{\url{http://www.penguincomputing.com}}, 
-Softlayer\footnote{\url{http://www.softlayer.com}} and 
-Microsoft Azure\footnote{\url{https://azure.microsoft.com}}.
-In the public scope, one of the most popular cloud vendors is AWS that has a wide range of preconfigured instances ready to be launched.
-Otherwise, owning the propper infrastructure, a private cloud can be deployed using a specific middleware such as
-Openstack\footnote{\url{https://www.openstack.org}} or Opennebula\footnote{\url{http://opennebula.org}}.
-
-However, in cloud environments sharing GPU resources among multiple VMs
-is not straightforward as would be in a physical servers which is translated into a low utilization rate.
-On the one hand, instances in public clouds are not customizable enough. 
-On the other, in private cloud, although the instances can be customized in many aspects, when referring to GPUs
-the number of options is reduced.
-Moreover, neither vendors nor tools are offering GPGPU as a service and that is what we are pursing:
-to offer flexibility and boost the utilization of GPU resources either in private or public clouds.
 
 The main goals of this work are to study current cloud solutions from 
 the point of view of HPC field and GPU usage, and to analyze and improve 
