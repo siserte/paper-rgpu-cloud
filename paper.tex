@@ -574,7 +574,7 @@ The “exclusive” mode provides, at most, 4 accelerators.
 Whilst the number of available GPU in “shared” mode will depend on the partition size. 
 In this particular case, we have halved the GPU memory, having as a result 8 partitions that can be addressed as independent GPUs.
 For each group, we have deployed virtual clusters of 1, 2 and 3 nodes where the application processes will be executed. 
-The instances are lanched with the Openstack predifined flavor “m1.medium”, which determines a configuration of VMs consisting of 2 cores and 4096 MB of memory.
+The instances are lanched with the OpenStack predifined flavor “m1.medium”, which determines a configuration of VMs consisting of 2 cores and 4096 MB of memory.
 
 MCUDA-MEME~\cite{Liu2010} was the application selected to test the set-ups. 
 Thus is an MPI application accelerated by GPUs, where each process must have access to a GPU.
@@ -606,10 +606,12 @@ Energy can be saved not only thanks to the remote access and the ability to emul
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusions}
-We have seen a thoroughly study of the possibilities offered by AWS in everything to do with GPUs. Its limitations drove us to deploy our own private cloud to have more flexibility when working with these accelerators.
-So that, we have presented an upgrade for Openstack which easily permits to create GPU-instances and manage the physical GPUs to make more profit of them.
+We have presented a complete study of the possibilities offered by AWS when it comes to GPUs. 
+The constraints imposed by this service motivated us to deploy our own private cloud, in order to gain flexibility when working with these accelerators.
+For this purpose, we have introduced an extension of OpenStack which easily permits to create GPU-instances and manage the physical GPUs to better profit from them.
 
-Leaving aside the performance of the executions which we knew in advance that would be poor due to the interconnection network features, we have created new operation modes. They have brought interesting new ways of using GPUs in situations where the simple fact of having accessing a GPU is more important than having a powerful GPU to boost the performance.
+As we expected, due to the limited bandwidth of the interconnects used in the experimentation, the performance observed for the GPU virtualized scenarios in the test was quite low.
+On the other hand we have created new operation modes that open interesting new ways of using GPUs in situations where the having access to a GPU is more important than having a powerful GPU to boost the performance.
 
 \section{\uppercase{Future work}}
 \label{sec:future}
