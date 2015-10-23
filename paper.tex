@@ -22,26 +22,26 @@
 \begin{document}
 
 
-\title{Enabling the Use of GPU Virtualization in Cloud Environments}
+\title{Enabling GPU Virtualization in Cloud Environments}
 \author{\authorname{Sergio Iserte, Francisco J. Clemente-Castell\'o, Adri\'an Castell\'o,\\Rafael Mayo and Enrique S. Quintana-Ort\'i}
 \affiliation{Department of Computer Science and Engineering\\Universitat Jaume I - Castell\'o de la Plana, Spain}
 \email{\{siserte, fclement, adcastel, mayo, quintana\}@uji.es}}
 
 \keywords{Cloud Computing, GPU Virtualization, AWS, Resource Management}
 
-\abstract{The use of accelerators, such as GPUs, to reduce the execution time of GPGPU applications has become more popular during last years. 
+\abstract{The use of accelerators, such as graphics processing units (GPUs), to reduce the execution time of compute-intensive applications has become more popular during the past few years. 
 These devices increment the computational power of a node thanks to its parallel architecture.
-This trend has led several cloud vendors such as Amazon Web Services or some middlewares such as OpenStack to add to their current facilities, or to allow, 
-instances of virtual machines equipped with NVIDIA GPUs. 
-Accomplishing these needs, the guest hosts must be equipped with GPUs which could be barely utilized if a non GPU-enabled Virtual Machine is running in the host.
-The solution presented in this work is based on GPU virtualization and shareability in order to reach an equilibrium between supply and demand of accelerators. 
-Hence, we propose to decouple from the nodes, real GPUs by using the virtualization technology called rCUDA. 
-With this software configuration, the GPUs can be accessed from any VM getting rid 
-of the necessity of having physical GPUs in the guest host. 
-Moreover, our project studies the viability of these join by using a public cloud 
-service configuration and develops a module for OpenStack middleware in order to 
-add the needed support for the virtualized devices and the logic to manage them. 
-The results show a feasible configuration which adds flexibility to the current and well-known 
+This trend has led cloud vendors, as Amazon Web Services, or middlewares such as OpenStack to add to their current facilities   
+instances of virtual machines including GPUs. 
+To fullfil these needs, the guest hosts must be equipped with GPUs which will be barely utilized if a non GPU-enabled Virtual Machine is running in the host.
+The solution presented in this work is based on GPU virtualization and shareability in order to reach an equilibrium between service supply and applications' demand of accelerators. 
+Hence, we propose to decouple real GPUs from the nodes by using the virtualization technology rCUDA. 
+With this software configuration, GPUs can be accessed from any VM avoiding the need  
+of having a physical GPUs in the guest host. 
+Moreover, we study the viability of this approach by using a public cloud 
+service configuration and develop a module for OpenStack middleware in order to 
+add support for the virtualized devices and the logic to manage them. 
+The results demonstrate this is a viable configuration which adds flexibility to the current and well-known 
 cloud solutions. 
 }
 
