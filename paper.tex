@@ -442,8 +442,8 @@ Figure~\ref{subfig:lammps1} shows that, for this application, the use of remote 
 does not offer any advantage over the original CUDA. 
 Furthermore, for the execution on remote GPUs, the difference between both networks is small, although, the ``High'' network performs worse than ``10 Gb'' network.
 For execution of LAMMPS with a larger problem (see Figure~\ref{subfig:lammps2}), CUDA still performs better, but the interesting point is the execution time on remote GPUs. 
-They are almost the same even with different networks which indicates that the transfers turn the interconnection network into a bottleneck, and enlarging the problem size
-pays off the drawback of a slower network.
+They are almost the same even with different networks which indicates that the transfers turn the interconnection network into a bottleneck. For this type of application's 
+patter, enlarging the problem size pays off the drawback of a slower network.
 
 \begin{figure}[htb]
 \centering
