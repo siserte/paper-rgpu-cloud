@@ -110,12 +110,12 @@ finally Section~\ref{sec:conclusions} summarizes the advances and Section~\ref{s
 \label{sec:rcuda}
 {rCUDA}~\cite{toniparco} is a middleware that enables transparent access
 to any NVIDIA GPU device present in a cluster from all compute
-nodes. The GPUs can be accessed and shared between nodes, and a single node can use all these graphic accelerators
+nodes. The GPUs can be accessed and shared between nodes, and a single node can use all the graphic accelerators
 as if they were local.
-These features are focused in attaining higher accelerator utilization rates in the overall system while simultaneously reducing
-resource, space, and energy~\cite{energy14} requirements.
+These features focus in attaining higher accelerator utilization rates in the overall system while simultaneously reducing
+resource, space, and energy requirements~\cite{energy14}.
 rCUDA is structured following a client-server distributed
-architecture: the client middleware is allocated in the same cluster node where the application demanding GPGPU
+architecture: the client middleware runs in the same cluster node where the application demanding GPGPU
 acceleration services is executed, providing a transparent replacement for the
 native CUDA libraries. Furthermore, the server middleware is executed in the
 cluster nodes from which the actual GPUs provide the requested GPGPU service.
@@ -128,27 +128,27 @@ CUDA 6.5 release~\cite{cuda65}, including the runtime and driver
 APIs as well as other commonly used libraries such as cuBLAS, cuFFT, cuSparse or cuRand.
 Therefore, applications are not aware of the fact that they are being executed
 on top of a virtualization layer.
-With the aim to be updated with new GPU programming models, {rCUDA} also supports
+To deal with new GPU programming models, {rCUDA} has been recently extended to accommodate 
 directive-based models such as OmpSS~\cite{repara15} and OpenACC~\cite{cluster15}.
 
 The integration of remote GPGPU virtualization with global
 resource schedulers such as SLURM~\cite{sbacpad14} completes this powerful
 technology, making accelerator-enabled clusters more flexible and
-energy efficient.
+energy-efficient.
 
 \subsection{Amazon Web Services}
 \label{sec:aws}
-AWS~\cite{aws} is a public cloud computing provider
-and it is composed by several cloud services such as 
- cloud-based computation, storage and other functionality 
+AWS~\cite{aws} is a public cloud computing provider, 
+composed of several services, such as 
+ cloud-based computation, storage and other functionality, 
 that enables organizations and/or individuals to deploy
 services and applications on an on-demand basis. 
-These services replace IT infrastructure for most companies and provide agility and instant elasticity matching 
+These services replace local IT infrastructure for companies and provide agility and instant elasticity matching 
 perfectly with their software requirements.
 
-From the point of view of HPC, AWS offers high performance facilities including 
-instances equipped with GPUs and high performance network interconnection which 
-are common resources used in this research field.
+From the point of view of HPC, AWS offers high performance facilities via 
+instances equipped with GPUs and high performance network interconnection, which 
+are common resources leveraged in this research field.
 
 \subsection{OpenStack}
 \label{sec:openstack}
@@ -157,47 +157,44 @@ OpenStack~\cite{OpenStack} is a cloud operating system that provides Infrastruct
 It is able to control large pools of compute, storage, and networking resources throughout a 
 datacenter. All these resources are managed through a dashboard or an API that gives administrators 
 control while empowering their users to provision resources through a web interface
-or a command-line. 
-It supports most available hypervisors and handles provisioning 
+or a command-line interface.  
+OpenStack supports most available hypervisors and handles provisioning 
 and life-cycle management of VMs.
  
-The OpenStack architecture offers a flexibility to create a custom cloud, with no proprietary hardware
+The OpenStack architecture offers flexibility to create a custom cloud, with no proprietary hardware
 or software requirements and the ability to integrate with legacy systems and third party technologies. 
 
-From the HPC perspective, OpenStack offers high performance computing (HPC) configurations using
-multiple supported hypervisors and different hardware architectures. However, despite to be able to
-specify some extra parameters for special resources like GPUs, choosing a host based on the existence
-of a GPU is currently unsupported in OpenStack~\cite{OpenStackGPU}. 
+From the HPC perspective, OpenStack offers high performance configurations using
+multiple supported hypervisors and different hardware architectures. Despite in OpenStack is possible to 
+specify some extra parameters requesting special resources, like GPUs, choosing a host based on the existence
+of a GPU is currently unsupported~\cite{OpenStackGPU}. 
 
-\section{\uppercase{State of Art}}
+\section{\uppercase{State-of-the-Art}}
 \label{sec:state}
-Our solutions is based on GPU virtualization and sharing resources in order
-to reach a fair balance between supply and demand. 
-Several attempts of achieving what we are pursing have been
-made, but none of them are so ambitious as our project. 
+Our solutions to the defficiency exposed in the previous section is based on GPU virtualization, sharing resources in order
+to attain a fair balance between supply and demand. 
+While several efforst with the same goal have been made in the past, as exposed next, 
+none of them is so ambitious as ours. 
 
-On
-the one hand the work done in~\cite{younge2013enabling} allows the VM managed
+The work in~\cite{younge2013enabling} allows the VM managed
 by the hypervisor Xen to access the GPUs in the physical
-node, with the implied limitations of restricting the nodes not
-to use more GPUs than the hosted in the machine and not
-to share idle GPUs to other machines. The solution presented 
-by the project gVirtus~\cite{giunta2010gpgpu} virtualizes GPUs and make
+node, with the implied limitations that a node cannot 
+use more GPUs than those hosted in the machine, and idle GPUs can not be shared with other machines. The solution presented 
+by gVirtus~\cite{giunta2010gpgpu} virtualizes GPUs and makes
 them accessible for any VM in the cluster. However, this kind
-of virtualization strongly depends on the hypervisor used, so
-does its performance. Another similar solution is presented in~\cite{diab2013dynamic} by the name of gCloud. 
-This one continues without being integrated in a Cloud Computing Manager, though its main
+of virtualization strongly depends on the hypervisor and, so
+does its performance. Another similar solution is presented in gCloud~\cite{diab2013dynamic}. 
+iWhile this solution is not yet integrated in a Cloud Computing Manager, its main
 drawback is that the code of the applications must be modified
-in order to be run in their virtual-GPU environment. A runtime component to provide abstraction
+in order to be run in the virtual-GPU environment. A runtime component to provide abstraction
 and sharing of GPUs is presented in~\cite{becchi2012virtual}, which allows scheduling policies 
-to isolate and share GPUs in a cluster for a set of applications. Our proposal uses a different 
-approach employing virtual machines and a cloud computing environment to allow to share GPUs in a flexible way.
-On the other hand, the work exposed in~\cite{jungpgpu} is more mature, however,
-it is only focussed on compute intensive HPC applications. 
+to isolate and share GPUs in a cluster for a set of applications. 
+The work introduced in~\cite{jungpgpu} is more mature, however,
+it is only focussed on compute-intensive HPC applications. 
 
-The main idea of our proposal goes further and apart from
+Our proposal goes further and, in addition to 
 bringing solutions for all kind of HPC applications, it is aimed
-to boost the cluster flexibility in the use of GPUs.
+to boost flexibility in the use of GPUs.
 
 \section{\uppercase{Motivation}}
 \label{sec:motivation}
