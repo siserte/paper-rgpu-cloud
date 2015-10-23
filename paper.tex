@@ -49,60 +49,60 @@ cloud solutions.
 
 \section{\uppercase{Introduction}}
 \label{sec:introduction}
-Nowadays, many cloud vendors have started offering virtual machines (VM) with GPUs in order to provide
-GPGPU computation service to users who need it. An examples of that are:
+Nowadays, many cloud vendors have started offering virtual machines (VMs) with GPUs in order to provide
+GPGPU computation services to users. A few relevant examples include 
 Amazon Web Services (AWS)\footnote{\url{https://aws.amazon.com}}, 
 Penguin Computing\footnote{\url{http://www.penguincomputing.com}}, 
 Softlayer\footnote{\url{http://www.softlayer.com}} and 
 Microsoft Azure\footnote{\url{https://azure.microsoft.com}}.
-In the public scope, one of the most popular cloud vendors is AWS that has a wide range of preconfigured instances ready to be launched.
-Otherwise, owning the propper infrastructure, a private cloud can be deployed using a specific middleware such as
+In the public scope, one of the most popular cloud vendors is AWS, that offers a wide range of preconfigured instances ready to be launched.
+Alternatively, owning the propper infrastructure, a private cloud can be deployed using a specific middleware such as
 Openstack\footnote{\url{https://www.openstack.org}} or Opennebula\footnote{\url{http://opennebula.org}}.
 
-However, in cloud environments sharing GPU resources among multiple VMs
-is not straightforward as would be in a physical servers which is translated into a low utilization rate.
-On the one hand, instances in public clouds are not customizable enough. 
-On the other, in private cloud, although the instances can be customized in many aspects, when referring to GPUs
+Unfortunately, sharing GPU resources among multiple VMs in cloud environments 
+is not straightforward as is in a physical servers resulting into a low utilization rate.
+On one hand, instances in public clouds are not easily customizable. 
+On the other, in a private cloud, although the instances can be customized in many aspects, when referring to GPUs
 the number of options is reduced.
-Moreover, neither vendors nor tools are offering GPGPU as a service and that is what we are pursing:
-to offer flexibility and boost the utilization of GPU resources either in private or public clouds.
+Moreover, neither vendors nor tools are offer GPGPU wasting the opportunity of providing flexibility and boosty the utilization of GPU resources in both private or public clouds.
 
-These devices were general adopted with the release of the CUDA programming model for
-NVIDIA GPUs~\cite{cuda65}. This libraries include both high- and low-level application programming interfaces (APIs)
+These devices were adopted with the release of the CUDA programming model for
+NVIDIA GPUs~\cite{cuda65}, which includes both high- and low-level application programming interfaces (APIs)
 to allow the use of NVIDIA devices as general-purpose
 accelerators.
 Following CUDA, OpenCL~\cite{opencl} appeared as an attempt
 to offer a cross-vendor solution.
 
-The current approach for creating clusters with GPUs has been to
-install one or more of these devices in each compute node.
-However, these configurations present a low
+The current approach to assemble a cluster with accelerators consist in installing 
+one or more of these devices in each compute node.
+However, these configurations often present a low
 utilization rate of the computational resources
  because of mismatches between the application's type of parallelism
 and the accelerators' architecture.
 
-In order to address this problem, remote virtualization was proposed
-and several solutions have been presented (e.g. {rCUDA}~\cite{tonithesis},
+Remote virtualization has been recently proposed to deal with the low-usage problem 
+(e.g. {rCUDA}~\cite{tonithesis},
 DS-CUDA~\cite{dscuda}, gVirtus~\cite{gvirtus}, vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}).
 
-Among the virtualization frameworks, the most
-prominent is {rCUDA}, which
-enables cluster configurations with fewer GPUs than nodes.  With this
-approach, GPU-equipped nodes act as GPGPU (general-purpose GPU), enabling a CUDA-sharing solution that potentially achieves
+Roughtly speaking these virtualization frameworks 
+enable cluster configurations with fewer GPUs than nodes.  The goal is that 
+GPU-equipped nodes act as GPGPU (general-purpose GPU) servers, yielding a CUDA-sharing solution that potentially achieves
 a higher overall GPU load in the system.
 
 The main goals of this work are to study current cloud solutions from 
 the point of view of HPC field and GPU usage, and to analyze and improve 
-them by adding flexibility with GPU virtualization.
+them by adding flexibility with GPU virtualization. In order to reach 
+this goal, we select rCUDA, a virtualization tool that is possibly the more complete 
+and up-to-date for NVIDIA GPUs.
 
-The rest of the paper is structured as follows: 
-in Section~\ref{sec:background} the technologies used are explained;
+The rest of the paper is structured as follows. 
+In Section~\ref{sec:background} the technologies we introduce used in this work;
 Section~\ref{sec:state} summarizes previous work in this field; 
 Section~\ref{sec:motivation} states the motivation to carry out this work;
-all the effort made using AWS is explained in Section~\ref{sec:workingaws};
-while the effort made in Openstack is described in Section~\ref{sec:gpgpuOS};
-finally Section~\ref{sec:conclusions} gives an overview of the advances made and~\ref{sec:future} propose the next steps
-should be take in this research.
+the effort to use AWS is explained in Section~\ref{sec:workingaws};
+while the work with Openstack is described in Section~\ref{sec:gpgpuOS};
+finally Section~\ref{sec:conclusions} summarizes the advances and Section~\ref{sec:future} proposes the next steps
+ of this research.
 
 \section{\uppercase{Background}}
 \label{sec:background}
