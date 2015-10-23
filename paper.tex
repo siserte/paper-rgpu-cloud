@@ -554,12 +554,12 @@ Furthermore, a new panel with the existent GPUs displays all the information rel
 \end{figure}
 
 \subsection{Experimental Results}
-The tests were executed on 2 sets of nodes interconnected through a 1Gb Ethernet network.
+The following tests were executed on 2 sets of nodes interconnected by a 1Gb Ethernet network.
 
 The first set, in charge of providing the cloud environment,
-was composed of 3 nodes, each one equipped with an Intel Xeon E7420 quadcore processor at
+consisted of 3 nodes, each equipped with an Intel Xeon E7420 quadcore processor at
 2.13 GHz, and 16 Gbytes of DDR2 RAM memory at 667 MHz.
-To deploy an infrastructure as a cloud service, we have used OpenStack Icehouse version and QEMU/KVM 0.12.1 as the hypervisors.
+To deploy an infrastructure as a cloud service, we used OpenStack Icehouse version and QEMU/KVM 0.12.1 as the hypervisors.
 A fully-featured OpenStack deployment requires at least three nodes: one controller node that manages the compute nodes 
 where the VMs are hosted, one network node that manages the logic
 virtual network for the VMs, and one or more compute nodes that 
@@ -569,35 +569,28 @@ The second set, composed by 4 nodes, were auxiliary servers with a Tesla C1060 G
 Their system operates a Centos 6.6; and the GPUs use CUDA 6.5. 
 The GPU virtualization support is based on rCUDA v5.0. 
 
-We have designed 6 different set-ups which can be divided
-into 2 groups: “Exclusive GPUs” and “Shared GPUs”. The
-“Exclusive” mode will provide, at most, 4 accelerators. Whilst
-the number of available GPU in “Shared” mode will depend
-on the partition size. In this particular case, we have halved
-the memory, so we can use up to 8 GPUs. For each group, we
-have deployed virtual clusters of 1, 2 and 3 nodes where will
-run the processes of the application. The instances are based
-on the flavor “m1.medium” which determines VM of 2 cores
-and 4096 MB of memory.
+We have designed 6 different set-ups which can be divided into 2 groups: “exclusive GPUs” and “shared GPUs”. 
+The “exclusive” mode provides, at most, 4 accelerators. 
+Whilst the number of available GPU in “shared” mode will depend on the partition size. 
+In this particular case, we have halved the GPU memory, having as a result 8 partitions that can be addressed as independent GPUs.
+For each group, we have deployed virtual clusters of 1, 2 and 3 nodes where the application processes will be executed. 
+The instances are lanched with the Openstack predifined flavor “m1.medium”, which determines a configuration of VMs consisting of 2 cores and 4096 MB of memory.
 
-MCUDA-MEME~\cite{Liu2010} has been the application executed with
-different configurations in order to test the set-ups. MCUDA-
-MEME is an MPI application which is accelerated by GPUs.
-Besides, each of its processes must have a GPU to not abort 
-so, the number of GPUs will determine the number of processes that we can launch.
+MCUDA-MEME~\cite{Liu2010} was the application selected to test the set-ups. 
+Thus is an MPI application accelerated by GPUs, where each process must have access to a GPU.
+Therefore, the number of GPUs determines the maximum number of processes we can launch.
 
-The Figure~\ref{fig3} shows and compares the execution time of
-the application with different configurations over different setups. 
+Figure~\ref{fig3} compares the execution time of the application with different configurations over different setups. 
 We have used up to 3 nodes to spread the processes and launched up to 8 processes (only 4 in exclusive mode), one for each remote GPU.
-Firstly, we can state that the performance is higher with more than one node, because the traffic network is distributed among the nodes.
-Secondly, the lowest execution time is obtained by both modes (exclusive and shared) when running their maximum number of processes with more than 1 node.
-It could mean that it is not worthy to continue giving resources to the application to scale, because the performance growth rate is barely increasing.
-Although, the time is lower sharing the GPUs the setup cannot take advantage of doubling the devices.
+We can first state that the performance is higher with more than one node, because the traffic network is distributed among the nodes.
+In addition, the shortest execution time is obtained by both modes (exclusive and shared) when running their maximum number of processes with more than one node.
+This seems to imply that it is not worth to continue giving resources to the application to scale, because the performance growth rate is barely increasing.
+Although, the time is lower sharing the GPUs the setup cannot take advantage of an increase in the number of devices.
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=\linewidth]{images/mcudameme-os.pdf}
-  \caption{Scalability results of executing MCUDAMEME with a different number of MPI processes}
+  \caption{Scalability results of MCUDAMEME with a different number of MPI processes.}
   \label{fig3}
 \end{figure}
 
