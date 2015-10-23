@@ -513,18 +513,18 @@ The new GPGPU Service allows to access GPUs in a VM, but also to create ``GPU-po
 Thanks to the modular approach of the GPGPU Service, the Nova Project does not need to be modified and the tool can be easily ported to other Cloud Computing solutions.
 
 \subsection{Working Modes}
-The developed module will allow the users to create any of the following scenarios (see Figure~\ref{fig2}). 
+The developed module allows users to create any of the scenarios displayed in Figure~\ref{fig2}. 
 The users are given two configuration options to decide whether a physical GPU will be completely reserved for an instance (first column) or the instance will address a partition of the GPU as if it were a real device (second column).
-We refer to this as the ``mode'' and the possible values for this parameter are: ``exclusive'' or ``shared''. 
-Let us suppose to have 4 GPU devices in the cluster (no matter where they were hosted, neither if they were in the same server). 
-A well illustrated example of those scenarios can be seen in the first row of the  Figure~\ref{fig2}.
-So, while in ``exclusive'' mode the instance is monopolizing all the GPUs, in the ``shared'' mode the GPUs have been partitioned. 
-As a result of halving the GPU memory of the accelerators, the instance will be able to work with up to 8 GPUs.
+We refer to this as the ``mode'', with possible values being: ``exclusive'' or ``shared''. 
+Let us assume there are 4 GPU devices in the cluster (independently where they were hosted. 
+An example of those scenarios is shown in Figure~\ref{fig2}.
+There, in ``exclusive'' mode the instance monopolizes all the GPUs, while in the ``shared'' mode, the GPUs are partitioned. 
+As a result of halving the GPU memory of the accelerators, the instance will be able to work with up to 8 GPUs, provided that each partition can be addressed as an independent GPU.
 
 Moreover, the users are also responsible for deciding whether a GPU (or a pool) will be assigned to other instances. 
 This behaviour is refereed as ``scope'' and it determines that a group of instances is logically connected to a pool of GPUs.
-Working with ``public scope'' (second row of Figure~\ref{fig2}) means that the GPUs of a pool can be used simultaneously by all the instances linked to it.
-Again, the GPU pool can be composed by ``exclusive'' or ``shared'' GPUs.
+Working with ``public scope'' (bottom row of Figure~\ref{fig2}) implies that the GPUs of a pool can be used simultaneously by all the instances linked to it.
+Again, the GPU pool can be composed of ``exclusive'' or ``shared'' GPUs.
 
 \begin{figure}[htb]
   \centering
