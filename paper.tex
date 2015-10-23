@@ -555,19 +555,18 @@ Furthermore, a new panel with the existent GPUs displays all the information rel
 
 \subsection{Experimental Results}
 The following tests were executed on 2 sets of nodes interconnected by a 1Gb Ethernet network.
+All the nodes were equipped with an Intel Xeon E7420 quadcore processor at 2.13 GHz, and 16 Gbytes of DDR2 RAM memory at 667 MHz.
 
 The first set, in charge of providing the cloud environment,
-consisted of 3 nodes, each equipped with an Intel Xeon E7420 quadcore processor at
-2.13 GHz, and 16 Gbytes of DDR2 RAM memory at 667 MHz.
-To deploy an infrastructure as a cloud service, we used OpenStack Icehouse version and QEMU/KVM 0.12.1 as the hypervisors.
-A fully-featured OpenStack deployment requires at least three nodes: one controller node that manages the compute nodes 
-where the VMs are hosted, one network node that manages the logic
-virtual network for the VMs, and one or more compute nodes that 
-run the hypervisor and virtual machines.
+consisted of 3 nodes.
+To deploy an infrastructure as a cloud service, we used OpenStack Icehouse version and QEMU/KVM 0.12.1 as the hypervisor.
+A fully-featured OpenStack deployment requires at least three nodes: a controller node manages the compute nodes 
+where the VMs are hosted, a network node that manages the logic virtual network for the VMs, and one or more compute nodes that 
+run the hypervisor and VMs.
 
-The second set, composed by 4 nodes, were auxiliary servers with a Tesla C1060 GPU each one. 
-Their system operates a Centos 6.6; and the GPUs use CUDA 6.5. 
-The GPU virtualization support is based on rCUDA v5.0. 
+The second set, composed of 4 nodes, were auxiliary servers with a Tesla C1060 GPU each one. 
+The OS was a Centos 6.6; and the GPUs used CUDA 6.5. 
+The GPU virtualization support was based on rCUDA v5.0. 
 
 We have designed 6 different set-ups which can be divided into 2 groups: “exclusive GPUs” and “shared GPUs”. 
 The “exclusive” mode provides, at most, 4 accelerators. 
@@ -628,8 +627,8 @@ In particular, innovate scheduling policies can enhance the flexibility given by
 \section*{\uppercase{Acknowledgements}}
 The authors would like to thank the IT members of the department Gustavo Edo and Vicente Roca for their help.
 
-The researchers were supported by Universitat Jaume I research project (P11B2013-21), project
-TIN2011-23283 and~FEDER.
+This research was supported by Universitat Jaume I research project (P11B2013-21); and projects
+TIN2014-53495-R from MINECO and FEDER.
 
 \bibliographystyle{apalike}
 {\small
