@@ -478,17 +478,15 @@ To have such an expensive accelerators in a standby state is counter-productive.
 
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
 \label{sec:gpgpuOS}
-In this section all the work related to OpenStack that has been done is explained, from the development of an external module to handle remote GPUs to the physical setup and its testing.
+In this section we review the work related with OpenStack, from the development of an external module to handle remote GPUs to the physical setup and its testing.
 
 \subsection{Managing remote GPUs with OpenStack}
-The main idea is to move from the original OpenStack architecture (see Subfigure~\ref{subfig:os-orig})
- to a solution where a new shared service takes part into the architecture and it 
-is responsible for all about GPU accelerators (see Subfigure~\ref{subfig:os-mod}).
-This new service would bring more flexibility when managing GPUs and new working modes for GPGPU computation in the Cloud.
-As it is shown in Figure~\ref{fig:internal}, we have altered the OpenStack original Dashboard with a new parser, 
-which splits the HTTP query in order to make use of both, the GPGPU API for GPU-related operations, and the nova API for the rest of the computation. 
-The new GPGPU Service has brought a new feature which brings more flexibility, apart from the regular idea of having GPUs in a VM, from now on, we can create ``GPU-pools''. 
-A ``GPU-pool'' is a set of independent GPUs (logically disattached from the nodes) that can be assigned to one or more instances.
+The main idea is to evolve from the original OpenStack architecture (see Figure~\ref{subfig:os-orig})
+ to a solution where a new shared service, responsible for all about GPU accelerators, becomes integrated into the architecture (see Figure~\ref{subfig:os-mod}).
+This new service brings more flexibility when managing GPUs and new working modes for GPGPU computation in the Cloud.
+As illustrated in Figure~\ref{fig:internal}, we alter the original OpenStack Dashboard with a new parser, 
+which splits the HTTP query in order to make use of both the GPGPU API for GPU-related operations, and the Nova API for the rest of the computations. 
+The new GPGPU Service allows to access GPUs in a VM, but also to create ``GPU-pools'', a set of independent GPUs (logically disattached from the nodes) that can be assigned to one or more VMs.
 
 \begin{figure}[htb]
   \centering
@@ -497,11 +495,11 @@ A ``GPU-pool'' is a set of independent GPUs (logically disattached from the node
     \label{subfig:os-orig}
    }
    \quad
-  \subfigure[With GPGPU developed module]{
+  \subfigure[With GPGPU module]{
     \includegraphics[width=\linewidth]{images/os1.jpg}
     \label{subfig:os-mod}
    }
-  \caption{OpenStack Architecture}
+  \caption{OpenStack Architecture.}
   \label{fig:os}
 \end{figure}
 
@@ -512,7 +510,7 @@ A ``GPU-pool'' is a set of independent GPUs (logically disattached from the node
   \label{fig:internal}
 \end{figure}
 
-Thanks to the modular approach of the GPGPU Service, the Nova Project has not been modified and the tool could be easily ported to other Cloud Computing solutions.
+Thanks to the modular approach of the GPGPU Service, the Nova Project does not need to be modified and the tool can be easily ported to other Cloud Computing solutions.
 
 \subsection{Working Modes}
 The developed module will allow the users to create any of the following scenarios (see Figure~\ref{fig2}). 
