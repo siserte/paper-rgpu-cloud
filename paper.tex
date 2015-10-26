@@ -33,7 +33,7 @@
 These devices increment the computational power of a node thanks to their parallel architecture.
 This trend has led cloud service providers as Amazon or middlewares such as OpenStack to add virtual machines (VMs) including GPUs to their facilities   
 instances. 
-To fullfil these needs, the guest hosts must be equipped with GPUs which, unfortunately, will be barely utilized if a non GPU-enabled VM is running in the host.
+To fulfil these needs, the guest hosts must be equipped with GPUs which, unfortunately, will be barely utilized if a non GPU-enabled VM is running in the host.
 The solution presented in this work is based on GPU virtualization and shareability in order to reach an equilibrium between service supply and the applications' demand of accelerators. 
 Concretely, we propose to decouple real GPUs from the nodes by using the virtualization technology rCUDA. 
 With this software configuration, GPUs can be accessed from any VM avoiding the need  
@@ -56,8 +56,8 @@ Penguin Computing\footnote{\url{http://www.penguincomputing.com}},
 Softlayer\footnote{\url{http://www.softlayer.com}} and 
 Microsoft Azure\footnote{\url{https://azure.microsoft.com}}.
 In the public scope, one of the most popular cloud vendors is AWS, which offers a wide range of preconfigured instances ready to be launched.
-Alternatively, owning the propper infrastructure, a private cloud can be deployed using a specific middleware such as
-Openstack\footnote{\url{https://www.openstack.org}} or Opennebula\footnote{\url{http://opennebula.org}}.
+Alternatively, owning the proper infrastructure, a private cloud can be deployed using a specific middleware such as
+OpenStack\footnote{\url{https://www.openstack.org}} or Opennebula\footnote{\url{http://opennebula.org}}.
 
 Unfortunately, sharing GPU resources among multiple VMs in cloud environments 
 is as quite more complex than in physical servers, resulting in a low utilization rate.
@@ -69,7 +69,7 @@ Moreover, neither vendors nor tools offer GPGPU services, missing the opportunit
 Remote virtualization has been recently proposed to deal with the low-usage problem. Some relevant examples include {rCUDA}~\cite{tonithesis},
 DS-CUDA~\cite{dscuda}, gVirtus~\cite{gvirtus}, vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}.
 
-Roughtly speaking these virtualization frameworks 
+Roughly speaking these virtualization frameworks 
 enable cluster configurations with fewer GPUs than nodes.  The goal is that 
 GPU-equipped nodes act as GPGPU servers, yielding a GPU-sharing solution that potentially achieves
 a higher overall utilization of the accelerators in the system.
@@ -153,7 +153,7 @@ of a GPU is currently unsupported~\cite{OpenStackGPU}.
 
 \section{\uppercase{State-of-the-Art}}
 \label{sec:state}
-Our solutions to the defficiencies exposed in the previous section relies on GPU virtualization, sharing resources in order
+Our solutions to the deficiencies exposed in the previous section relies on GPU virtualization, sharing resources in order
 to attain a fair balance between supply and demand. 
 While several efforts with the same goal have been initiated in the past, as exposed next, 
 none of them is as ambitious as ours. 
@@ -300,7 +300,7 @@ An instance relies on a VM that runs on a real node with its own virtualized com
 Therefore AWS can leverage a virtualization framework to offer GPU services to all the instances.
 Although the {\tt nvidia-smi} command indicates that the GPUs installed are NVIDIA GRID K520, 
 we need to verify that these are non-virtualized devices. For this purpose, we execute the NVIDIA SDK {\tt bandwidthtest}. 
-As shown in the Table~\ref{table:bwt}, the bandwidth achieved in this test is higher than the network bandwith, revealing that the accelerator is an actual GPU. 
+As shown in the Table~\ref{table:bwt}, the bandwidth achieved in this test is higher than the network bandwidth, revealing that the accelerator is an actual GPU. 
 % \begin{table}[htb]
 % \renewcommand{\arraystretch}{1.3}
 % \caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory using local GPU.}
@@ -494,7 +494,7 @@ There, in the ``exclusive'' mode the instance monopolizes all the GPUs; while in
 As a result of sharing the GPU memory, the instance will be able to work with up to 8 GPUs, provided that each partition can be addressed as an independent GPU.
 
 Moreover, the users are also responsible for deciding whether a GPU (or a pool) will be assigned to other instances. 
-This behaviour is refereed as ``scope'', and it determines that a group of instances is logically connected to a pool of GPUs.
+This behavior is refereed as ``scope'', and it determines that a group of instances is logically connected to a pool of GPUs.
 Working with the ``public'' scope (bottom row of Figure~\ref{fig2}) implies that the GPUs of a pool can be used simultaneously by all the instances linked to it.
 Again, the GPU pool can be composed of ``exclusive'' or ``shared'' GPUs.
 
