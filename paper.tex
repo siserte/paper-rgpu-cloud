@@ -94,29 +94,29 @@ finally, Section~\ref{sec:conclusions} summarizes the advances and Section~\ref{
 \label{sec:rcuda}
 {rCUDA}~\cite{toniparco} is a middleware that enables transparent access
 to any NVIDIA GPU device present in a cluster from all compute
-nodes. The GPUs can be accessed and shared between nodes, and a single node can use all the graphic accelerators
+nodes. The GPUs can also be shared among nodes, and a single node can use all the graphic accelerators
 as if they were local.
-These features focus in attaining higher accelerator utilization rates in the overall system while simultaneously reducing
+These features aim to attain higher accelerator utilization rates in the overall system while simultaneously reducing
 resource, space, and energy requirements~\cite{energy14}.
 rCUDA is structured following a client-server distributed
 architecture: the client middleware runs in the same cluster node where the application demanding GPGPU
 acceleration services is executed, providing a transparent replacement for the
 native CUDA libraries. Furthermore, the server middleware is executed in the
-cluster nodes from which the actual GPUs provide the requested GPGPU service.
+cluster nodes from which the actual GPUs provide the requested GPGPU services.
 To support a concurrent scenario where GPUs are shared between
 processes\slash nodes, {rCUDA} manages separate device contexts for
 each client application.
 
 The {rCUDA} 5.0 client exposes the same interface as the regular NVIDIA
 CUDA 6.5 release~\cite{cuda65}, including the runtime and driver
-APIs as well as other commonly used libraries such as cuBLAS, cuFFT, cuSparse or cuRand.
-Therefore, applications are not aware of the fact that they are being executed
+APIs (Application Programming Interface) as well as other frequently used libraries such as cuBLAS, cuFFT, cuSparse or cuRand.
+With this middleware, applications are not aware that they are executed
 on top of a virtualization layer.
 To deal with new GPU programming models, {rCUDA} has been recently extended to accommodate 
-directive-based models such as OmpSS~\cite{repara15} and OpenACC~\cite{cluster15}.
+directive-based models such as OmpSs~\cite{repara15} and OpenACC~\cite{cluster15}.
 
 The integration of remote GPGPU virtualization with global
-resource schedulers such as SLURM~\cite{sbacpad14} completes this powerful
+resource schedulers such as SLURM~\cite{sbacpad14} completes this appealing 
 technology, making accelerator-enabled clusters more flexible and
 energy-efficient.
 
@@ -126,31 +126,29 @@ AWS~\cite{aws} is a public cloud computing provider,
 composed of several services, such as 
  cloud-based computation, storage and other functionality, 
 that enables organizations and/or individuals to deploy
-services and applications on an on-demand basis. 
-These services replace local IT infrastructure for companies and provide agility and instant elasticity matching 
-perfectly with their software requirements.
+services and applications on demand. 
+These services replace company-owned local IT infrastructure and provide agility and instant elasticity matching 
+perfectly with enterprise software requirements.
 
 From the point of view of HPC, AWS offers high performance facilities via 
-instances equipped with GPUs and high performance network interconnection, which 
-are common resources leveraged in this research field.
+instances equipped with GPUs and high performance network interconnection.
 
 \subsection{OpenStack}
 \label{sec:openstack}
 
-OpenStack~\cite{OpenStack} is a cloud operating system that provides Infrastructure as a Service (IaaS). 
-It is able to control large pools of compute, storage, and networking resources throughout a 
+OpenStack~\cite{OpenStack} is a cloud operating system (OS) that provides Infrastructure as a Service (IaaS). 
+OpenStack controls large pools of compute, storage, and networking resources throughout a 
 datacenter. All these resources are managed through a dashboard or an API that gives administrators 
 control while empowering their users to provision resources through a web interface
 or a command-line interface.  
-OpenStack supports most available hypervisors and handles provisioning 
+OpenStack supports most recent hypervisors and handles provisioning 
 and life-cycle management of VMs.
  
 The OpenStack architecture offers flexibility to create a custom cloud, with no proprietary hardware
-or software requirements and the ability to integrate with legacy systems and third party technologies. 
+or software requirements, and the ability to integrate with legacy systems and third party technologies. 
 
-From the HPC perspective, OpenStack offers high performance configurations using
-multiple supported hypervisors and different hardware architectures. Despite in OpenStack is possible to 
-specify some extra parameters requesting special resources, like GPUs, choosing a host based on the existence
+From the HPC perspective, OpenStack offers high performance configurations with different hardware architectures. Despite in OpenStack it is possible to 
+request special resources, such as GPUs, choosing a host based on the existence
 of a GPU is currently unsupported~\cite{OpenStackGPU}. 
 
 \section{\uppercase{State-of-the-Art}}
