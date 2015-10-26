@@ -49,59 +49,43 @@ cloud solutions.
 
 \section{\uppercase{Introduction}}
 \label{sec:introduction}
-Nowadays, many cloud vendors have started offering virtual machines (VMs) with GPUs in order to provide
-GPGPU computation services to users. A few relevant examples include 
+Nowadays, many cloud vendors have started offering virtual machines (VMs) with graphics processing units (GPUs) in order to provide
+GPGPU (general-purpose GPU) computation services. A few relevant examples include 
 Amazon Web Services (AWS)\footnote{\url{https://aws.amazon.com}}, 
 Penguin Computing\footnote{\url{http://www.penguincomputing.com}}, 
 Softlayer\footnote{\url{http://www.softlayer.com}} and 
 Microsoft Azure\footnote{\url{https://azure.microsoft.com}}.
-In the public scope, one of the most popular cloud vendors is AWS, that offers a wide range of preconfigured instances ready to be launched.
+In the public scope, one of the most popular cloud vendors is AWS, which offers a wide range of preconfigured instances ready to be launched.
 Alternatively, owning the propper infrastructure, a private cloud can be deployed using a specific middleware such as
 Openstack\footnote{\url{https://www.openstack.org}} or Opennebula\footnote{\url{http://opennebula.org}}.
 
 Unfortunately, sharing GPU resources among multiple VMs in cloud environments 
-is not straightforward as is in a physical servers resulting into a low utilization rate.
+is as quite more complex than in physical servers, resulting in a low utilization rate.
 On one hand, instances in public clouds are not easily customizable. 
 On the other, in a private cloud, although the instances can be customized in many aspects, when referring to GPUs
 the number of options is reduced.
-Moreover, neither vendors nor tools are offer GPGPU wasting the opportunity of providing flexibility and boosty the utilization of GPU resources in both private or public clouds.
+Moreover, neither vendors nor tools offer GPGPU services, missing the opportunity of providing flexibility and boost the utilization of GPU resources in both private or public clouds.
 
-These devices were adopted with the release of the CUDA programming model for
-NVIDIA GPUs~\cite{cuda65}, which includes both high- and low-level application programming interfaces (APIs)
-to allow the use of NVIDIA devices as general-purpose
-accelerators.
-Following CUDA, OpenCL~\cite{opencl} appeared as an attempt
-to offer a cross-vendor solution.
-
-The current approach to assemble a cluster with accelerators consist in installing 
-one or more of these devices in each compute node.
-However, these configurations often present a low
-utilization rate of the computational resources
- because of mismatches between the application's type of parallelism
-and the accelerators' architecture.
-
-Remote virtualization has been recently proposed to deal with the low-usage problem 
-(e.g. {rCUDA}~\cite{tonithesis},
-DS-CUDA~\cite{dscuda}, gVirtus~\cite{gvirtus}, vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}).
+Remote virtualization has been recently proposed to deal with the low-usage problem. Some relevant examples include {rCUDA}~\cite{tonithesis},
+DS-CUDA~\cite{dscuda}, gVirtus~\cite{gvirtus}, vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}.
 
 Roughtly speaking these virtualization frameworks 
 enable cluster configurations with fewer GPUs than nodes.  The goal is that 
-GPU-equipped nodes act as GPGPU (general-purpose GPU) servers, yielding a CUDA-sharing solution that potentially achieves
-a higher overall GPU load in the system.
+GPU-equipped nodes act as GPGPU servers, yielding a GPU-sharing solution that potentially achieves
+a higher overall utilization of the accelerators in the system.
 
-The main goals of this work are to study current cloud solutions from 
-the point of view of HPC field and GPU usage, and to analyze and improve 
+The main goals of this work are to study current cloud solutions in an HPC GPU-enabled scenario, and to analyze and improve 
 them by adding flexibility with GPU virtualization. In order to reach 
 this goal, we select rCUDA, a virtualization tool that is possibly the more complete 
 and up-to-date for NVIDIA GPUs.
 
 The rest of the paper is structured as follows. 
-In Section~\ref{sec:background} the technologies we introduce used in this work;
-Section~\ref{sec:state} summarizes previous work in this field; 
-Section~\ref{sec:motivation} states the motivation to carry out this work;
+In Section~\ref{sec:background} we introduce the technologies used in this work;
+Section~\ref{sec:state} summarizes related work; 
+Section~\ref{sec:motivation} states the motivation to address this task;
 the effort to use AWS is explained in Section~\ref{sec:workingaws};
 while the work with Openstack is described in Section~\ref{sec:gpgpuOS};
-finally Section~\ref{sec:conclusions} summarizes the advances and Section~\ref{sec:future} proposes the next steps
+finally, Section~\ref{sec:conclusions} summarizes the advances and Section~\ref{sec:future} outlines the next steps
  of this research.
 
 \section{\uppercase{Background}}
