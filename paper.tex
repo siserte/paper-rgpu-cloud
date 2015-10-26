@@ -386,15 +386,12 @@ single client, using a 1Gb network interconnection, can leverage 13 GPUs as if t
 \end{figure*}
 
 Once the scenarios are configured from the point of view of hardware, 
-the {rCUDA} software needs to be installed in order to add 
+the {rCUDA} middleware needs to be installed in order to add 
 the required flexibility to the system. The {rCUDA} server is 
-executed in the server nodes and the {rCUDA} libraries are installed 
-in the node that is acting as a client.
+executed in the server nodes and the {rCUDA} libraries are invoked from the node that acts as client.
 
-In order to evaluate the network bandwidth using 
-a remote GPU, we re-applied the NVIDIA {\tt bandwidthtest} sample.
-Table~\ref{table:bwtrcuda} shows how the bandwidth is limited 
-by the network.
+In order to evaluate the network bandwidth using a remote GPU, we re-applied NVIDIA SDK {\tt bandwidthtest}.
+Table~\ref{table:bwtrcuda} exposes that the bandwidth is limited by the network.
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
@@ -412,20 +409,15 @@ B & Device-to-Host & 10 Gb& 843 MB/s\\ \hline
 \subsection{Experimental results}
 In this subsection we employ two GPU applications to assess the benefits of GPU virtualization.
 
-The first application is {\tt MonteCarloMultiGPU}, from the NVIDIA SDK, a code that is purely compute-based. 
-This was launched with the default configuration ``scaling=weak'', which adjusts the size of the problem depending on the number of accelerators.
-Figure~\ref{fig:mont-opt} depicts the options per second calculated by the application running on the scenarios of Figure~\ref{fig:aws} and using local GPUs. 
+The first application is {\tt MonteCarloMultiGPU}, from the NVIDIA SDK, a code that is compute bound (its execution barely involves memory operations). 
+This was launched with the default configuration, ``scaling=weak'', which adjusts the size of the problem depending on the number of accelerators.
+Figure~\ref{fig:mont-opt} depicts the options per second calculated by the application running on the scenarios in Figure~\ref{fig:aws} as well as using local GPUs. 
 For clarity, we have removed the results observed for Scenario B as they are exactly the same as those obtained from Scenario C with up to 8 GPUs. 
-In this particular case, rCUDA (using remote GPUs) outperforms CUDA (with its local GPUs) because the former loads the libraries when its daemon starts~\cite{tonithesis}.
-With rCUDA we can see differences in the results between booth scenarios. 
-Here, Scenario A can increase the throughput because the GPUs are not sharing the PCI bus with other devices due to each node only is equipped with one GPU.
-On the other hand, when 4-GPU instances (``g2.8xlarge'') are added (Scenario C), the PCI bus constrains the communication process reducing the scaling of performance.
-% \begin{figure}[!t]
-%   \centering
-%   \includegraphics[width=\linewidth]{images/aws-mont2.png}
-%   \caption{Montecarlo execution time}
-%   \label{fig:mont-exe}
-% \end{figure}
+In this particular case, rCUDA (remote GPUs) outperforms CUDA (local GPUs) because the former loads the libraries when the daemon is started~\cite{tonithesis}.
+With rCUDA we can observe differences in the results between both scenarios. 
+Here, Scenario A can increase the throughput because the GPUs do not share the PCI bus with other devices as each node only is equipped with one GPU.
+On the other hand, when the 4-GPU instances (``g2.8xlarge'') are added (Scenario C), the PCI bus constrains the communication bandwidth, hurting the scalability.
+
 \begin{figure}[htb]
   \centering
   \includegraphics[width=\linewidth]{images/mont.pdf}
@@ -440,10 +432,10 @@ From the implementation perspective, this multi-process application employs
 at least one GPU to host its processes, but can benefit from the presence of multiple GPUs.
 Figure~\ref{subfig:lammps1} shows that, for this application, the use of remote GPUs 
 does not offer any advantage over the original CUDA. 
-Furthermore, for the execution on remote GPUs, the difference between both networks is small, although, the ``High'' network performs worse than ``10 Gb'' network.
-For execution of LAMMPS with a larger problem (see Figure~\ref{subfig:lammps2}), CUDA still performs better, but the interesting point is the execution time on remote GPUs. 
-They are almost the same even with different networks which indicates that the transfers turn the interconnection network into a bottleneck. For this type of application's 
-patter, enlarging the problem size pays off the drawback of a slower network.
+Furthermore, for the execution on remote GPUs, the difference between both networks is small, although, the results observed with the ``High'' network are worse than those obtained with the ``10 Gb'' network.
+In execution of LAMMPS on a larger problem (see Figure~\ref{subfig:lammps2}), CUDA still performs better, but the interesting point is the execution time when using remote GPUs. 
+These are almost the same even with different networks, which indicates that the transfers turn the interconnection network into a bottleneck. 
+For this type of application, enlarging the problem size compensates the negative effect of a slower network.
 
 \begin{figure}[htb]
 \centering
@@ -462,18 +454,17 @@ patter, enlarging the problem size pays off the drawback of a slower network.
 The previous experiments reveal that the AWS GPU-instances are not appropriate for HPC
 because neither the network nor the accelerators are powerful enough to deliver high performance
 when running compute-intensive parallel applications. 
-In other words, AWS is more oriented to offer service than to provide performance.
-Also, AWS aims to offer a GPGPU service but fails in offering flexibility.
-Concretely, AWS forces the user to choose between a basic instance with a GPU and a powerful instance with 4 GPUs.
+In other words, AWS is more oriented toward offering a general-purpose service than to provide high performance.
+Also, AWS fails in offering flexibility as it forces the user to choose between a basic instance with a GPU and a powerful instance with 4 GPUs.
 
 Table~\ref{table:awsInstances} shows that the resources of the ``g2.8xlarge'' are quadrupled, but so is the cost per hour.
-Therefore, in the case of having other necessities (in terms of the instances type), with GPU virtualization technology we could attach an accelerator to any kind of instance.
-Furthermore, reducing the budget destinated to cloud services could be possible by customizing the resources of the available instances.
-For example, we can work on an instance with 2 GPUs for only \$ 1.3 by launching 2 ``g2.2xlarge'' and using remote GPUs, avoiding to pay the double for features that we are not willing to use in ``g2.8xlarge''.
+Therefore, in the case of having other necessities (in terms of the instances type), using GPU virtualization technology we could in principle attach an accelerator to any type of instance.
+Furthermore, reducing the budget spent in cloud services is possible by customizing the resources of the available instances.
+For example, we can work on an instance with 2 GPUs for only \$ 1.3 by launching 2 ``g2.2xlarge'' and using remote GPUs, avoiding to pay the double for features that we do not need in ``g2.8xlarge''.
 
 The last conclusion is related to GPU-shareability. 
 As we deduced, AWS reserves GPU-capable physical machines which will be idle until a GPU-instance request is made.
-To maintain an expensive accelerator in a standby state is counter-productive. 
+Maintaining an expensive accelerator in a standby state is counter-productive. 
 It makes more sense to dedicate less devices, accessible from any machine.
 
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
