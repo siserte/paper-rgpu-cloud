@@ -478,15 +478,15 @@ It makes more sense to dedicate less devices, accessible from any machine.
 
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
 \label{sec:gpgpuOS}
-In this section we review the work related with OpenStack, from the development of an external module to handle remote GPUs to the physical setup and its testing.
+In this section we describe our work on OpenStack, from the development of an external module to handle remote GPUs to the physical setup and its validation.
 
 \subsection{Managing remote GPUs with OpenStack}
 The main idea is to evolve from the original OpenStack architecture (see Figure~\ref{subfig:os-orig})
- to a solution where a new shared service, responsible for all about GPU accelerators, becomes integrated into the architecture (see Figure~\ref{subfig:os-mod}).
+ to a solution where a new shared service, responsible for the GPU accelerators, becomes integrated into the architecture (see Figure~\ref{subfig:os-mod}).
 This new service brings more flexibility when managing GPUs and new working modes for GPGPU computation in the Cloud.
 As illustrated in Figure~\ref{fig:internal}, we alter the original OpenStack Dashboard with a new parser, 
 which splits the HTTP query in order to make use of both the GPGPU API for GPU-related operations, and the Nova API for the rest of the computations. 
-The new GPGPU Service allows to access GPUs in a VM, but also to create ``GPU-pools'', a set of independent GPUs (logically disattached from the nodes) that can be assigned to one or more VMs.
+The new GPGPU Service grants access to GPUs in a VM, but also allows the creation of ``GPU-pools'', consisting of a set of independent GPUs (logically disattached from the nodes) that can be assigned to one or more VMs.
 
 \begin{figure}[htb]
   \centering
@@ -510,20 +510,20 @@ The new GPGPU Service allows to access GPUs in a VM, but also to create ``GPU-po
   \label{fig:internal}
 \end{figure}
 
-Thanks to the modular approach of the GPGPU Service, the Nova Project does not need to be modified and the tool can be easily ported to other Cloud Computing solutions.
+Thanks to the modular approach of the GPGPU Service, the Nova Project does not need to be modified, and the tool can be easily ported to other Cloud Computing solutions.
 
 \subsection{Working Modes}
-The developed module allows users to create any of the scenarios displayed in Figure~\ref{fig2}. 
+The developed module allows users to set up any of the scenarios displayed in Figure~\ref{fig2}. 
 The users are given two configuration options to decide whether a physical GPU will be completely reserved for an instance (first column) or the instance will address a partition of the GPU as if it were a real device (second column).
 We refer to this as the ``mode'', with possible values being: ``exclusive'' or ``shared''. 
-Let us assume there are 4 GPU devices in the cluster (independently where they were hosted. 
-An example of those scenarios is shown in Figure~\ref{fig2}.
-There, in ``exclusive'' mode the instance monopolizes all the GPUs, while in the ``shared'' mode, the GPUs are partitioned. 
-As a result of halving the GPU memory of the accelerators, the instance will be able to work with up to 8 GPUs, provided that each partition can be addressed as an independent GPU.
+Let us assume there are 4 GPU devices in the cluster (independently of where they were hosted). 
+An example of these scenarios is shown in Figure~\ref{fig2}.
+There, in the ``exclusive'' mode the instance monopolizes all the GPUs; while in the ``shared'' mode, the GPUs are partitioned. 
+As a result of sharing the GPU memory, the instance will be able to work with up to 8 GPUs, provided that each partition can be addressed as an independent GPU.
 
 Moreover, the users are also responsible for deciding whether a GPU (or a pool) will be assigned to other instances. 
-This behaviour is refereed as ``scope'' and it determines that a group of instances is logically connected to a pool of GPUs.
-Working with ``public scope'' (bottom row of Figure~\ref{fig2}) implies that the GPUs of a pool can be used simultaneously by all the instances linked to it.
+This behaviour is refereed as ``scope'', and it determines that a group of instances is logically connected to a pool of GPUs.
+Working with the ``public'' scope (bottom row of Figure~\ref{fig2}) implies that the GPUs of a pool can be used simultaneously by all the instances linked to it.
 Again, the GPU pool can be composed of ``exclusive'' or ``shared'' GPUs.
 
 \begin{figure}[htb]
@@ -534,7 +534,7 @@ Again, the GPU pool can be composed of ``exclusive'' or ``shared'' GPUs.
 \end{figure}
 
 \subsection{User Interface}
-Several modifications have been planned in the OpenStack Dashboard in order to deal with the new features.
+In order to deal with the new features, several modifications have been planned in the OpenStack Dashboard, they have not been implemented yet, though.
 First of all, the Instance Launch Panel should be extended with a new field, where the user could assign an existing GPU pool, create a new one, or keep the instance without accelerators of this kind.
 When the option ``New GPU Pool'' is chosen, the proper fields for the pool configuration would appear (see Figure~\ref{fig:ui-launch}).
 Furthermore, a new panel with the existent GPUs displays all the information related to GPUs (see Figure~\ref{fig:ui-rgpus}).
@@ -555,36 +555,35 @@ Furthermore, a new panel with the existent GPUs displays all the information rel
 
 \subsection{Experimental Results}
 The following tests were executed on 2 sets of nodes interconnected by a 1Gb Ethernet network.
-All the nodes were equipped with an Intel Xeon E7420 quadcore processor at 2.13 GHz, and 16 Gbytes of DDR2 RAM memory at 667 MHz.
+All the nodes were equipped with an Intel Xeon E7420 quadcore processor, at 2.13 GHz, and 16 Gbytes of DDR2 RAM memory at 667 MHz.
 
 The first set, in charge of providing the cloud environment,
 consisted of 3 nodes.
-To deploy an infrastructure as a cloud service, we used OpenStack Icehouse version and QEMU/KVM 0.12.1 as the hypervisor.
-A fully-featured OpenStack deployment requires at least three nodes: a controller node manages the compute nodes 
-where the VMs are hosted, a network node that manages the logic virtual network for the VMs, and one or more compute nodes that 
-run the hypervisor and VMs.
+To deploy an IaaS, we used OpenStack Icehouse version, and QEMU/KVM 0.12.1 as the hypervisor.
+A fully-featured OpenStack deployment requires at least three nodes: a controller manages the compute nodes 
+where the VMs are hosted; a network node manages the logic virtual network for the VMs, and one or more compute nodes run the hypervisor and VMs.
 
-The second set, composed of 4 nodes, were auxiliary servers with a Tesla C1060 GPU each one. 
+The second set, composed of 4 nodes, were auxiliary servers with a Tesla C1060 GPU each. 
 The OS was a Centos 6.6; and the GPUs used CUDA 6.5. 
 The GPU virtualization support was based on rCUDA v5.0. 
 
-We have designed 6 different set-ups which can be divided into 2 groups: “exclusive GPUs” and “shared GPUs”. 
-The “exclusive” mode provides, at most, 4 accelerators. 
-Whilst the number of available GPU in “shared” mode will depend on the partition size. 
-In this particular case, we have halved the GPU memory, having as a result 8 partitions that can be addressed as independent GPUs.
-For each group, we have deployed virtual clusters of 1, 2 and 3 nodes where the application processes will be executed. 
-The instances are lanched with the OpenStack predifined flavor “m1.medium”, which determines a configuration of VMs consisting of 2 cores and 4096 MB of memory.
+We have designed 6 different set-ups which can be divided into 2 groups: exclusive and shared GPUs. 
+The exclusive mode provides, at most, 4 accelerators. 
+The number of available GPU in “shared” mode will depend on the partition size. 
+In this particular case, we halved the GPU memory, resulting 8 partitions that can be addressed as independent GPUs.
+For each group, we deployed virtual clusters of 1, 2 and 3 nodes, where the application processes were executed. 
+The instances were launched with the OpenStack predefined flavor “m1.medium”, which determines a configuration of VMs consisting of 2 cores and 4~GB of memory.
 
 MCUDA-MEME~\cite{Liu2010} was the application selected to test the set-ups. 
-Thus is an MPI application accelerated by GPUs, where each process must have access to a GPU.
+Thus is an MPI software, where each process must have access to a GPU.
 Therefore, the number of GPUs determines the maximum number of processes we can launch.
 
 Figure~\ref{fig3} compares the execution time of the application with different configurations over different setups. 
-We have used up to 3 nodes to spread the processes and launched up to 8 processes (only 4 in exclusive mode), one for each remote GPU.
-We can first state that the performance is higher with more than one node, because the traffic network is distributed among the nodes.
+We used up to 3 nodes to spread the processes and launched up to 8 processes (only 4 in exclusive mode), one per remote GPU.
+We can first observe that the performance is higher with more than one node, because the traffic network is distributed among the nodes.
 In addition, the shortest execution time is obtained by both modes (exclusive and shared) when running their maximum number of processes with more than one node.
-This seems to imply that it is not worth to continue giving resources to the application to scale, because the performance growth rate is barely increasing.
-Although, the time is lower sharing the GPUs the setup cannot take advantage of an increase in the number of devices.
+This seems to imply that it is not worth to scale (increase) the number of resources, because the performance growth rate is barely increasing.
+Although, the time is lower when the GPUs are shared, the setup cannot take advantage of an increase in the number of devices.
 
 \begin{figure}[htb]
   \centering
@@ -595,13 +594,12 @@ Although, the time is lower sharing the GPUs the setup cannot take advantage of 
 
 \subsection{Discussion}
 The network interconnect restricts the performance of our executions.
-This is not a new topic and in~\cite{tonithesis} is explained that improving the network infrastructure could make a big different for GPU virtualization.
+The analysis in~\cite{tonithesis} reveals that improving the network infrastructure can make a big different for GPU virtualization.
 
-The most remarkable achievement is the wide range of possible configurations and the flexibility to set and reset a system to fit the 
-user requirements. 
+The most remarkable achievement is the wide range of possible configurations and the flexibility to adapt a system to fit the user requirements. 
 
-With this virtualization technology, the requests for GPU devices can be fulfilled with small investments in infrastructure and maintenance.
-Energy can be saved not only thanks to the remote access and the ability to emulate several GPUs from a real one, but also  by grouping the accelerators in a single machine (when possible) or turning down nodes when their GPUs are idle. 
+In addition, with this virtualization technology, the requests for GPU devices can be fulfilled with small investment in infrastructure and maintenance.
+Energy can be saved not only thanks to the remote access and the ability to emulate several GPUs using only a few real ones, but also by consolidating the accelerators in a single machine (when possible), or turning down nodes when their GPUs are idle. 
 
 \section{\uppercase{Conclusions}}
 \label{sec:conclusions}
