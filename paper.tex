@@ -27,21 +27,21 @@
 \affiliation{Department of Computer Science and Engineering\\Universitat Jaume I - Castell\'o de la Plana, Spain}
 \email{\{siserte, fclement, adcastel, mayo, quintana\}@uji.es}}
 
-\keywords{Cloud Computing, GPU Virtualization, AWS, Resource Management}
+\keywords{Cloud Computing, GPU Virtualization, Amazon Web Services (AWS), OpenStack, Resource Management}
 
-\abstract{The use of accelerators, such as graphics processing units (GPUs), to reduce the execution time of compute-intensive applications has become more popular during the past few years. 
-These devices increment the computational power of a node thanks to its parallel architecture.
-This trend has led cloud vendors, as Amazon Web Services, or middlewares such as OpenStack to add to their current facilities   
-instances of virtual machines including GPUs. 
-To fullfil these needs, the guest hosts must be equipped with GPUs which will be barely utilized if a non GPU-enabled Virtual Machine is running in the host.
-The solution presented in this work is based on GPU virtualization and shareability in order to reach an equilibrium between service supply and applications' demand of accelerators. 
-Hence, we propose to decouple real GPUs from the nodes by using the virtualization technology rCUDA. 
+\abstract{The use of accelerators, such as graphics processing units (GPUs), to reduce the execution time of compute-intensive applications has become popular during the past few years. 
+These devices increment the computational power of a node thanks to their parallel architecture.
+This trend has led cloud service providers as Amazon or middlewares such as OpenStack to add virtual machines (VMs) including GPUs to their facilities   
+instances. 
+To fullfil these needs, the guest hosts must be equipped with GPUs which, unfortunately, will be barely utilized if a non GPU-enabled VM is running in the host.
+The solution presented in this work is based on GPU virtualization and shareability in order to reach an equilibrium between service supply and the applications' demand of accelerators. 
+Concretely, we propose to decouple real GPUs from the nodes by using the virtualization technology rCUDA. 
 With this software configuration, GPUs can be accessed from any VM avoiding the need  
-of having a physical GPUs in the guest host. 
-Moreover, we study the viability of this approach by using a public cloud 
-service configuration and develop a module for OpenStack middleware in order to 
+of placing a physical GPUs in each guest host. 
+Moreover, we study the viability of this approach using a public cloud 
+service configuration, and we develop a module for OpenStack in order to 
 add support for the virtualized devices and the logic to manage them. 
-The results demonstrate this is a viable configuration which adds flexibility to the current and well-known 
+The results demonstrate this is a viable configuration which adds flexibility to current and well-known 
 cloud solutions. 
 }
 
@@ -49,59 +49,43 @@ cloud solutions.
 
 \section{\uppercase{Introduction}}
 \label{sec:introduction}
-Nowadays, many cloud vendors have started offering virtual machines (VMs) with GPUs in order to provide
-GPGPU computation services to users. A few relevant examples include 
+Nowadays, many cloud vendors have started offering virtual machines (VMs) with graphics processing units (GPUs) in order to provide
+GPGPU (general-purpose GPU) computation services. A few relevant examples include 
 Amazon Web Services (AWS)\footnote{\url{https://aws.amazon.com}}, 
 Penguin Computing\footnote{\url{http://www.penguincomputing.com}}, 
 Softlayer\footnote{\url{http://www.softlayer.com}} and 
 Microsoft Azure\footnote{\url{https://azure.microsoft.com}}.
-In the public scope, one of the most popular cloud vendors is AWS, that offers a wide range of preconfigured instances ready to be launched.
+In the public scope, one of the most popular cloud vendors is AWS, which offers a wide range of preconfigured instances ready to be launched.
 Alternatively, owning the propper infrastructure, a private cloud can be deployed using a specific middleware such as
 Openstack\footnote{\url{https://www.openstack.org}} or Opennebula\footnote{\url{http://opennebula.org}}.
 
 Unfortunately, sharing GPU resources among multiple VMs in cloud environments 
-is not straightforward as is in a physical servers resulting into a low utilization rate.
+is as quite more complex than in physical servers, resulting in a low utilization rate.
 On one hand, instances in public clouds are not easily customizable. 
 On the other, in a private cloud, although the instances can be customized in many aspects, when referring to GPUs
 the number of options is reduced.
-Moreover, neither vendors nor tools are offer GPGPU wasting the opportunity of providing flexibility and boosty the utilization of GPU resources in both private or public clouds.
+Moreover, neither vendors nor tools offer GPGPU services, missing the opportunity of providing flexibility and boost the utilization of GPU resources in both private or public clouds.
 
-These devices were adopted with the release of the CUDA programming model for
-NVIDIA GPUs~\cite{cuda65}, which includes both high- and low-level application programming interfaces (APIs)
-to allow the use of NVIDIA devices as general-purpose
-accelerators.
-Following CUDA, OpenCL~\cite{opencl} appeared as an attempt
-to offer a cross-vendor solution.
-
-The current approach to assemble a cluster with accelerators consist in installing 
-one or more of these devices in each compute node.
-However, these configurations often present a low
-utilization rate of the computational resources
- because of mismatches between the application's type of parallelism
-and the accelerators' architecture.
-
-Remote virtualization has been recently proposed to deal with the low-usage problem 
-(e.g. {rCUDA}~\cite{tonithesis},
-DS-CUDA~\cite{dscuda}, gVirtus~\cite{gvirtus}, vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}).
+Remote virtualization has been recently proposed to deal with the low-usage problem. Some relevant examples include {rCUDA}~\cite{tonithesis},
+DS-CUDA~\cite{dscuda}, gVirtus~\cite{gvirtus}, vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}.
 
 Roughtly speaking these virtualization frameworks 
 enable cluster configurations with fewer GPUs than nodes.  The goal is that 
-GPU-equipped nodes act as GPGPU (general-purpose GPU) servers, yielding a CUDA-sharing solution that potentially achieves
-a higher overall GPU load in the system.
+GPU-equipped nodes act as GPGPU servers, yielding a GPU-sharing solution that potentially achieves
+a higher overall utilization of the accelerators in the system.
 
-The main goals of this work are to study current cloud solutions from 
-the point of view of HPC field and GPU usage, and to analyze and improve 
+The main goals of this work are to study current cloud solutions in an HPC GPU-enabled scenario, and to analyze and improve 
 them by adding flexibility with GPU virtualization. In order to reach 
 this goal, we select rCUDA, a virtualization tool that is possibly the more complete 
 and up-to-date for NVIDIA GPUs.
 
 The rest of the paper is structured as follows. 
-In Section~\ref{sec:background} the technologies we introduce used in this work;
-Section~\ref{sec:state} summarizes previous work in this field; 
-Section~\ref{sec:motivation} states the motivation to carry out this work;
+In Section~\ref{sec:background} we introduce the technologies used in this work;
+Section~\ref{sec:state} summarizes related work; 
+Section~\ref{sec:motivation} states the motivation to address this task;
 the effort to use AWS is explained in Section~\ref{sec:workingaws};
 while the work with Openstack is described in Section~\ref{sec:gpgpuOS};
-finally Section~\ref{sec:conclusions} summarizes the advances and Section~\ref{sec:future} proposes the next steps
+finally, Section~\ref{sec:conclusions} summarizes the advances and Section~\ref{sec:future} outlines the next steps
  of this research.
 
 \section{\uppercase{Background}}
@@ -110,29 +94,29 @@ finally Section~\ref{sec:conclusions} summarizes the advances and Section~\ref{s
 \label{sec:rcuda}
 {rCUDA}~\cite{toniparco} is a middleware that enables transparent access
 to any NVIDIA GPU device present in a cluster from all compute
-nodes. The GPUs can be accessed and shared between nodes, and a single node can use all the graphic accelerators
+nodes. The GPUs can also be shared among nodes, and a single node can use all the graphic accelerators
 as if they were local.
-These features focus in attaining higher accelerator utilization rates in the overall system while simultaneously reducing
+These features aim to attain higher accelerator utilization rates in the overall system while simultaneously reducing
 resource, space, and energy requirements~\cite{energy14}.
 rCUDA is structured following a client-server distributed
 architecture: the client middleware runs in the same cluster node where the application demanding GPGPU
 acceleration services is executed, providing a transparent replacement for the
 native CUDA libraries. Furthermore, the server middleware is executed in the
-cluster nodes from which the actual GPUs provide the requested GPGPU service.
+cluster nodes from which the actual GPUs provide the requested GPGPU services.
 To support a concurrent scenario where GPUs are shared between
 processes\slash nodes, {rCUDA} manages separate device contexts for
 each client application.
 
 The {rCUDA} 5.0 client exposes the same interface as the regular NVIDIA
 CUDA 6.5 release~\cite{cuda65}, including the runtime and driver
-APIs as well as other commonly used libraries such as cuBLAS, cuFFT, cuSparse or cuRand.
-Therefore, applications are not aware of the fact that they are being executed
+APIs (Application Programming Interface) as well as other frequently used libraries such as cuBLAS, cuFFT, cuSparse or cuRand.
+With this middleware, applications are not aware that they are executed
 on top of a virtualization layer.
 To deal with new GPU programming models, {rCUDA} has been recently extended to accommodate 
-directive-based models such as OmpSS~\cite{repara15} and OpenACC~\cite{cluster15}.
+directive-based models such as OmpSs~\cite{repara15} and OpenACC~\cite{cluster15}.
 
 The integration of remote GPGPU virtualization with global
-resource schedulers such as SLURM~\cite{sbacpad14} completes this powerful
+resource schedulers such as SLURM~\cite{sbacpad14} completes this appealing 
 technology, making accelerator-enabled clusters more flexible and
 energy-efficient.
 
@@ -142,105 +126,103 @@ AWS~\cite{aws} is a public cloud computing provider,
 composed of several services, such as 
  cloud-based computation, storage and other functionality, 
 that enables organizations and/or individuals to deploy
-services and applications on an on-demand basis. 
-These services replace local IT infrastructure for companies and provide agility and instant elasticity matching 
-perfectly with their software requirements.
+services and applications on demand. 
+These services replace company-owned local IT infrastructure and provide agility and instant elasticity matching 
+perfectly with enterprise software requirements.
 
 From the point of view of HPC, AWS offers high performance facilities via 
-instances equipped with GPUs and high performance network interconnection, which 
-are common resources leveraged in this research field.
+instances equipped with GPUs and high performance network interconnection.
 
 \subsection{OpenStack}
 \label{sec:openstack}
 
-OpenStack~\cite{OpenStack} is a cloud operating system that provides Infrastructure as a Service (IaaS). 
-It is able to control large pools of compute, storage, and networking resources throughout a 
+OpenStack~\cite{OpenStack} is a cloud operating system (OS) that provides Infrastructure as a Service (IaaS). 
+OpenStack controls large pools of compute, storage, and networking resources throughout a 
 datacenter. All these resources are managed through a dashboard or an API that gives administrators 
 control while empowering their users to provision resources through a web interface
 or a command-line interface.  
-OpenStack supports most available hypervisors and handles provisioning 
+OpenStack supports most recent hypervisors and handles provisioning 
 and life-cycle management of VMs.
  
 The OpenStack architecture offers flexibility to create a custom cloud, with no proprietary hardware
-or software requirements and the ability to integrate with legacy systems and third party technologies. 
+or software requirements, and the ability to integrate with legacy systems and third party technologies. 
 
-From the HPC perspective, OpenStack offers high performance configurations using
-multiple supported hypervisors and different hardware architectures. Despite in OpenStack is possible to 
-specify some extra parameters requesting special resources, like GPUs, choosing a host based on the existence
+From the HPC perspective, OpenStack offers high performance configurations with different hardware architectures. Despite in OpenStack it is possible to 
+request special resources, such as GPUs, choosing a host based on the existence
 of a GPU is currently unsupported~\cite{OpenStackGPU}. 
 
 \section{\uppercase{State-of-the-Art}}
 \label{sec:state}
-Our solutions to the defficiency exposed in the previous section is based on GPU virtualization, sharing resources in order
+Our solutions to the defficiencies exposed in the previous section relies on GPU virtualization, sharing resources in order
 to attain a fair balance between supply and demand. 
-While several efforst with the same goal have been made in the past, as exposed next, 
-none of them is so ambitious as ours. 
+While several efforts with the same goal have been initiated in the past, as exposed next, 
+none of them is as ambitious as ours. 
 
 The work in~\cite{younge2013enabling} allows the VM managed
-by the hypervisor Xen to access the GPUs in the physical
-node, with the implied limitations that a node cannot 
-use more GPUs than those hosted in the machine, and idle GPUs can not be shared with other machines. The solution presented 
-by gVirtus~\cite{giunta2010gpgpu} virtualizes GPUs and makes
+by the Xen hypervisor to access the GPUs in a physical
+node, but with this solution a node cannot 
+use more GPUs than those hosted in the machine, and an idle GPU can not be shared with other machines. The solution presented 
+by gVirtus~\cite{gvirtus} virtualizes GPUs and makes
 them accessible for any VM in the cluster. However, this kind
-of virtualization strongly depends on the hypervisor and, so
-does its performance. Another similar solution is presented in gCloud~\cite{diab2013dynamic}. 
-iWhile this solution is not yet integrated in a Cloud Computing Manager, its main
-drawback is that the code of the applications must be modified
-in order to be run in the virtual-GPU environment. A runtime component to provide abstraction
+of virtualization strongly depends on the hypervisor, and so
+does its performance. Similar solution is presented in gCloud~\cite{diab2013dynamic}. 
+While this solution is not yet integrated in a Cloud Computing Manager, its main
+drawback is that the application's code must be modified
+in order to run in the virtual-GPU environment. A runtime component to provide abstraction
 and sharing of GPUs is presented in~\cite{becchi2012virtual}, which allows scheduling policies 
 to isolate and share GPUs in a cluster for a set of applications. 
-The work introduced in~\cite{jungpgpu} is more mature, however,
+The work introduced in~\cite{jungpgpu} is more mature; however,
 it is only focussed on compute-intensive HPC applications. 
 
 Our proposal goes further and, in addition to 
-bringing solutions for all kind of HPC applications, it is aimed
+bringing solutions for all kind of HPC applications, aims 
 to boost flexibility in the use of GPUs.
 
 \section{\uppercase{Motivation}}
 \label{sec:motivation}
 
 Cloud computing and storage have gained wide appeal  
-during the last years thanks to the easy set up 
-process and the low IT invest. The services offered in the cloud are useful for companies and individuals 
-that look for temporary access to the last technology without spending a 
+during the last years thanks to a relatively easy configuration  
+process and a low IT invest. The services offered in the cloud are useful for companies and individuals 
+that look for temporary access to state-of-the-art technology without spending a 
 huge amount of money. In general, the systems provided by cloud 
-companies match with the those requested thanks to its flexibility.
+companies match those requested by the clients thanks to its flexibility.
 
-Two different kinds of cloud approaches are currently available:
+Two different types of cloud approaches are currently available:
 on one hand, public facilities, such as AWS or 
-Microsoft Azure that allow users to chose a pre-configured system.   
+Microsoft Azure, that allow users to chose a pre-configured system.   
 On the other hand, institutions/companies 
-are able to deploy their own cloud infrastructure by a software as OpenStack.  
+are able to deploy their own cloud infrastructure using a software as OpenStack.  
 
 In both cases, the power of current cloud facilities relies on the use 
 of VMs which  
 emulate a physical node with its own 
-CPUs, storage, network interconnection, GPU and operating system (OS). 
+CPUs, storage, network interconnection, GPU and OS. 
 However, providing a VM equipped with a GPU implies
-that the guest host must be equipped with at least one GPU, and
+that the guest host must be equipped with at least one real GPU, and
 once it has been assigned to an instance, no other VM can use
-it. Therefore, the number of VMs that are allowed to use GPUs is 
+it. Therefore, the number of VMs that can access the GPUs is 
 limited by the number of the installed devices. This lack of 
-flexibility is also present in the cluster configurations, where 
+flexibility is also present in cluster configurations, where 
 depending on the users' necessities, 
-two approaches to introduce GPGPU computation can be identified:
-the conservative option, features a lot of hosts with GPUs to 
-ensure that is likely to satisfy all requests; in a
-more daring approach, a reduced count of some GPU-enabled nodes is available, in the hope that a large burst of GPU requests 
+two approaches to enable GPGPU computation can be identified:
+the conservative option integrates many hosts with GPUs to 
+ensure that it is likely to satisfy all requests; in a
+more daring approach, a reduced count of some GPU-enabled nodes is configured, in the hope that a large burst of GPU requests 
  does not exhaust the cluster's resources.
 
-The use of a virtualization technology such as {rCUDA} adds 
+The use of a virtualization technology, such as {rCUDA}, adds 
 the desired flexibility because this software detaches the GPUs 
 from the nodes where they are installed, allowing all nodes in a cluster
-not only to use them as if they were local, but also to share them 
+to use them as if they were local, as well as to share them, 
 achieving a higher utilization rate and reducing the idle periods.
 Thanks to the ``shareability'' introduced by {rCUDA}, all VMs in the cloud 
-environment can leverage and share all GPUs installed in 
+environment can leverage and access all GPUs installed in 
 the physical nodes, removing past limitations. 
 
-Our work focuses on AWS as a public 
-solution, and on OpenStack software as a private cloud environment. 
-In order to achieve our goal, these cloud facilities need to be provided with the {rCUDA} software. In addition, for OpenStack, a module for managing virtualized GPUs 
+Our work selects AWS as a public 
+solution, and OpenStack as a private cloud environment. 
+In order to achieve our goal, these cloud facilities need to be integrated with the {rCUDA} software. In addition, for OpenStack, a module for managing virtualized GPUs 
 needs to be implemented.  
 
 
@@ -248,26 +230,25 @@ needs to be implemented.
 \section{\uppercase{GPGPU share service with AWS}}
 \label{sec:workingaws}
 In this section, we briefly expose the current user-level features 
-provided by AWS and then analyze this service  
-from the point of view of the GPU usage. 
-Next, we describe the scenarios and experiments where virtualized GPUs are utilized and show a number of first results.
+provided by AWS, and then analyze this service  
+from the point of view of GPU usage. 
+Next, we describe the scenarios and experiments where virtualized GPUs are utilized and show a number of initial results.
 
 \subsection{Current Features}
-This subsection identifies the most common features checked during 
+This subsection identifies several common features checked during 
 the VM's creation step.
 
 \subsubsection{Instances}
 
 An instance is a pre-configured VM focused on an 
 specific target. Among the large list of instances offered by AWS, 
-we can find cases for general purpose (T2, M4 and M3); computer science optimized 
-(C4 and C3); memory optimized (R3); storage optimized (I2 and D2) and 
-GPU capable (G2). Each type of instance has its own purpose cost (price). 
-Moreover, each instance offers a different number of CPUs as well as network 
-interconnection which can be: low, medium, high or 10Gb.
+we can find specialized versions for general-purpose (T2, M4 and M3); computer science (C4 and C3); memory (R3); storage (I2 and D2) and 
+GPU capable (G2). Each type of instance has its own purpose and cost (price). 
+Moreover, each type offers a different number of CPUs as well as network 
+interconnection, which can be: low, medium, high or 10Gb.
 
 For our study, we worked in the AWS availability zone US EAST (N. VIRGINIA). 
-The instances available in that zone presented the features shown in the Table~\ref{table:awsInstances}. 
+The instances available in that case present the features reported in Table~\ref{table:awsInstances}. 
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
@@ -282,13 +263,13 @@ g2.2xlarge & 8 & 15 GiB & High & 1 & \$ 0.65\\ \hline
 g2.8xlarge & 32 & 60 GiB & 10 Gb & 4 & \$ 2.6 \\ \hline
 \end{tabular}\end{center}\end{table}
 
-For the following experiments, we select C3 family instances, which are not equipped with GPUs, as clients; whereas instances of the G2 family will act as servers.   
+For the following experiments, we select C3 family instances, which are not equipped with GPUs, as clients; whereas instances of the G2 family will act as GPU-enabled servers.   
 
 \subsubsection{Networking}
 Table~\ref{table:awsInstances} shows that each instance integrates a different 
-network. Thus, taking into account that bandwidth 
-is critical when GPU virtualization is applied, a simple test to verify the 
-real network bandwidth is needed.
+network. As the bandwidth 
+is critical when GPU virtualization is applied, we first perform a simple test to verify the 
+real network bandwidth.
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
@@ -304,22 +285,22 @@ g2.8xlarge & g2.8xlarge & 10Gb & 7.5  Gb/s\\ \hline
 \end{tabular}\end{center}\end{table}
 
 To evaluate the actual bandwidth, we executed 
-the IPERF\footnote{\url{http://iperf.fr/}} tool between the instances explained in 
-the Table~\ref{table:awsInstances} with the results shown in the Table~\ref{table:iperf}.
-From this experiment, we can assume that the nomenclature ``High'' corresponds to a 1~Gb interconnection network and the 10~Gb has 
+the IPERF\footnote{\url{http://iperf.fr/}} tool between the instances described in 
+Table~\ref{table:awsInstances}, with the results shown in Table~\ref{table:iperf}.
+From this experiment, we can derive that network ``High'' corresponds to a 1~Gb interconnect while ``10~Gb'' has 
 a real bandwidth of 7.5~Gb/s.
-Moreover, it looks like the instances equipped with a ``High'' interconnection network
-are constrained by software to 1~Gb/s since the theoretical and real bandwidth 
-match perfectly. The real gap between sustantiable and theoretical bandwidth can be observed with 
+Moreover, it seems that the bandwidth of the instances equipped with a ``High'' interconnection network
+is constrained by software to 1~Gb/s since the theoretical and real bandwidth 
+match perfectly. The real gap between sustained and theoretical bandwidth can be observed with 
 the 10~Gb interconnection, which reaches up to 7.5~Gb/s.
 
 
 \subsubsection{GPUs}
 An instance relies on a VM that runs on a real node with its own virtualized components. 
-Therefore it is possible that AWS uses a virtualization framework to offer GPU services to all the instances.
-Although, the {\tt nvidia-smi} command indicates that the GPUs installed are NVIDIA GRID K520, 
-we need to verify that they are non-virtualized devices. For this proposal, we execute the NVIDIA SDK test {\tt bandwidthtest}. 
-As shown in the Table~\ref{table:bwt}, the bandwidth achieved in this test is higher than the network bandwith, revealing that the accelerator is an ad-hoc GPU. 
+Therefore AWS can leverage a virtualization framework to offer GPU services to all the instances.
+Although the {\tt nvidia-smi} command indicates that the GPUs installed are NVIDIA GRID K520, 
+we need to verify that these are non-virtualized devices. For this purpose, we execute the NVIDIA SDK {\tt bandwidthtest}. 
+As shown in the Table~\ref{table:bwt}, the bandwidth achieved in this test is higher than the network bandwith, revealing that the accelerator is an actual GPU. 
 % \begin{table}[htb]
 % \renewcommand{\arraystretch}{1.3}
 % \caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory using local GPU.}
@@ -335,7 +316,7 @@ As shown in the Table~\ref{table:bwt}, the bandwidth achieved in this test is hi
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
-\caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory in local GPU.}
+\caption{Execution of NVIDIA SDK {\tt bandwidthtest} to transferring 32MB using pageable memory in a local GPU.}
 \label{table:bwt}
 \tabcolsep=0.09cm
 \begin{center}\begin{tabular}{ccc}
@@ -350,19 +331,19 @@ g2.8xlarge & Device to Host & 3,182 MB/s\\ \hline
 In this section, we introduce the different client-server configurations. 
 All scenarios are based on the maximum number of instances 
 that a user can freely select without submitting a formal request. 
-In particular, the maximum number for ``g2.2xlarge'' is 5 and for ``g2.8xlarge'' it is 2.
+In particular, the maximum number for ``g2.2xlarge'' is 5; for ``g2.8xlarge'' it is 2.
 
-All the instances deployed operate the RHEL 7.1 64-bit OS and version 6.5 of CUDA. 
+All instances operate the RHEL 7.1 64-bit OS and version 6.5 of CUDA. 
 We design three configuration scenarios for our tests:
 
 \begin{itemize}
-\item Scenario A (Figure~\ref{subfig:aws1}) shows the most common 
- hardware configuration in clusters, with each node  
-populated with one GPU. Here, a simple node can access to 5 GPUs 
+\item Scenario A (Figure~\ref{subfig:aws1}) shows a common 
+configuration in GPU-accelerated clusters, with each node  
+populated with a single GPU. Here, a node can access 5 GPUs 
 using the ``High'' network. 
 
-\item Scenario B (Figure~\ref{subfig:aws2}) is composed by 2 server nodes equipped 
-with 4 GPUs each one, and a GPU-less client. This scenario includes 
+\item Scenario B (Figure~\ref{subfig:aws2}) is composed of 2 server nodes, equipped 
+with 4 GPUs each, and a GPU-less client. This scenario includes 
 a 10Gb network, and the client can execute the application using up to 8 GPUs.
 
 \item Scenario C (Figure~\ref{subfig:aws3}) combines scenarios A and B. A 
@@ -395,7 +376,7 @@ Table~\ref{table:bwtrcuda} exposes that the bandwidth is limited by the network.
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
-\caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32 MB using pageable memory using {rCUDA}.}
+\caption{Execution of NVIDIA SDK {\tt bandwidthtest} to transferring 32MB using pageable memory in a remote GPU using {rCUDA}.}
 \label{table:bwtrcuda}
 \tabcolsep=0.09cm
 \begin{center}\begin{tabular}{cccc}
