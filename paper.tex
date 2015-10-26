@@ -153,76 +153,76 @@ of a GPU is currently unsupported~\cite{OpenStackGPU}.
 
 \section{\uppercase{State-of-the-Art}}
 \label{sec:state}
-Our solutions to the defficiency exposed in the previous section is based on GPU virtualization, sharing resources in order
+Our solutions to the defficiencies exposed in the previous section relies on GPU virtualization, sharing resources in order
 to attain a fair balance between supply and demand. 
-While several efforst with the same goal have been made in the past, as exposed next, 
-none of them is so ambitious as ours. 
+While several efforts with the same goal have been initiated in the past, as exposed next, 
+none of them is as ambitious as ours. 
 
 The work in~\cite{younge2013enabling} allows the VM managed
-by the hypervisor Xen to access the GPUs in the physical
-node, with the implied limitations that a node cannot 
-use more GPUs than those hosted in the machine, and idle GPUs can not be shared with other machines. The solution presented 
-by gVirtus~\cite{giunta2010gpgpu} virtualizes GPUs and makes
+by the Xen hypervisor to access the GPUs in a physical
+node, but with this solution a node cannot 
+use more GPUs than those hosted in the machine, and an idle GPU can not be shared with other machines. The solution presented 
+by gVirtus~\cite{gvirtus} virtualizes GPUs and makes
 them accessible for any VM in the cluster. However, this kind
-of virtualization strongly depends on the hypervisor and, so
-does its performance. Another similar solution is presented in gCloud~\cite{diab2013dynamic}. 
-iWhile this solution is not yet integrated in a Cloud Computing Manager, its main
-drawback is that the code of the applications must be modified
-in order to be run in the virtual-GPU environment. A runtime component to provide abstraction
+of virtualization strongly depends on the hypervisor, and so
+does its performance. Similar solution is presented in gCloud~\cite{diab2013dynamic}. 
+While this solution is not yet integrated in a Cloud Computing Manager, its main
+drawback is that the application's code must be modified
+in order to run in the virtual-GPU environment. A runtime component to provide abstraction
 and sharing of GPUs is presented in~\cite{becchi2012virtual}, which allows scheduling policies 
 to isolate and share GPUs in a cluster for a set of applications. 
-The work introduced in~\cite{jungpgpu} is more mature, however,
+The work introduced in~\cite{jungpgpu} is more mature; however,
 it is only focussed on compute-intensive HPC applications. 
 
 Our proposal goes further and, in addition to 
-bringing solutions for all kind of HPC applications, it is aimed
+bringing solutions for all kind of HPC applications, aims 
 to boost flexibility in the use of GPUs.
 
 \section{\uppercase{Motivation}}
 \label{sec:motivation}
 
 Cloud computing and storage have gained wide appeal  
-during the last years thanks to the easy set up 
-process and the low IT invest. The services offered in the cloud are useful for companies and individuals 
-that look for temporary access to the last technology without spending a 
+during the last years thanks to a relatively easy configuration  
+process and a low IT invest. The services offered in the cloud are useful for companies and individuals 
+that look for temporary access to state-of-the-art technology without spending a 
 huge amount of money. In general, the systems provided by cloud 
-companies match with the those requested thanks to its flexibility.
+companies match those requested by the clients thanks to its flexibility.
 
-Two different kinds of cloud approaches are currently available:
+Two different types of cloud approaches are currently available:
 on one hand, public facilities, such as AWS or 
-Microsoft Azure that allow users to chose a pre-configured system.   
+Microsoft Azure, that allow users to chose a pre-configured system.   
 On the other hand, institutions/companies 
-are able to deploy their own cloud infrastructure by a software as OpenStack.  
+are able to deploy their own cloud infrastructure using a software as OpenStack.  
 
 In both cases, the power of current cloud facilities relies on the use 
 of VMs which  
 emulate a physical node with its own 
-CPUs, storage, network interconnection, GPU and operating system (OS). 
+CPUs, storage, network interconnection, GPU and OS. 
 However, providing a VM equipped with a GPU implies
-that the guest host must be equipped with at least one GPU, and
+that the guest host must be equipped with at least one real GPU, and
 once it has been assigned to an instance, no other VM can use
-it. Therefore, the number of VMs that are allowed to use GPUs is 
+it. Therefore, the number of VMs that can access the GPUs is 
 limited by the number of the installed devices. This lack of 
-flexibility is also present in the cluster configurations, where 
+flexibility is also present in cluster configurations, where 
 depending on the users' necessities, 
-two approaches to introduce GPGPU computation can be identified:
-the conservative option, features a lot of hosts with GPUs to 
-ensure that is likely to satisfy all requests; in a
-more daring approach, a reduced count of some GPU-enabled nodes is available, in the hope that a large burst of GPU requests 
+two approaches to enable GPGPU computation can be identified:
+the conservative option integrates many hosts with GPUs to 
+ensure that it is likely to satisfy all requests; in a
+more daring approach, a reduced count of some GPU-enabled nodes is configured, in the hope that a large burst of GPU requests 
  does not exhaust the cluster's resources.
 
-The use of a virtualization technology such as {rCUDA} adds 
+The use of a virtualization technology, such as {rCUDA}, adds 
 the desired flexibility because this software detaches the GPUs 
 from the nodes where they are installed, allowing all nodes in a cluster
-not only to use them as if they were local, but also to share them 
+to use them as if they were local, as well as to share them, 
 achieving a higher utilization rate and reducing the idle periods.
 Thanks to the ``shareability'' introduced by {rCUDA}, all VMs in the cloud 
-environment can leverage and share all GPUs installed in 
+environment can leverage and access all GPUs installed in 
 the physical nodes, removing past limitations. 
 
-Our work focuses on AWS as a public 
-solution, and on OpenStack software as a private cloud environment. 
-In order to achieve our goal, these cloud facilities need to be provided with the {rCUDA} software. In addition, for OpenStack, a module for managing virtualized GPUs 
+Our work selects AWS as a public 
+solution, and OpenStack as a private cloud environment. 
+In order to achieve our goal, these cloud facilities need to be integrated with the {rCUDA} software. In addition, for OpenStack, a module for managing virtualized GPUs 
 needs to be implemented.  
 
 
