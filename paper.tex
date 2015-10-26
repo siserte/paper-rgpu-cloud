@@ -230,26 +230,25 @@ needs to be implemented.
 \section{\uppercase{GPGPU share service with AWS}}
 \label{sec:workingaws}
 In this section, we briefly expose the current user-level features 
-provided by AWS and then analyze this service  
-from the point of view of the GPU usage. 
-Next, we describe the scenarios and experiments where virtualized GPUs are utilized and show a number of first results.
+provided by AWS, and then analyze this service  
+from the point of view of GPU usage. 
+Next, we describe the scenarios and experiments where virtualized GPUs are utilized and show a number of initial results.
 
 \subsection{Current Features}
-This subsection identifies the most common features checked during 
+This subsection identifies several common features checked during 
 the VM's creation step.
 
 \subsubsection{Instances}
 
 An instance is a pre-configured VM focused on an 
 specific target. Among the large list of instances offered by AWS, 
-we can find cases for general purpose (T2, M4 and M3); computer science optimized 
-(C4 and C3); memory optimized (R3); storage optimized (I2 and D2) and 
-GPU capable (G2). Each type of instance has its own purpose cost (price). 
-Moreover, each instance offers a different number of CPUs as well as network 
-interconnection which can be: low, medium, high or 10Gb.
+we can find specialized versions for general-purpose (T2, M4 and M3); computer science (C4 and C3); memory (R3); storage (I2 and D2) and 
+GPU capable (G2). Each type of instance has its own purpose and cost (price). 
+Moreover, each type offers a different number of CPUs as well as network 
+interconnection, which can be: low, medium, high or 10Gb.
 
 For our study, we worked in the AWS availability zone US EAST (N. VIRGINIA). 
-The instances available in that zone presented the features shown in the Table~\ref{table:awsInstances}. 
+The instances available in that case present the features reported in Table~\ref{table:awsInstances}. 
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
@@ -264,13 +263,13 @@ g2.2xlarge & 8 & 15 GiB & High & 1 & \$ 0.65\\ \hline
 g2.8xlarge & 32 & 60 GiB & 10 Gb & 4 & \$ 2.6 \\ \hline
 \end{tabular}\end{center}\end{table}
 
-For the following experiments, we select C3 family instances, which are not equipped with GPUs, as clients; whereas instances of the G2 family will act as servers.   
+For the following experiments, we select C3 family instances, which are not equipped with GPUs, as clients; whereas instances of the G2 family will act as GPU-enabled servers.   
 
 \subsubsection{Networking}
 Table~\ref{table:awsInstances} shows that each instance integrates a different 
-network. Thus, taking into account that bandwidth 
-is critical when GPU virtualization is applied, a simple test to verify the 
-real network bandwidth is needed.
+network. As the bandwidth 
+is critical when GPU virtualization is applied, we first perform a simple test to verify the 
+real network bandwidth.
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
@@ -286,22 +285,22 @@ g2.8xlarge & g2.8xlarge & 10Gb & 7.5  Gb/s\\ \hline
 \end{tabular}\end{center}\end{table}
 
 To evaluate the actual bandwidth, we executed 
-the IPERF\footnote{\url{http://iperf.fr/}} tool between the instances explained in 
-the Table~\ref{table:awsInstances} with the results shown in the Table~\ref{table:iperf}.
-From this experiment, we can assume that the nomenclature ``High'' corresponds to a 1~Gb interconnection network and the 10~Gb has 
+the IPERF\footnote{\url{http://iperf.fr/}} tool between the instances described in 
+Table~\ref{table:awsInstances}, with the results shown in Table~\ref{table:iperf}.
+From this experiment, we can derive that network ``High'' corresponds to a 1~Gb interconnect while ``10~Gb'' has 
 a real bandwidth of 7.5~Gb/s.
-Moreover, it looks like the instances equipped with a ``High'' interconnection network
-are constrained by software to 1~Gb/s since the theoretical and real bandwidth 
-match perfectly. The real gap between sustantiable and theoretical bandwidth can be observed with 
+Moreover, it seems that the bandwidth of the instances equipped with a ``High'' interconnection network
+is constrained by software to 1~Gb/s since the theoretical and real bandwidth 
+match perfectly. The real gap between sustained and theoretical bandwidth can be observed with 
 the 10~Gb interconnection, which reaches up to 7.5~Gb/s.
 
 
 \subsubsection{GPUs}
 An instance relies on a VM that runs on a real node with its own virtualized components. 
-Therefore it is possible that AWS uses a virtualization framework to offer GPU services to all the instances.
-Although, the {\tt nvidia-smi} command indicates that the GPUs installed are NVIDIA GRID K520, 
-we need to verify that they are non-virtualized devices. For this proposal, we execute the NVIDIA SDK test {\tt bandwidthtest}. 
-As shown in the Table~\ref{table:bwt}, the bandwidth achieved in this test is higher than the network bandwith, revealing that the accelerator is an ad-hoc GPU. 
+Therefore AWS can leverage a virtualization framework to offer GPU services to all the instances.
+Although the {\tt nvidia-smi} command indicates that the GPUs installed are NVIDIA GRID K520, 
+we need to verify that these are non-virtualized devices. For this purpose, we execute the NVIDIA SDK {\tt bandwidthtest}. 
+As shown in the Table~\ref{table:bwt}, the bandwidth achieved in this test is higher than the network bandwith, revealing that the accelerator is an actual GPU. 
 % \begin{table}[htb]
 % \renewcommand{\arraystretch}{1.3}
 % \caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory using local GPU.}
@@ -317,7 +316,7 @@ As shown in the Table~\ref{table:bwt}, the bandwidth achieved in this test is hi
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
-\caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory in local GPU.}
+\caption{Execution of NVIDIA SDK {\tt bandwidthtest} to transferring 32MB using pageable memory in a local GPU.}
 \label{table:bwt}
 \tabcolsep=0.09cm
 \begin{center}\begin{tabular}{ccc}
@@ -332,19 +331,19 @@ g2.8xlarge & Device to Host & 3,182 MB/s\\ \hline
 In this section, we introduce the different client-server configurations. 
 All scenarios are based on the maximum number of instances 
 that a user can freely select without submitting a formal request. 
-In particular, the maximum number for ``g2.2xlarge'' is 5 and for ``g2.8xlarge'' it is 2.
+In particular, the maximum number for ``g2.2xlarge'' is 5; for ``g2.8xlarge'' it is 2.
 
-All the instances deployed operate the RHEL 7.1 64-bit OS and version 6.5 of CUDA. 
+All instances operate the RHEL 7.1 64-bit OS and version 6.5 of CUDA. 
 We design three configuration scenarios for our tests:
 
 \begin{itemize}
-\item Scenario A (Figure~\ref{subfig:aws1}) shows the most common 
- hardware configuration in clusters, with each node  
-populated with one GPU. Here, a simple node can access to 5 GPUs 
+\item Scenario A (Figure~\ref{subfig:aws1}) shows a common 
+configuration in GPU-accelerated clusters, with each node  
+populated with a single GPU. Here, a node can access 5 GPUs 
 using the ``High'' network. 
 
-\item Scenario B (Figure~\ref{subfig:aws2}) is composed by 2 server nodes equipped 
-with 4 GPUs each one, and a GPU-less client. This scenario includes 
+\item Scenario B (Figure~\ref{subfig:aws2}) is composed of 2 server nodes, equipped 
+with 4 GPUs each, and a GPU-less client. This scenario includes 
 a 10Gb network, and the client can execute the application using up to 8 GPUs.
 
 \item Scenario C (Figure~\ref{subfig:aws3}) combines scenarios A and B. A 
@@ -380,7 +379,7 @@ by the network.
 
 \begin{table}[htb]
 \renewcommand{\arraystretch}{1.3}
-\caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32 MB using pageable memory using {rCUDA}.}
+\caption{Execution of NVIDIA SDK {\tt bandwidthtest} to transferring 32MB using pageable memory in a remote GPU using {rCUDA}.}
 \label{table:bwtrcuda}
 \tabcolsep=0.09cm
 \begin{center}\begin{tabular}{cccc}
