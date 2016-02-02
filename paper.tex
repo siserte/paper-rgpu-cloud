@@ -103,13 +103,13 @@ architecture: the client middleware runs in the same cluster node where the appl
 acceleration services is executed, providing a transparent replacement for the
 native CUDA libraries. Furthermore, the server middleware is executed in the
 cluster nodes from which the actual GPUs provide the requested GPGPU services.
-To support a concurrent scenario where GPUs are shared between
-processes\slash nodes, {rCUDA} manages separate device contexts for
-each client application.
+%To support a concurrent scenario where GPUs are shared between
+%processes\slash nodes, {rCUDA} manages separate device contexts for
+%each client application.
 
 The {rCUDA} 5.0 client exposes the same interface as the regular NVIDIA
-CUDA 6.5 release~\cite{cuda65}, including the runtime and driver
-APIs (Application Programming Interface) as well as other frequently used libraries such as cuBLAS, cuFFT, cuSparse or cuRand.
+CUDA 6.5 release~\cite{cuda65}.%, including the runtime and driver
+%APIs (Application Programming Interface) as well as other frequently used libraries such as cuBLAS, cuFFT, cuSparse or cuRand.
 With this middleware, applications are not aware that they are executed
 on top of a virtualization layer.
 To deal with new GPU programming models, {rCUDA} has been recently extended to accommodate 
