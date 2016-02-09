@@ -1,0 +1,214 @@
+@manual{CUDA65,
+        author = {{NVIDIA Corporation}},
+        title = {{CUDA API} Reference Manual Version 6.5},
+        year = 2014,
+}
+@Misc{aws,
+        author = {{Amazon Web Services}},
+title = {Amazon Web Services},
+  howpublished = {http://aws.amazon.com},
+  note = {Accessed: 2015-10-05}
+}
+
+@Misc{OpenStack,
+	author = {{OpenStack Foundation}},
+	title = {OpenStack},
+	howpublished = {http://www.openstack.org},
+	note = {Accessed: 2015-10-05}
+}
+
+@Misc{OpenStackGPU,
+	author = {{OpenStack Foundation}},
+	title = {OpenStack Operation Guide},
+	howpublished = {http://docs.openstack.org/openstack-ops/openstack-ops-manual.pdf},
+	note = {Accessed: 2015-10-05}
+}
+
+@InProceedings{energy14,
+author = {Adri\'an Castell\'o and  Jos\'e Duato and Rafael Mayo and Antonio J. {Pe\~na} and Enrique S. Quintana-Ort\'i and Vicente Roca and Federico Silla},
+title = {{On the Use of Remote GPUs and Low-Power Processors for the Acceleration of Scientific Applications}},
+booktitle = {The Fourth International Conference on Smart Grids, Green  Communications and IT Energy-aware Technologies (ENERGY)},
+OPTcrossref = {978-1-61208-332-2},
+OPTkey = {},
+pages = {57-62},
+year = {2014},
+OPTeditor = {•},
+OPTvolume = {•},
+OPTnumber = {•},
+OPTseries = {•},
+month = {April},
+OPTorganization = {•},
+OPTpublisher = {•},
+OPTnote = {•},
+OPTannote = {•}
+}
+
+@InProceedings{sbacpad14,
+title  = {{SLURM} Support for Remote {GPU} Virtualization: Implementation and Performance Study},
+author = {Sergio Iserte and Adri\'an Castell\'o and Rafael Mayo and Enrique S. Quintana-Ort\'i and Carlos {Rea\~no} and Javier Prades and Federico Silla and Jos\'e Duato},
+year   = "2014",
+month  = Oct,
+booktitle = "Proceedings of the International Symposium on Computer Architecture and High Performance Computing (SBAC-PAD)",
+address = "Paris, France"
+}
+
+@phdthesis{tonithesis,
+  title={Virtualization of accelerators in high performance clusters},
+  author={Pe{\~n}a, Antonio J},
+  school={Universitat Jaume I},
+  year={2013},
+  month=jan,
+  address={Castellon, Spain}
+}
+
+@article{toniparco,
+title = "A complete and efficient {CUDA}-sharing solution for {HPC} clusters ",
+journal = "Parallel Computing ",
+volume = "40",
+number = "10",
+pages = "574 -- 588",
+year = "2014",
+note = "",
+issn = "0167-8191",
+doi = "http://dx.doi.org/10.1016/j.parco.2014.09.011",
+url = "http://www.sciencedirect.com/science/article/pii/S0167819114001227",
+author = "Antonio J. Pe{\~n}a and Carlos Rea{\~n}o and Federico Silla and Rafael Mayo and Enrique S. Quintana-Orti and Jose Duato",
+keywords = "Graphics processors",
+keywords = "Virtualization",
+keywords = "High performance computing",
+keywords = "Clusters "
+}
+@InProceedings{cluster15,
+  title={Exploring the suitability of remote {GPGPU} virtualization for the {OpenACC} programming model using {rCUDA}},
+  author={Adri\'an Castell\'o and Antonio J. Pe{\~n}a and Rafael Mayo and Pavan Balaji and Enrique S. Quintana-Ortí},
+booktitle = "Proceedings of the IEEE International Conference on Cluster Computing (CLUSTER 2015)",
+address = {Chicago, IL (USA)},  
+year={2015},
+month=Sep
+}
+
+@InProceedings{repara15,
+  title={Exploiting Task-Parallelism on {GPU} Clusters via {OmpSs} and {rCUDA} Virtualization},
+  author={Adri\'an Castell\'o and Rafael Mayo and Judit Planas and Enrique S. Quintana-Ort\'i},
+booktitle = "Proceedings of the I IEEE International Workshop on Reengineering for Parallelism in Heterogeneous Parallel Platforms (RePara 2015)",
+address = { Helsinki (Finland)},  
+year={2015},
+month=Aug
+}
+
+@article{younge2013enabling,
+  title={Enabling High Performance Computing in Cloud Infrastructure using Virtualized GPUs},
+  author={Younge, Andrew J and Walters, John Paul and Crago, Steve and Fox, Geoffrey C},
+  year={2013},
+  publisher={hgpu. org}
+}
+
+@incollection{giunta2010gpgpu,
+  title={A GPGPU transparent virtualization component for high performance computing clouds},
+  author={Giunta, Giulio and Montella, Raffaele and Agrillo, Giuseppe and Coviello, Giuseppe},
+  booktitle={Euro-Par 2010-Parallel Processing},
+  pages={379--391},
+  year={2010},
+  publisher={Springer}
+}
+
+@inproceedings{diab2013dynamic,
+  title={Dynamic sharing of GPUs in cloud systems},
+  author={Diab, Khaled M and Rafique, M Mustafa and Hefeeda, Mohamed},
+  booktitle={Parallel and Distributed Processing Symposium Workshops \& PhD Forum (IPDPSW), 2013 IEEE 27th International},
+  pages={947--954},
+  year={2013},
+  organization={IEEE}
+}
+
+@article{jungpgpu,
+  title={GPGPU enabled HPC Cloud Platform based on OpenStack},
+  author={Jun, Tae Joon and Van Quoc Dung, Myong Hwan Yoo and Kim, Daeyoung and Cho, HyeYoung and Hahm, Jaegyoon}
+}
+
+@article{Liu2010,
+abstract = {Motif discovery in biological sequences is of prime importance and a major challenge in computational biology. Consequently, numerous motif discovery tools have been developed to date. However, the rapid growth of both genomic sequence and gene transcription data, establishes the need for the development of scalable motif discovery tools. An approach to improve the runtime of motif discovery by an order-of-magnitude without losing sensitivity is to employ emerging many-core architectures such as CUDA-enabled GPUs. In this paper, we present a highly parallel formulation and implementation of the MEME motif discovery algorithm using the CUDA programming model. To achieve high efficiency, we introduce two parallelization approaches: sequence-level and substring-level parallelization. Furthermore, a hybrid computing framework is described to take advantage of both CPU and GPU compute resources. Our performance evaluation on a GeForce GTX 280 GPU, results in average runtime speedups of 21.4 (19.3) for 
+the starting point search and 20.5 (16.4) for the overall runtime using the OOPS (ZOOPS) motif search model. The runtime speedups of CUDA-MEME on a single GPU are also comparable to those of ParaMEME running on 16 CPU cores of a high-performance workstation cluster. In addition to the fast speed, CUDA-MEME has the capability of finding motif instances consistent with the sequential MEME. ?? 2009 Elsevier B.V. All rights reserved.},
+author = {Liu, Yongchao and Schmidt, Bertil and Liu, Weiguo and Maskell, Douglas L.},
+doi = {10.1016/j.patrec.2009.10.009},
+file = {:C$\backslash$:/Users/Sergio/AppData/Local/Mendeley Ltd/Mendeley Desktop/Downloaded/mcudameme.pdf:pdf},
+isbn = {0167-8655},
+issn = {01678655},
+journal = {Pattern Recognition Letters},
+keywords = {CUDA,GPU,MEME,Motif discovery},
+month = oct,
+number = {14},
+pages = {2170--2177},
+title = {{CUDA-MEME: Accelerating motif discovery in biological sequences using CUDA-enabled graphics processing units}},
+url = {http://www.researchgate.net/publication/220644723\_CUDA-MEME\_Accelerating\_motif\_discovery\_in\_biological\_sequences\_using\_CUDA-enabled\_graphics\_processing\_units},
+volume = {31},
+year = {2010}
+}
+
+@inproceedings{becchi2012virtual,
+  title={A virtual memory based runtime to support multi-tenancy in clusters with GPUs},
+  author={Becchi, Michela and Sajjapongse, Kittisak and Graves, Ian and Procter, Adam and Ravi, Vignesh and Chakradhar, Srimat},
+  booktitle={Proceedings of the 21st international symposium on High-Performance Parallel and Distributed Computing},
+  pages={97--108},
+  year={2012},
+  organization={ACM}
+}
+
+@misc{nov14top500,
+author = {Erich Strohmaier and Jack Dongarra and Horst Simon and Martin Meuer},
+title={{TOP500} Supercomputing Sites},
+howpublished="\url{http://www.top500.org/lists/2015/06}",
+year = 2015,
+month = jun
+}
+
+@book{opencl,
+  editor    = {Aaftab Munshi},
+  title     = {The {OpenCL} Specification Version 2.0},
+  publisher = {Khronos OpenCL Working Group},
+  year      = {2014},
+  month     = mar
+}
+
+
+@incollection{gvirtus,
+  title={A {GPGPU} transparent virtualization component for high performance computing clouds},
+  author={Giunta, Giulio and Montella, Raffaele and Agrillo, Giuseppe and Coviello, Giuseppe},
+  booktitle={Euro-Par, Parallel Processing},
+  pages={379--391},
+  year={2010},
+  publisher={Springer}
+}
+
+@article{vcuda,
+  title={{vCUDA}: {GPU}-accelerated high-performance computing in virtual machines},
+  author={Shi, Lin and Chen, Hao and Sun, Jianhua and Li, Kenli},
+  journal={IEEE Transactions on Computers},
+  volume={61},
+  number={6},
+  year={2012},
+  publisher={IEEE}
+}
+
+@inproceedings{dscuda,
+  title={Distributed-Shared {CUDA}: Virtualization of Large-Scale {GPU} Systems for Programmability and Reliability},
+  author={Kawai, Atsushi and Yasuoka, Kenji and Yoshikawa, Kazuyuki and Narumi, Tetsu},
+  booktitle={The Fourth International Conference on Future Computational Technologies and Applications}, 
+  pages={7--12},
+  year={2012}
+}
+
+@inproceedings{vocl,
+  title={{VOCL}: An optimized environment for transparent virtualization of graphics processing units},
+  author={Xiao, Shucai and Balaji, Pavan and Zhu, Qian and Thakur, Rajeev and Coghlan, Susan and Lin, Heshan and Wen, Gaojin and Hong, Jue and Feng, W},
+  booktitle={Innovative Parallel Computing},
+  year={2012},
+  organization={IEEE}
+}
+
+@inproceedings{snucl,
+  title={{SnuCL}: an {OpenCL} framework for heterogeneous {CPU/GPU} clusters},
+  author={Kim, Jungwon and Seo, Sangmin and Lee, Jun and Nah, Jeongho and Jo, Gangwon and Lee, Jaejin},
+  booktitle={International Conference on Supercomputing (ICS)},
+  year={2012},
+}

@@ -1,0 +1,128 @@
+\begin{thebibliography}{}
+
+\bibitem[{Amazon Web Services}, 2015]{aws}
+{Amazon Web Services} (2015).
+\newblock Amazon web services.
+\newblock http://aws.amazon.com.
+\newblock Accessed: 2015-10.
+
+\bibitem[Becchi et~al., 2012]{becchi2012virtual}
+Becchi, M., Sajjapongse, K., Graves, I., Procter, A., Ravi, V., and Chakradhar,
+  S. (2012).
+\newblock A virtual memory based runtime to support multi-tenancy in clusters
+  with {GPUs}.
+\newblock In {\em Proceedings of the 21st international symposium on
+  High-Performance Parallel and Distributed Computing}, pages 97--108. ACM.
+
+\bibitem[Castell\'o et~al., 2014]{energy14}
+Castell\'o, A., Duato, J., Mayo, R., {Pe\~na}, A.~J., Quintana-Ort\'i, E.~S.,
+  Roca, V., and Silla, F. (2014).
+\newblock On the use of remote {GPUs} and low-power processors for the
+  acceleration of scientific applications.
+\newblock In {\em The Fourth International Conference on Smart Grids, Green
+  Communications and IT Energy-aware Technologies}, pages 57--62, Chamonix,
+  France.
+
+\bibitem[Castell\'o et~al., 2015a]{repara15}
+Castell\'o, A., Mayo, R., Planas, J., and Quintana-Ort\'i, E.~S. (2015a).
+\newblock Exploiting task-parallelism on {GPU} clusters via {OmpSs} and {rCUDA}
+  virtualization.
+\newblock In {\em I IEEE Int. Workshop on Reengineering for Parallelism in
+  Heterogeneous Parallel Platforms}, Helsinki (Finland).
+
+\bibitem[Castell\'o et~al., 2015b]{cluster15}
+Castell\'o, A., Pe{\~n}a, A.~J., Mayo, R., Balaji, P., and Quintana-Ort\'i,
+  E.~S. (2015b).
+\newblock Exploring the suitability of remote {GPGPU} virtualization for the
+  {OpenACC} programming model using {rCUDA}.
+\newblock In {\em IEEE Int. Conference on Cluster Computing}, Chicago, IL
+  (USA).
+
+\bibitem[Diab et~al., 2013]{diab2013dynamic}
+Diab, K.~M., Rafique, M.~M., and Hefeeda, M. (2013).
+\newblock Dynamic sharing of {GPUs} in cloud systems.
+\newblock In {\em Parallel and Distributed Processing Symposium Workshops \&
+  PhD Forum (IPDPSW), 2013 IEEE 27th International}, pages 947--954. IEEE.
+
+\bibitem[Giunta et~al., 2010]{gvirtus}
+Giunta, G., Montella, R., Agrillo, G., and Coviello, G. (2010).
+\newblock A {GPGPU} transparent virtualization component for high performance
+  computing clouds.
+\newblock In {\em Euro-Par, Parallel Processing}, pages 379--391. Springer.
+
+\bibitem[Iserte et~al., 2014]{sbacpad14}
+Iserte, S., Castell\'o, A., Mayo, R., Quintana-Ort\'i, E.~S., {Rea\~no}, C.,
+  Prades, J., Silla, F., and Duato, J. (2014).
+\newblock {SLURM} support for remote {GPU} virtualization: Implementation and
+  performance study.
+\newblock In {\em Int. Symposium on Computer Architecture and High Performance
+  Computing}, Paris, France.
+
+\bibitem[Jun et~al., 2014]{jungpgpu}
+Jun, T.~J., Van Quoc~Dung, M. H.~Y., Kim, D., Cho, H., and Hahm, J. (2014).
+\newblock {GPGPU} enabled {HPC} cloud platform based on {OpenStack}.
+
+\bibitem[Kawai et~al., 2012]{dscuda}
+Kawai, A., Yasuoka, K., Yoshikawa, K., and Narumi, T. (2012).
+\newblock Distributed-shared {CUDA}: Virtualization of large-scale {GPU}
+  systems for programmability and reliability.
+\newblock In {\em The Fourth Int. Conf. on Future Computational Technologies
+  and Applications}, pages 7--12.
+
+\bibitem[Kim et~al., 2012]{snucl}
+Kim, J., Seo, S., Lee, J., Nah, J., Jo, G., and Lee, J. (2012).
+\newblock {SnuCL}: an {OpenCL} framework for heterogeneous {CPU/GPU} clusters.
+\newblock In {\em International Conference on Supercomputing (ICS)}.
+
+\bibitem[Liu et~al., 2010]{Liu2010}
+Liu, Y., Schmidt, B., Liu, W., and Maskell, D.~L. (2010).
+\newblock {CUDA-MEME: Accelerating motif discovery in biological sequences
+  using CUDA-enabled graphics processing units}.
+\newblock {\em Pattern Recognition Letters}, 31(14):2170--2177.
+
+\bibitem[{NVIDIA Corporation}, 2014]{cuda65}
+{NVIDIA Corporation} (2014).
+\newblock {\em {CUDA API} Reference Manual Version 6.5}.
+
+\bibitem[{OpenStack Foundation}, 2015a]{OpenStack}
+{OpenStack Foundation} (2015a).
+\newblock {OpenStack}.
+\newblock http://www.openstack.org.
+\newblock Accessed: 2015-10.
+
+\bibitem[{OpenStack Foundation}, 2015b]{OpenStackGPU}
+{OpenStack Foundation} (2015b).
+\newblock {OpenStack} operation guide.
+\newblock http://docs.openstack.org/openstack-ops/openstack-ops-manual.pdf.
+\newblock Accessed: 2015-10.
+
+\bibitem[Pe{\~n}a, 2013]{tonithesis}
+Pe{\~n}a, A.~J. (2013).
+\newblock {\em Virtualization of accelerators in high performance clusters}.
+\newblock PhD thesis, Universitat Jaume I, Castellon, Spain.
+
+\bibitem[Pe{\~n}a et~al., 2014]{toniparco}
+Pe{\~n}a, A.~J., Rea{\~n}o, C., Silla, F., Mayo, R., Quintana-Ort\'i, E.~S.,
+  and Duato, J. (2014).
+\newblock A complete and efficient {CUDA}-sharing solution for {HPC} clusters.
+\newblock {\em Parallel Computing}, 40(10):574 -- 588.
+
+\bibitem[Shi et~al., 2012]{vcuda}
+Shi, L., Chen, H., Sun, J., and Li, K. (2012).
+\newblock {vCUDA}: {GPU}-accelerated high-performance computing in virtual
+  machines.
+\newblock {\em IEEE Trans. on Comput.}, 61(6).
+
+\bibitem[Xiao et~al., 2012]{vocl}
+Xiao, S., Balaji, P., Zhu, Q., Thakur, R., Coghlan, S., Lin, H., Wen, G., Hong,
+  J., and Feng, W. (2012).
+\newblock {VOCL}: An optimized environment for transparent virtualization of
+  graphics processing units.
+\newblock In {\em Innovative Parallel Computing}. IEEE.
+
+\bibitem[Younge et~al., 2013]{younge2013enabling}
+Younge, A.~J., Walters, J.~P., Crago, S., and Fox, G.~C. (2013).
+\newblock Enabling high performance computing in cloud infrastructure using
+  virtualized {GPUs}.
+
+\end{thebibliography}

@@ -63,10 +63,10 @@ In the public scope, one of the most popular cloud vendors is AWS, which offers 
 Alternatively, owning the proper infrastructure, a private cloud can be deployed using a specific middleware such as
 OpenStack\footnote{\url{https://www.openstack.org}} or Opennebula\footnote{\url{http://opennebula.org}}.
 
-\textcolor{blue}{
+\textcolor{black}{
 Unfortunately, sharing GPU resources among multiple VMs in cloud environments is more complex than in physical servers.
 On one hand, instances in public clouds are not easily customizable. 
-On the other, in a private cloud, although the instances can be customized in many aspects, when referring to GPUs
+On the other, although the instances in a private cloud can be customized in many aspects, when referring to GPUs
 the number of options is reduced.
 As a result, neither vendors nor tools offer GPGPU services.
 }
@@ -78,9 +78,9 @@ enable cluster configurations with fewer GPUs than nodes.  The goal is that
 GPU-equipped nodes act as GPGPU servers, yielding a GPU-sharing solution that potentially achieves
 a higher overall utilization of the accelerators in the system.
 
-\textcolor{blue}{
+\textcolor{black}{
 The main goals of this work are to study current cloud solutions in an HPC GPU-enabled scenario, and to analyze and improve 
-them by adding flexibility with GPU virtualization. 
+them by adding flexibility via GPU virtualization. 
 In order to reach this goal, we select rCUDA, a virtualization tool that is possibly the more complete and up-to-date for NVIDIA GPUs.
 }
 
@@ -151,9 +151,9 @@ and life-cycle management of VMs.
  
 The OpenStack architecture offers flexibility to create a custom cloud, with no proprietary hardware
 or software requirements, and the ability to integrate with legacy systems and third party technologies. 
-\textcolor{blue}{
-From the HPC perspective, OpenStack offers high performance configurations with different hardware architectures. 
-Even though in OpenStack it is possible to work with GPUs, the Nova project is not currently aware of them~\cite{OpenStackGPU}. 
+\textcolor{black}{
+From the HPC perspective, OpenStack offers high performance virtual machine configurations with different hardware architectures. 
+Even though in OpenStack it is possible to work with GPUs, the Nova project does not support this architecture yet~\cite{OpenStackGPU}. 
 }
 
 \section{\uppercase{State-of-the-Art}}
@@ -162,11 +162,11 @@ Our solutions to the deficiencies exposed in the previous section relies on GPU 
 to attain a fair balance between supply and demand. 
 While several efforts with the same goal have been initiated in the past, as exposed next, 
 none of them is as ambitious as ours. 
-\textcolor{blue}{
+\textcolor{black}{
 The work in~\cite{younge2013enabling} allows the VM managed
 by the Xen hypervisor to access the GPUs in a physical
 node, but with this solution a node cannot 
-use more GPUs than those hosted in itself, and an idle GPU can not be shared with other nodes. }
+use more GPUs than those locally hosted, and an idle GPU cannot be shared with other nodes. }
 The solution presented by gVirtus~\cite{gvirtus} virtualizes GPUs and makes
 them accessible for any VM in the cluster. However, this kind
 of virtualization strongly depends on the hypervisor, and so
@@ -206,14 +206,14 @@ However, providing a VM equipped with a GPU implies
 that the guest host must be equipped with at least one real GPU, and
 once it has been assigned to an instance, no other VM can use
 it. 
-\textcolor{blue}{Therefore, the number of VMs that can access the GPUs is 
-limited by the number of the installed devices. 
+\textcolor{black}{Therefore, the number of VMs that can access the GPUs is 
+limited by the number of local devices. 
 This lack of 
 flexibility is also present in cluster configurations, where 
 depending on the users' necessities, 
-two approaches to enable GPGPU computation can be identified.
-On the one hand, the conservative option, that integrates many hosts with GPUs to ensure that it is likely to satisfy all requests.
-On the other hand, a more daring approach, a reduced count of GPU-enabled nodes is configured, based on an euristhic value calculated from previous experience.
+two approaches can be identified to enable GPGPU computation.
+On the one hand, the conservative option integrates many hosts with GPUs to ensure that it is likely to satisfy all requests.
+On the other hand, a more daring approach employs a reduced count of GPU-enabled nodes, based on an euristhic value calculated from past experience.
 }
 
 The use of a virtualization technology, such as {rCUDA}, adds 
@@ -305,7 +305,7 @@ An instance relies on a VM that runs on a real node with its own virtualized com
 Therefore AWS can leverage a virtualization framework to offer GPU services to all the instances.
 Although the {\tt nvidia-smi} command indicates that the GPUs installed are NVIDIA GRID K520, 
 we need to verify that these are non-virtualized devices. For this purpose, we execute the NVIDIA SDK {\tt bandwidthtest}. 
-\textcolor{blue}{As shown in the Table~\ref{table:bwt}, the bandwidth achieved in this test is higher than the network bandwidth, which suggests that the accelerator is an actual GPU. }
+\textcolor{black}{As shown in Table~\ref{table:bwt}, the bandwidth achieved in this test is higher than the network bandwidth, which suggests that the accelerator is an actual GPU. }
 % \begin{table}[htb]
 % \renewcommand{\arraystretch}{1.3}
 % \caption{NVIDIA SDK {\tt bandwidthtest} execution transferring 32MB using pageable memory using local GPU.}
@@ -437,20 +437,19 @@ For this type of application, enlarging the problem size compensates the negativ
 \end{figure}
 
 \subsection{Discussion}
-\textcolor{blue}{The previous experiments reveal that the AWS GPU-instances are not appropriate for HPC
+\textcolor{black}{The previous experiments reveal that the AWS GPU-instances are not appropriate for HPC
 because neither the network nor the accelerators are powerful enough to deliver high performance
-when running compute-intensive parallel applications. As~\cite{tonithesis} demonstrates, network and device types are critical in the performance.
+when running compute-intensive parallel applications. As~\cite{tonithesis} demonstrates, network and device types are critical factors to performance.
 In other words, AWS is more oriented toward offering a general-purpose service than to provide high performance.
-Also, AWS fails in offering flexibility as it forces the user to choose between a basic instance with a GPU and a powerful instance with 4 GPUs.
-}
+Also, AWS fails in offering flexibility as it enforces the user to choose between a basic instance with a GPU and a powerful instance with 4 GPUs.}
 Table~\ref{table:awsInstances} shows that the resources of the ``g2.8xlarge'' are quadrupled, but so is the cost per hour.
 Therefore, in the case of having other necessities (instances type), using GPU virtualization technology we could in principle attach an accelerator to any type of instance.
 Furthermore, reducing the budget spent in cloud services is possible by customizing the resources of the available instances.
 For example, we can work on an instance with 2 GPUs for only \$ 1.3 by launching 2 ``g2.2xlarge'' and using remote GPUs, avoiding to pay the double for features that we do not need in ``g2.8xlarge''.
-\textcolor{blue}{
+\textcolor{black}{
 In terms of GPU-shareability, AWS reserves GPU-capable physical machines which will be waiting for a GPU-instance request.
 Investing in expensive accelerators to keep them in a standby state is counter-productive. 
-It makes more sense to dedicate less devices, accessible from any machine, with a higher utilization rate.
+It makes more sense to dedicate less devices, accessible from any machine, resulting in a higher utilization rate.
 }
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
 \label{sec:gpgpuOS}

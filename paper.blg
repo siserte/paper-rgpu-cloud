@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: paper.aux
+The style file: apalike.bst
+Database file #1: paper.bib
+Warning--empty journal in jungpgpu
+Warning--empty journal in younge2013enabling
+You've used 20 entries,
+            1935 wiz_defined-function locations,
+            577 strings with 7914 characters,
+and the built_in function-call counts, 8757 in all, are:
+= -- 828
+> -- 475
+< -- 10
++ -- 176
+- -- 168
+* -- 726
+:= -- 1538
+add.period$ -- 64
+call.type$ -- 20
+change.case$ -- 182
+chr.to.int$ -- 18
+cite$ -- 22
+duplicate$ -- 339
+empty$ -- 555
+format.name$ -- 188
+if$ -- 1711
+int.to.chr$ -- 3
+int.to.str$ -- 0
+missing$ -- 15
+newline$ -- 103
+num.names$ -- 60
+pop$ -- 204
+preamble$ -- 1
+purify$ -- 184
+quote$ -- 0
+skip$ -- 231
+stack$ -- 0
+substring$ -- 438
+swap$ -- 53
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 120
+warning$ -- 2
+while$ -- 58
+width$ -- 0
+write$ -- 260
+(There were 2 warnings)
