@@ -11,17 +11,16 @@ Becchi, M., Sajjapongse, K., Graves, I., Procter, A., Ravi, V., and Chakradhar,
   S. (2012).
 \newblock A virtual memory based runtime to support multi-tenancy in clusters
   with {GPUs}.
-\newblock In {\em Proceedings of the 21st international symposium on
-  High-Performance Parallel and Distributed Computing}, pages 97--108. ACM.
+\newblock In {\em 21st Int. symp. on High-Performance Parallel and Distributed
+  Computing}.
 
 \bibitem[Castell\'o et~al., 2014]{energy14}
 Castell\'o, A., Duato, J., Mayo, R., {Pe\~na}, A.~J., Quintana-Ort\'i, E.~S.,
   Roca, V., and Silla, F. (2014).
 \newblock On the use of remote {GPUs} and low-power processors for the
   acceleration of scientific applications.
-\newblock In {\em The Fourth International Conference on Smart Grids, Green
-  Communications and IT Energy-aware Technologies}, pages 57--62, Chamonix,
-  France.
+\newblock In {\em The Fourth Int. Conf. on Smart Grids, Green Communications
+  and IT Energy-aware Technologies}, pages 57--62, France.
 
 \bibitem[Castell\'o et~al., 2015a]{repara15}
 Castell\'o, A., Mayo, R., Planas, J., and Quintana-Ort\'i, E.~S. (2015a).
@@ -41,8 +40,8 @@ Castell\'o, A., Pe{\~n}a, A.~J., Mayo, R., Balaji, P., and Quintana-Ort\'i,
 \bibitem[Diab et~al., 2013]{diab2013dynamic}
 Diab, K.~M., Rafique, M.~M., and Hefeeda, M. (2013).
 \newblock Dynamic sharing of {GPUs} in cloud systems.
-\newblock In {\em Parallel and Distributed Processing Symposium Workshops \&
-  PhD Forum (IPDPSW), 2013 IEEE 27th International}, pages 947--954. IEEE.
+\newblock In {\em Parallel and Distributed Processing Symp. Workshops \& PhD
+  Forum, 2013 IEEE 27th International}.
 
 \bibitem[Giunta et~al., 2010]{gvirtus}
 Giunta, G., Montella, R., Agrillo, G., and Coviello, G. (2010).
@@ -72,28 +71,22 @@ Kawai, A., Yasuoka, K., Yoshikawa, K., and Narumi, T. (2012).
 \bibitem[Kim et~al., 2012]{snucl}
 Kim, J., Seo, S., Lee, J., Nah, J., Jo, G., and Lee, J. (2012).
 \newblock {SnuCL}: an {OpenCL} framework for heterogeneous {CPU/GPU} clusters.
-\newblock In {\em International Conference on Supercomputing (ICS)}.
+\newblock In {\em Int. Conf. on Supercomputing (ICS)}.
 
 \bibitem[Liu et~al., 2010]{Liu2010}
 Liu, Y., Schmidt, B., Liu, W., and Maskell, D.~L. (2010).
 \newblock {CUDA-MEME: Accelerating motif discovery in biological sequences
   using CUDA-enabled graphics processing units}.
-\newblock {\em Pattern Recognition Letters}, 31(14):2170--2177.
+\newblock {\em Pattern Recognition Letters}, 31(14).
 
-\bibitem[{NVIDIA Corporation}, 2014]{cuda65}
-{NVIDIA Corporation} (2014).
+\bibitem[{NVIDIA Corp.}, ]{cuda65}
+{NVIDIA Corp.}
 \newblock {\em {CUDA API} Reference Manual Version 6.5}.
 
-\bibitem[{OpenStack Foundation}, 2015a]{OpenStack}
-{OpenStack Foundation} (2015a).
+\bibitem[{OpenStack Foundation}, 2015]{OpenStack}
+{OpenStack Foundation} (2015).
 \newblock {OpenStack}.
 \newblock http://www.openstack.org.
-\newblock Accessed: 2015-10.
-
-\bibitem[{OpenStack Foundation}, 2015b]{OpenStackGPU}
-{OpenStack Foundation} (2015b).
-\newblock {OpenStack} operation guide.
-\newblock http://docs.openstack.org/openstack-ops/openstack-ops-manual.pdf.
 \newblock Accessed: 2015-10.
 
 \bibitem[Pe{\~n}a, 2013]{tonithesis}
@@ -105,7 +98,7 @@ Pe{\~n}a, A.~J. (2013).
 Pe{\~n}a, A.~J., Rea{\~n}o, C., Silla, F., Mayo, R., Quintana-Ort\'i, E.~S.,
   and Duato, J. (2014).
 \newblock A complete and efficient {CUDA}-sharing solution for {HPC} clusters.
-\newblock {\em Parallel Computing}, 40(10):574 -- 588.
+\newblock {\em Parallel Computer}, 40(10).
 
 \bibitem[Shi et~al., 2012]{vcuda}
 Shi, L., Chen, H., Sun, J., and Li, K. (2012).

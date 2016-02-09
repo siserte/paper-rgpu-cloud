@@ -13,7 +13,7 @@
 \usepackage{SCITEPRESS}     % Please add other packages that you may need BEFORE the SCITEPRESS.sty package.
 
 \usepackage{url}% http://ctan.org/pkg/url
-\usepackage{flushend}
+%\usepackage{flushend}
 
 \usepackage{color}
 
@@ -71,8 +71,8 @@ the number of options is reduced.
 As a result, neither vendors nor tools offer GPGPU services.
 }
 Remote virtualization has been recently proposed to deal with the low-usage problem. Some relevant examples include {rCUDA}~\cite{tonithesis},
-DS-CUDA~\cite{dscuda}, gVirtus~\cite{gvirtus}, vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}.
-
+DS-CUDA~\cite{dscuda}, gVirtus~\cite{gvirtus}, 
+vCUDA~\cite{vcuda}, VOCL~\cite{vocl}, and SnuCL~\cite{snucl}.
 Roughly speaking these virtualization frameworks 
 enable cluster configurations with fewer GPUs than nodes.  The goal is that 
 GPU-equipped nodes act as GPGPU servers, yielding a GPU-sharing solution that potentially achieves
@@ -87,7 +87,7 @@ In order to reach this goal, we select rCUDA, a virtualization tool that is poss
 The rest of the paper is structured as follows. 
 In Section~\ref{sec:background} we introduce the technologies used in this work;
 Section~\ref{sec:state} summarizes related work; 
-Section~\ref{sec:motivation} states the motivation to address this task;
+%Section~\ref{sec:motivation} states the motivation to address this task;
 the effort to use AWS is explained in Section~\ref{sec:workingaws};
 while the work with Openstack is described in Section~\ref{sec:gpgpuOS};
 finally, Section~\ref{sec:conclusions} summarizes the advances and Section~\ref{sec:future} outlines the next steps
@@ -101,29 +101,28 @@ finally, Section~\ref{sec:conclusions} summarizes the advances and Section~\ref{
 to any NVIDIA GPU device present in a cluster from all compute
 nodes. The GPUs can also be shared among nodes, and a single node can use all the graphic accelerators
 as if they were local.
-These features aim to attain higher accelerator utilization rates in the overall system while simultaneously reducing
-resource, space, and energy requirements~\cite{energy14}.
+%These features aim to attain higher accelerator utilization rates in the overall system while simultaneously reducing
+%resource, space, and energy requirements~\cite{energy14}.
 rCUDA is structured following a client-server distributed
-architecture: the client middleware runs in the same cluster node where the application demanding GPGPU
-acceleration services is executed, providing a transparent replacement for the
-native CUDA libraries. Furthermore, the server middleware is executed in the
-cluster nodes from which the actual GPUs provide the requested GPGPU services.
+architecture and its %: the client middleware runs in the same cluster node where the application demanding GPGPU
+%acceleration services is executed, providing a transparent replacement for the
+%native CUDA libraries. Furthermore, the server middleware is executed in the
+%cluster nodes from which the actual GPUs provide the requested GPGPU services.
 %To support a concurrent scenario where GPUs are shared between
 %processes\slash nodes, {rCUDA} manages separate device contexts for
 %each client application.
-
-The {rCUDA} 5.0 client exposes the same interface as the regular NVIDIA
+%The {rCUDA} 5.0 
+client exposes the same interface as the regular NVIDIA
 CUDA 6.5 release~\cite{cuda65}.%, including the runtime and driver
 %APIs (Application Programming Interface) as well as other frequently used libraries such as cuBLAS, cuFFT, cuSparse or cuRand.
 With this middleware, applications are not aware that they are executed
 on top of a virtualization layer.
 To deal with new GPU programming models, {rCUDA} has been recently extended to accommodate 
 directive-based models such as OmpSs~\cite{repara15} and OpenACC~\cite{cluster15}.
-
 The integration of remote GPGPU virtualization with global
 resource schedulers such as SLURM~\cite{sbacpad14} completes this appealing 
 technology, making accelerator-enabled clusters more flexible and
-energy-efficient.
+energy-efficient~\cite{energy14}.
 
 \subsection{Amazon Web Services}
 \label{sec:aws}
@@ -148,12 +147,12 @@ control while empowering their users to provision resources through a web interf
 or a command-line interface.  
 OpenStack supports most recent hypervisors and handles provisioning 
 and life-cycle management of VMs.
- 
-The OpenStack architecture offers flexibility to create a custom cloud, with no proprietary hardware
+ The OpenStack architecture offers flexibility to create a custom cloud, with no proprietary hardware
 or software requirements, and the ability to integrate with legacy systems and third party technologies. 
+
 \textcolor{black}{
 From the HPC perspective, OpenStack offers high performance virtual machine configurations with different hardware architectures. 
-Even though in OpenStack it is possible to work with GPUs, the Nova project does not support this architecture yet~\cite{OpenStackGPU}. 
+Even though in OpenStack it is possible to work with GPUs, the Nova project does not support this architecture yet.%~\cite{OpenStackGPU}. 
 }
 
 \section{\uppercase{State-of-the-Art}}
@@ -234,14 +233,14 @@ but also aiming to boost flexibility in the use of GPUs.
 
 \section{\uppercase{GPGPU share service with AWS}}
 \label{sec:workingaws}
-In this section, we briefly expose the current user-level features 
-provided by AWS, and then analyze this service  
-from the point of view of GPU usage. 
-Next, we describe the scenarios and experiments where virtualized GPUs are utilized and show a number of initial results.
+%In this section, we briefly expose the current user-level features 
+%provided by AWS, and then analyze this service  
+%from the point of view of GPU usage. 
+%Next, we describe the scenarios and experiments where virtualized GPUs are utilized and show a number of initial results.
 
 \subsection{Current Features}
-This subsection identifies several common features checked during 
-the VM's creation step.
+%This subsection identifies several common features checked during 
+%the VM's creation step.
 
 \subsubsection{Instances}
 
@@ -251,7 +250,6 @@ we can find specialized versions for general-purpose (T2, M4 and M3); computer s
 GPU capable (G2). Each type of instance has its own purpose and cost (price). 
 Moreover, each type offers a different number of CPUs as well as network 
 interconnection, which can be: low, medium, high or 10Gb.
-
 For our study, we worked in the AWS availability zone US EAST (N. VIRGINIA). 
 The instances available in that case present the features reported in Table~\ref{table:awsInstances}. 
 
@@ -333,12 +331,11 @@ g2.8xlarge & Device to Host & 3,182 MB/s\\ \hline
 \end{tabular}\end{center}\end{table}
 
 \subsection{Testbed Scenarios}
-In this section, we introduce different client-server configurations. 
+%In this section, we introduce different client-server configurations. 
 All scenarios are based on the maximum number of instances 
 that a user can freely select without submitting a formal request. 
 In particular, the maximum number for ``g2.2xlarge'' is 5; for ``g2.8xlarge'' it is 2.
-
-All instances operate the RHEL 7.1 64-bit OS and version 6.5 of CUDA. 
+Ant the instances operate the RHEL 7.1 64-bit OS and version 6.5 of CUDA. 
 We design three configuration scenarios for our tests:
 
 \begin{itemize}
@@ -358,14 +355,14 @@ single client, using a 1Gb network interconnection, can leverage 13 GPUs as if t
 \begin{figure*}[ht]
 \centering
 \subfigure[5 remote GPUs over 1GbE.]{%
-\includegraphics[width=0.315\linewidth]{images/aws3.pdf}
+\includegraphics[width=0.3\linewidth]{images/aws3.pdf}
 \label{subfig:aws1}}
 \quad
 \subfigure[8 remote GPUs over 10GbE.]{%
-\includegraphics[width=0.315\linewidth]{images/aws2.pdf}
+\includegraphics[width=0.3\linewidth]{images/aws2.pdf}
 \label{subfig:aws2}}
 \subfigure[13 remote GPUs over 1GbE.]{%
-\includegraphics[width=0.315\linewidth]{images/aws1.pdf}
+\includegraphics[width=0.3\linewidth]{images/aws1.pdf}
 \label{subfig:aws3}}
 \caption{Configurations where an AWS instance, acting as a client, employs several remote GPUs.}
 \label{fig:aws}
@@ -393,7 +390,7 @@ B & Device-to-Host & 10 Gb& 843 MB/s\\ \hline
 \end{tabular}\end{center}\end{table}
 
 \subsection{Experimental results}
-In this subsection we employ two GPU applications to assess the benefits of GPU virtualization.
+%In this subsection we employ two GPU applications to assess the benefits of GPU virtualization.
 
 The first application is {\tt MonteCarloMultiGPU}, from the NVIDIA SDK, a code that is compute bound (its execution barely involves memory operations). 
 This was launched with the default configuration, ``scaling=weak'', which adjusts the size of the problem depending on the number of accelerators.
@@ -453,7 +450,7 @@ It makes more sense to dedicate less devices, accessible from any machine, resul
 }
 \section{\uppercase{GPGPU Shared Service in OpenStack}}
 \label{sec:gpgpuOS}
-In this section we describe our work on OpenStack, from the development of an external module to handle remote GPUs to the physical setup and its validation.
+%In this section we describe our work on OpenStack, from the development of an external module to handle remote GPUs to the physical setup and its validation.
 
 \subsection{Managing remote GPUs with OpenStack}
 The main idea is to evolve from the original OpenStack architecture (see Figure~\ref{subfig:os-orig})
@@ -529,8 +526,8 @@ Furthermore, a new panel with the existent GPUs displays all the information rel
 \end{figure}
 
 \subsection{Experimental Results}
-The following tests were executed on 2 sets of nodes interconnected by a 1Gb Ethernet network.
-All the nodes were equipped with an Intel Xeon E7420 quadcore processor, at 2.13 GHz, and 16 Gbytes of DDR2 RAM memory at 667 MHz.
+Following tests were executed on 2 sets of nodes using a 1Gb Ethernet network.
+All the nodes composed by an Intel Xeon E7420 quadcore processor, at 2.13 GHz, and 16 GB DDR2 RAM at 667 MHz.
 
 The first set, in charge of providing the cloud environment, consisted of 3 nodes.
 To deploy an IaaS, we used OpenStack Icehouse version, and QEMU/KVM 0.12.1 as the hypervisor.
@@ -543,14 +540,13 @@ The OS was a Centos 6.6; the GPUs used CUDA 6.5; and rCUDA v5.0 as GPU virtualiz
 We have designed 6 different set-ups which can be divided into 2 groups: exclusive and shared GPUs. 
 The exclusive mode provides, at most, 4 accelerators. 
 The number of available GPU in “shared” mode will depend on the partition size. 
-In this particular case, we halved the GPU memory, resulting 8 partitions that can be addressed as independent GPUs.
+In this case, we halved the GPU memory, resulting 8 partitions that can be addressed as independent GPUs.
 For each group, we deployed virtual clusters of 1, 2 and 3 nodes, where the application processes were executed. 
 The instances were launched with the OpenStack predefined flavor “m1.medium”, which determines a configuration of VMs consisting of 2 cores and 4~GB of memory.
 
 MCUDA-MEME~\cite{Liu2010} was the application selected to test the set-ups. 
 Thus is an MPI software, where each process must have access to a GPU.
 Therefore, the number of GPUs determines the maximum number of processes we can launch.
-
 Figure~\ref{fig3} compares the execution time of the application with different configurations over different setups. 
 We used up to 3 nodes to spread the processes and launched up to 8 processes (only 4 in exclusive mode), one per remote GPU.
 We can first observe that the performance is higher with more than one node, because the traffic network is distributed among the nodes.
@@ -570,7 +566,6 @@ The network interconnect restricts the performance of our executions.
 The analysis in~\cite{tonithesis} reveals that improving the network infrastructure can make a big different for GPU virtualization.
 
 The most remarkable achievement is the wide range of possible configurations and the flexibility to adapt a system to fit the user requirements. 
-
 In addition, with this virtualization technology, the requests for GPU devices can be fulfilled with small investment in infrastructure and maintenance.
 Energy can be saved not only thanks to the remote access and the ability to emulate several GPUs using only a few real ones, but also by consolidating the accelerators in a single machine (when possible), or turning down nodes when their GPUs are idle. 
 
@@ -586,10 +581,9 @@ On the other hand, we have created new operation modes that open interesting new
 \section{\uppercase{Future work}}
 \label{sec:future}
 The first item in the list of pending work is an upgrade of the network to an interconnect that is more prone to HPC.
-In particular, porting the setup and the tests to an infrastructure with an Infiniband network will shed light on the viability of this kind of solutions for HPC.
+In particular, porting the setup and the tests to an infrastructure with an Infiniband network will shed light on the viability of this kind of solutions.
 Similar reasons, motivate us to try other Cloud vendors which better support for HPC.
-
-Looking for real situations where performance is less important than flexibility will drive us to explore alternative tools to easily deploy GPU-programming computer labs.
+Looking for situations where performance is less important than flexibility will drive us to explore alternative tools to easily deploy GPU-programming computer labs.
 
 Finally, an interesting future work is to design new strategies in order to decide where a remote GPUs is created and assigned to a physical device
 Concretely, to innovate scheduling policies can enhance the flexibility offered by the GPGPU module for OpenStack.
@@ -599,9 +593,9 @@ The authors would like to thank the IT members of the department Gustavo Edo and
 This research was supported by Universitat Jaume~I research project (P11B2013-21); and project
 TIN2014-53495-R from MINECO and FEDER.
 The initial version of rCUDA was jointly developed by Universitat Polit\`ecnica de 
-Val\`encia (UPV) and Universitat Jaume I de Castell\'on (UJI) until year 2010. 
+Val\`encia (UPV) and Universitat Jaume I de Castell\'on until year 2010. 
 This initial development was later split into two branches. Part of the 
-UPV version was used in this paper. The development of the UPV branch 
+UPV version was used in this paper and it  
 was supported by Generalitat Valenciana under Grants PROMETEO 2008/060 
 and Prometeo II 2013/009. 
 \bibliographystyle{apalike}
