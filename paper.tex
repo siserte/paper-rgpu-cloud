@@ -181,54 +181,54 @@ it is only focused on compute-intensive HPC applications.
 
 Our proposal goes further, not only bringing solutions for all kind of HPC applications, 
 but also aiming to boost flexibility in the use of GPUs.
-
-\section{\uppercase{Motivation}}
-\label{sec:motivation}
-
-Cloud computing and storage have gained wide appeal  
-during the last years thanks to a relatively easy configuration  
-process and a low IT invest. The services offered in the cloud are useful for companies and individuals 
-that look for temporary access to state-of-the-art technology without spending a 
-huge amount of money. In general, the systems provided by cloud 
-companies match those requested by the clients thanks to its flexibility.
-
-Two different types of cloud approaches are currently available:
-on one hand, public facilities, such as AWS or 
-Microsoft Azure, that allow users to chose a pre-configured system.   
-On the other hand, institutions/companies 
-are able to deploy their own cloud infrastructure using a software as OpenStack.  
-
-In both cases, the power of current cloud facilities relies on the use 
-of VMs which  
-emulate a physical node with its own 
-CPUs, storage, network interconnection, GPU and OS. 
-However, providing a VM equipped with a GPU implies
-that the guest host must be equipped with at least one real GPU, and
-once it has been assigned to an instance, no other VM can use
-it. 
-\textcolor{black}{Therefore, the number of VMs that can access the GPUs is 
-limited by the number of local devices. 
-This lack of 
-flexibility is also present in cluster configurations, where 
-depending on the users' necessities, 
-two approaches can be identified to enable GPGPU computation.
-On the one hand, the conservative option integrates many hosts with GPUs to ensure that it is likely to satisfy all requests.
-On the other hand, a more daring approach employs a reduced count of GPU-enabled nodes, based on an euristhic value calculated from past experience.
-}
-
-The use of a virtualization technology, such as {rCUDA}, adds 
-the desired flexibility because this software detaches the GPUs 
-from the nodes where they are installed, allowing all nodes in a cluster
-to use them as if they were local, as well as to share them, 
-achieving a higher utilization rate and reducing the idle periods.
-Thanks to the ``shareability'' introduced by {rCUDA}, all VMs in the cloud 
-environment can leverage and access all GPUs installed in 
-the physical nodes, removing past limitations. 
-
-Our work selects AWS as a public 
-solution, and OpenStack as a private cloud environment. 
-In order to achieve our goal, these cloud facilities need to be integrated with the {rCUDA} software. In addition, for OpenStack, a module for managing virtualized GPUs 
-needs to be implemented.  
+%
+%\section{\uppercase{Motivation}}
+%\label{sec:motivation}
+%
+%Cloud computing and storage have gained wide appeal  
+%during the last years thanks to a relatively easy configuration  
+%process and a low IT invest. The services offered in the cloud are useful for companies and individuals 
+%that look for temporary access to state-of-the-art technology without spending a 
+%huge amount of money. In general, the systems provided by cloud 
+%companies match those requested by the clients thanks to its flexibility.
+%
+%Two different types of cloud approaches are currently available:
+%on one hand, public facilities, such as AWS or 
+%Microsoft Azure, that allow users to chose a pre-configured system.   
+%On the other hand, institutions/companies 
+%are able to deploy their own cloud infrastructure using a software as OpenStack.  
+%
+%In both cases, the power of current cloud facilities relies on the use 
+%of VMs which  
+%emulate a physical node with its own 
+%CPUs, storage, network interconnection, GPU and OS. 
+%However, providing a VM equipped with a GPU implies
+%that the guest host must be equipped with at least one real GPU, and
+%once it has been assigned to an instance, no other VM can use
+%it. 
+%\textcolor{black}{Therefore, the number of VMs that can access the GPUs is 
+%limited by the number of local devices. 
+%This lack of 
+%flexibility is also present in cluster configurations, where 
+%depending on the users' necessities, 
+%two approaches can be identified to enable GPGPU computation.
+%On the one hand, the conservative option integrates many hosts with GPUs to ensure that it is likely to satisfy all requests.
+%On the other hand, a more daring approach employs a reduced count of GPU-enabled nodes, based on an euristhic value calculated from past experience.
+%}
+%
+%The use of a virtualization technology, such as {rCUDA}, adds 
+%the desired flexibility because this software detaches the GPUs 
+%from the nodes where they are installed, allowing all nodes in a cluster
+%to use them as if they were local, as well as to share them, 
+%achieving a higher utilization rate and reducing the idle periods.
+%Thanks to the ``shareability'' introduced by {rCUDA}, all VMs in the cloud 
+%environment can leverage and access all GPUs installed in 
+%the physical nodes, removing past limitations. 
+%
+%Our work selects AWS as a public 
+%solution, and OpenStack as a private cloud environment. 
+%In order to achieve our goal, these cloud facilities need to be integrated with the {rCUDA} software. In addition, for OpenStack, a module for managing virtualized GPUs 
+%needs to be implemented.  
 
 
 
